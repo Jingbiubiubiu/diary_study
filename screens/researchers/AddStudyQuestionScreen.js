@@ -1,12 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Button,
-  ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+// import DropDownPicker from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/Feather';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
@@ -15,6 +11,8 @@ import * as Icons from '../../components/Icons';
 import CommonButton from '../../components/CommonButton';
 import Choice from '../../components/Choice';
 import Colors from '../../constants/Colors';
+import * as questionActions from '../../store/actions/question';
+import SaveButton from '../../components/SaveButton';
 
 const AddStudyQuestionScreen = (props) => {
   const [questionContent, setQuetionContent] = useState();
@@ -27,52 +25,86 @@ const AddStudyQuestionScreen = (props) => {
   const [selectedTypeAnswer, setSelectedTypeAnswer] = useState(false);
   const [selectedSingleChoice, setSelectedSingleChoice] = useState(false);
   const [selectedMultiChoice, setSelectedMultiChoice] = useState(false);
+  const [selectList, setSelectList] = useState([]);
 
-  // const selectedAudioHandler = () => {
-  //   selectedAudio ? setSelectedAudio(false) : setSelectedAudio(true);
-  // };
-
-  // const selectedCameraHandler = () => {
-  //   selectedCamera ? setSelectedCamera(false) : setSelectedCamera(true);
-  // };
-
-  // const selectedVideoHandler = () => {
-  //   selectedVideo ? setSelectedVideo(false) : setSelectedVideo(true);
-  // };
-
-  // const selectedImagefromGalleryHandler = () => {
-  //   selectedImagefromGallery
-  //     ? setSelectedImagefromGallery(false)
-  //     : setSelectedImagefromGallery(true);
-  // };
-
-  // const selectedTypeAnswerHandler = () => {
-  //   selectedTypeAnswer
-  //     ? setSelectedTypeAnswer(false)
-  //     : setSelectedTypeAnswer(true);
-  // };
-
-  // const selectedScreenRecordingHandler = () => {
-  //   selectedScreenRecording
-  //     ? setSelectedScreenRecording(false)
-  //     : setSelectedScreenRecording(true);
-  // };
-
-  // const selectedMultiChoiceHandler = () => {
-  //   selectedMultiChoice
-  //     ? setSelectedMultiChoice(false)
-  //     : setSelectedMultiChoice(true);
-  // };
+  const dispatch = useDispatch();
 
   const selectionIdentifier = (buttonId) => {
     switch (buttonId) {
       case 'audio':
         selectedAudio ? setSelectedAudio(false) : setSelectedAudio(true);
-        console.log('select audio');
+        var index = 100;
+        // if (!selectedAudio && selectList.length !== 0) {
+        //   console.log(selectedAudio);
+        //   for (var i = 0; i < selectList.length; i++) {
+        //     if (selectList[i] === 'audio') {
+        //       index = i;
+        //     }
+        //   }
+        //   selectList.splice(i, 1);
+        //   console.log('delete audio');
+        //   console.log(selectList);
+        // } else {
+        //   console.log(selectedAudio);
+        //   selectList.push('audio');
+        //   console.log('add audio');
+        //   console.log(selectList);
+        //   console.log(selectedAudio);
+        // }
+        if (selectedAudio) {
+          // setSelectList(selectList.concat('audio'));
+          // console.log('add audio');
+          // console.log(selectList);
+          // console.log(selectedAudio);
+
+          for (var i = 0; i < selectList.length; i++) {
+            if (selectList[i] === 'audio') {
+              index = i;
+            }
+          }
+          setSelectList(selectList.splice(index, 1));
+          console.log('delete audio');
+          console.log(selectList);
+        }
+        if (!selectedAudio && selectList.length !== 0) {
+          for (var i = 0; i < selectList.length; i++) {
+            if (selectList[i] === 'audio') {
+              index = i;
+            }
+          }
+          setSelectList(selectList.splice(index, 1));
+          console.log('delete audio');
+          console.log(selectList);
+          // console.log(selectedAudio);
+
+          setSelectList(selectList.concat('audio'));
+          console.log('add audio');
+          console.log(selectList);
+        }
+
         break;
       case 'camera':
         selectedCamera ? setSelectedCamera(false) : setSelectedCamera(true);
         console.log('select camera');
+        var index = -2;
+
+        if (selectedCamera) {
+          selectList.push('camera');
+          console.log('add aucameradio');
+          console.log(selectList);
+          // console.log(selectedAudio);
+        }
+        if (!selectedCamera && selectList.length !== 0) {
+          for (var i = 0; i < selectList.length; i++) {
+            if (selectList[i] === 'camera') {
+              index = i;
+            }
+          }
+          selectList.splice(index, 1);
+          console.log('delete camera');
+          console.log(selectList);
+          // console.log(selectedAudio);
+        }
         break;
       case 'imageFromGallery':
         selectedImagefromGallery
@@ -90,12 +122,6 @@ const AddStudyQuestionScreen = (props) => {
         selectedVideo ? setSelectedVideo(false) : setSelectedVideo(true);
         console.log('select video');
         break;
-      // case 'screenRecording':
-      //   selectedScreenRecording
-      //     ? setSelectedScreenRecording(false)
-      //     : setSelectedScreenRecording(true);
-      //   console.log('select screenRecording');
-      //   break;
       case 'singleChoice':
         selectedSingleChoice
           ? setSelectedSingleChoice(false)
@@ -208,17 +234,41 @@ const AddStudyQuestionScreen = (props) => {
             </View>
           )}
         </View>
-        <View style={styles.buttonContainer}>
-          <CommonButton
-            onPress={() => {
-              console.log('Save');
-              props.navigation.navigate('SetNewStudy');
-            }}
-          >
-            Save
-          </CommonButton>
-        </View>
       </View>
+      <Text>Audio:{selectedAudio.toString()}</Text>
+      <Text>Camera:{selectedCamera.toString()}</Text>
+      <Text>{selectList.toString()}</Text>
+      {/* <DropDownPicker
+        items={[
+          {
+            label: 'UK',
+            value: 'uk',
+            icon: () => <Icon name='flag' size={18} color='#900' />,
+          },
+          {
+            label: 'France',
+            value: 'france',
+            icon: () => <Icon name='flag' size={18} color='#900' />,
+          },
+        ]}
+        defaultValue={dropdown}
+        containerStyle={{ height: 40 }}
+        style={{ backgroundColor: '#fafafa' }}
+        itemStyle={{
+          justifyContent: 'flex-start',
+        }}
+        dropDownStyle={{ backgroundColor: '#fafafa' }}
+        onChangeItem={(item) => setdropdown(item.value)}
+      /> */}
+      {/* <DropDownPicker
+        items={[
+          { label: 'Item 1', value: 'item1' },
+          { label: 'Item 2', value: 'item2' },
+        ]}
+        defaultIndex={0}
+        containerStyle={{ height: 40 }}
+        onChangeItem={(item) => console.log(item.label, item.value)}
+      /> */}
     </ScrollView>
   );
 };
@@ -226,6 +276,7 @@ const AddStudyQuestionScreen = (props) => {
 AddStudyQuestionScreen.navigationOptions = (navData) => {
   return {
     headerTitle: 'Add Study question',
+    headerRight: () => <SaveButton onPress={() => {}} />,
   };
 };
 

@@ -3,10 +3,10 @@ import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import Colors from '../constants/Colors';
 
-const LogoutButton = (props) => {
+const SaveButton = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress} style={styles.buttonContainer}>
-      <Text style={styles.text}>Log out</Text>
+      <Text style={styles.text}>Save</Text>
     </TouchableOpacity>
   );
 };
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LogoutButton;
+export default SaveButton;
