@@ -32,7 +32,6 @@ const AddStudyQuestionScreen = (props) => {
   const selectionIdentifier = (buttonId) => {
     switch (buttonId) {
       case 'audio':
-        selectedAudio ? setSelectedAudio(false) : setSelectedAudio(true);
         var index = 100;
         // if (!selectedAudio && selectList.length !== 0) {
         //   console.log(selectedAudio);
@@ -62,24 +61,15 @@ const AddStudyQuestionScreen = (props) => {
               index = i;
             }
           }
-          setSelectList(selectList.splice(index, 1));
+          setSelectList(selectList.filter(item => item !== 'audio'));
           console.log('delete audio');
-          console.log(selectList);
+          
+          selectedAudio ? setSelectedAudio(false) : setSelectedAudio(true);
         }
-        if (!selectedAudio && selectList.length !== 0) {
-          for (var i = 0; i < selectList.length; i++) {
-            if (selectList[i] === 'audio') {
-              index = i;
-            }
-          }
-          setSelectList(selectList.splice(index, 1));
-          console.log('delete audio');
-          console.log(selectList);
-          // console.log(selectedAudio);
-
+        if (!selectedAudio && selectList.length <= 1) {
           setSelectList(selectList.concat('audio'));
           console.log('add audio');
-          console.log(selectList);
+          selectedAudio ? setSelectedAudio(false) : setSelectedAudio(true);
         }
 
         break;
