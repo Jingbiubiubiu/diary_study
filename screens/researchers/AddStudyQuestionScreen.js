@@ -34,6 +34,11 @@ const AddStudyQuestionScreen = (props) => {
   const [isSingleChoice, setIsSingleChoice] = useState(false);
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
 
+  const [option1, setOption1] = useState();
+  const [option2, setOption2] = useState();
+  const [option3, setOption3] = useState();
+  const [option4, setOption4] = useState();
+
   const dropdownItems = [
     {
       label: 'Single Choice',
@@ -67,6 +72,10 @@ const AddStudyQuestionScreen = (props) => {
 
   const dropdownHandler = (value) => {
     setDropdown(value);
+    setOption1();
+    setOption2();
+    setOption3();
+    setOption4();
     if (value === 'single choice') {
       setIsSingleChoice(true);
     }
@@ -123,7 +132,16 @@ const AddStudyQuestionScreen = (props) => {
           {/* {selectedSingleChoice && ( */}
           {isSingleChoice && (
             <View>
-              <Choice>
+              <Choice
+                option1={option1}
+                setOption1={(newText) => setOption1(newText)}
+                option2={option2}
+                setOption2={(newText) => setOption2(newText)}
+                option3={option3}
+                setOption3={(newText) => setOption3(newText)}
+                option4={option4}
+                setOption4={(newText) => setOption4(newText)}
+              >
                 Set the <Text style={styles.hightlightText}>single</Text>{' '}
                 choice's options
               </Choice>
@@ -134,7 +152,16 @@ const AddStudyQuestionScreen = (props) => {
           {/* {selectedMultiChoice && ( */}
           {isMultipleChoice && (
             <View>
-              <Choice>
+              <Choice
+                option1={option1}
+                setOption1={(newText) => setOption1(newText)}
+                option2={option2}
+                setOption2={(newText) => setOption2(newText)}
+                option3={option3}
+                setOption3={(newText) => setOption3(newText)}
+                option4={option4}
+                setOption4={(newText) => setOption4(newText)}
+              >
                 Set the <Text style={styles.hightlightText}>multiple</Text>{' '}
                 choice's options
               </Choice>
@@ -146,7 +173,11 @@ const AddStudyQuestionScreen = (props) => {
         {/* <Text>Audio:{selectedAudio.toString()}</Text>
         <Text>Camera:{selectedCamera.toString()}</Text>
         <Text>{selectList.toString()}</Text> */}
-        <CommonButton>Save</CommonButton>
+        <CommonButton
+          onPress={() => console.log(option1, option2, option3, option4)}
+        >
+          Save
+        </CommonButton>
       </View>
     </View>
   );

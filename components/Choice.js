@@ -13,21 +13,29 @@ const Choice = (props) => {
         label='First Option:'
         style={styles.inputContainer}
         inputBox={styles.inputBox}
+        value={props.option1}
+        onChangeText={props.setOption1}
       />
       <Input
         label='Second Option:'
         style={styles.inputContainer}
         inputBox={styles.inputBox}
+        value={props.option2}
+        onChangeText={props.setOption2}
       />
       <Input
         label='Third Option:'
         style={styles.inputContainer}
         inputBox={styles.inputBox}
+        value={props.option3}
+        onChangeText={props.setOption3}
       />
       <Input
         label='Forth Option:'
         style={styles.inputContainer}
         inputBox={styles.inputBox}
+        value={props.option4}
+        onChangeText={props.setOption4}
       />
     </View>
   );
