@@ -1,11 +1,19 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/Feather';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
+import SubTitle from '../../components/SubTitle';
 import Input from '../../components/Input';
 import * as Icons from '../../components/Icons';
 import CommonButton from '../../components/CommonButton';
@@ -32,38 +40,9 @@ const AddStudyQuestionScreen = (props) => {
   const selectionIdentifier = (buttonId) => {
     switch (buttonId) {
       case 'audio':
-        var index = 100;
-        // if (!selectedAudio && selectList.length !== 0) {
-        //   console.log(selectedAudio);
-        //   for (var i = 0; i < selectList.length; i++) {
-        //     if (selectList[i] === 'audio') {
-        //       index = i;
-        //     }
-        //   }
-        //   selectList.splice(i, 1);
-        //   console.log('delete audio');
-        //   console.log(selectList);
-        // } else {
-        //   console.log(selectedAudio);
-        //   selectList.push('audio');
-        //   console.log('add audio');
-        //   console.log(selectList);
-        //   console.log(selectedAudio);
-        // }
         if (selectedAudio) {
-          // setSelectList(selectList.concat('audio'));
-          // console.log('add audio');
-          // console.log(selectList);
-          // console.log(selectedAudio);
-
-          for (var i = 0; i < selectList.length; i++) {
-            if (selectList[i] === 'audio') {
-              index = i;
-            }
-          }
-          setSelectList(selectList.filter(item => item !== 'audio'));
+          setSelectList(selectList.filter((item) => item !== 'audio'));
           console.log('delete audio');
-          
           selectedAudio ? setSelectedAudio(false) : setSelectedAudio(true);
         }
         if (!selectedAudio && selectList.length <= 1) {
@@ -73,34 +52,37 @@ const AddStudyQuestionScreen = (props) => {
         }
 
         break;
-      case 'camera':
-        selectedCamera ? setSelectedCamera(false) : setSelectedCamera(true);
-        console.log('select camera');
-        var index = -2;
 
+      case 'camera':
         if (selectedCamera) {
-          selectList.push('camera');
-          console.log('add aucameradio');
-          console.log(selectList);
-          // console.log(selectedAudio);
-        }
-        if (!selectedCamera && selectList.length !== 0) {
-          for (var i = 0; i < selectList.length; i++) {
-            if (selectList[i] === 'camera') {
-              index = i;
-            }
-          }
-          selectList.splice(index, 1);
+          setSelectList(selectList.filter((item) => item !== 'camera'));
           console.log('delete camera');
-          console.log(selectList);
-          // console.log(selectedAudio);
+          selectedCamera ? setSelectedCamera(false) : setSelectedCamera(true);
+        }
+        if (!selectedCamera && selectList.length <= 1) {
+          setSelectList(selectList.concat('camera'));
+          console.log('add camera');
+          selectedCamera ? setSelectedCamera(false) : setSelectedCamera(true);
         }
         break;
+
       case 'imageFromGallery':
-        selectedImagefromGallery
-          ? setSelectedImagefromGallery(false)
-          : setSelectedImagefromGallery(true);
-        console.log('select imageFromGallery');
+        if (selectedImagefromGallery) {
+          setSelectList(
+            selectList.filter((item) => item !== 'imageFromGallery')
+          );
+          console.log('delete imageFromGallery');
+          selectedImagefromGallery
+            ? setSelectedImagefromGallery(false)
+            : setSelectedImagefromGallery(true);
+        }
+        if (!selectedImagefromGallery && selectList.length <= 1) {
+          setSelectList(selectList.concat('imageFromGallery'));
+          console.log('add imageFromGallery');
+          selectedImagefromGallery
+            ? setSelectedImagefromGallery(false)
+            : setSelectedImagefromGallery(true);
+        }
         break;
       case 'typeAnswer':
         selectedTypeAnswer
@@ -131,13 +113,11 @@ const AddStudyQuestionScreen = (props) => {
 
   const studyName = props.navigation.getParam('sdName');
   return (
-    <ScrollView>
-      <View style={styles.screen}>
-        <TitleName>Jing Wu</TitleName>
-        <MainTitle style={styles.mainTitle}>Study name : {studyName}</MainTitle>
-        <View style={styles.subTitleContainer}>
-          <Text style={styles.subTitleText}>Add new question</Text>
-        </View>
+    <View style={styles.screen}>
+      <TitleName>Jing Wu</TitleName>
+      <MainTitle style={styles.mainTitle}>Study name : {studyName}</MainTitle>
+      <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
+        <SubTitle>Add new question</SubTitle>
         <Input
           style={styles.inputBox}
           label='Type Question'
@@ -224,49 +204,21 @@ const AddStudyQuestionScreen = (props) => {
             </View>
           )}
         </View>
+      </ScrollView>
+      <View style={styles.buttonContainer}>
+        <Text>Audio:{selectedAudio.toString()}</Text>
+        <Text>Camera:{selectedCamera.toString()}</Text>
+        <Text>{selectList.toString()}</Text>
+        <CommonButton>Save</CommonButton>
       </View>
-      <Text>Audio:{selectedAudio.toString()}</Text>
-      <Text>Camera:{selectedCamera.toString()}</Text>
-      <Text>{selectList.toString()}</Text>
-      {/* <DropDownPicker
-        items={[
-          {
-            label: 'UK',
-            value: 'uk',
-            icon: () => <Icon name='flag' size={18} color='#900' />,
-          },
-          {
-            label: 'France',
-            value: 'france',
-            icon: () => <Icon name='flag' size={18} color='#900' />,
-          },
-        ]}
-        defaultValue={dropdown}
-        containerStyle={{ height: 40 }}
-        style={{ backgroundColor: '#fafafa' }}
-        itemStyle={{
-          justifyContent: 'flex-start',
-        }}
-        dropDownStyle={{ backgroundColor: '#fafafa' }}
-        onChangeItem={(item) => setdropdown(item.value)}
-      /> */}
-      {/* <DropDownPicker
-        items={[
-          { label: 'Item 1', value: 'item1' },
-          { label: 'Item 2', value: 'item2' },
-        ]}
-        defaultIndex={0}
-        containerStyle={{ height: 40 }}
-        onChangeItem={(item) => console.log(item.label, item.value)}
-      /> */}
-    </ScrollView>
+    </View>
   );
 };
 
 AddStudyQuestionScreen.navigationOptions = (navData) => {
   return {
     headerTitle: 'Add Study question',
-    headerRight: () => <SaveButton onPress={() => {}} />,
+    // headerRight: () => <SaveButton onPress={() => {}} />,
   };
 };
 
@@ -279,13 +231,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     width: Dimensions.get('window').width * 0.85,
   },
-  subTitleContainer: {
-    marginTop: 15,
-  },
-  subTitleText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
+
   inputBox: {
     marginTop: 15,
   },

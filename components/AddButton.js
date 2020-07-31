@@ -7,7 +7,7 @@ import Colors from '../constants/Colors';
 const AddButton = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress}>
-      <View style={styles.container}>
+      <View style={{ ...styles.container, ...props.style }}>
         <Ionicons name={'ios-add'} size={26} color={Colors.primary} />
         <Text style={styles.text}>{props.children}</Text>
       </View>

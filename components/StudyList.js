@@ -9,7 +9,7 @@ import Colors from '../constants/Colors';
 
 const StudyList = (props) => {
   return (
-    <View>
+    <View style={styles.overallContainer}>
       <View style={styles.titleContainer}>
         <TitleName>{props.userName}</TitleName>
         <MainTitle>{props.mainTitle}</MainTitle>
@@ -56,6 +56,9 @@ const StudyList = (props) => {
 };
 
 const styles = StyleSheet.create({
+  overallContainer: {
+    alignItems: 'center',
+  },
   titleContainer: {
     justifyContent: 'center',
     alignItems: 'center',

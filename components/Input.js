@@ -12,7 +12,7 @@ const Input = (props) => {
       <TextInput
         {...props}
         multiline={true}
-        numberOfLines={2}
+        numberOfLines={props.numberOfLines}
         style={{ ...styles.input, ...props.inputBox }}
         value={props.value}
         onChangeText={props.onChangeText}
@@ -26,17 +26,18 @@ const styles = StyleSheet.create({
     // flexDirection: 'row',
     width: Dimensions.get('window').width * 0.8,
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     // borderColor: 'blue',
     // borderWidth: 1,
     // marginBottom: 30,
   },
   label: {
     marginVertical: 8,
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   input: {
-    width: '60%',
+    width: '100%',
     paddingHorizontal: 10,
     paddingVertical: 2,
     borderColor: '#ccc',

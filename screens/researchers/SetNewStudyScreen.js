@@ -24,12 +24,20 @@ const SetNewStudyScreen = (props) => {
         style={styles.inputBoxContainer}
       />
       <AddButton
+        style={{ marginTop: 20 }}
+        navigation={props.navigation}
+        onPress={() => props.navigation.navigate('SetConsentForm')}
+      >
+        Set Consent Form
+      </AddButton>
+      <AddButton
+        style={{ marginTop: 5 }}
         navigation={props.navigation}
         onPress={() =>
           props.navigation.navigate('AddStudyQuestion', { sdName: studyName })
         }
       >
-        Add new question
+        Add New Question
       </AddButton>
       <FlatList
         data={questions}
