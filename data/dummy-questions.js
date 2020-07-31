@@ -7,13 +7,25 @@ export const STUDY1 = [
 ];
 
 export const QUESTION1 = [
-  new Question('s1q1', 'How are you?', 'audio', 'typeAnswer'),
-  new Question('s1q2', 'Do you like red?', 'video', 'singleChoice'),
-  new Question('s1q3', 'Do you like blue?', 'camera', 'imageFormGallery'),
+  new Question('s1q1', 'How are you?', 'audio', null, null, null, null),
+  new Question('s1q2', 'Do you like red?', 'video', null, null, null, null),
+  new Question('s1q3', 'Do you like blue?', 'camera', null, null, null, null),
   new Question(
     's1q4',
-    'Do you like green and gray and black?',
-    'screenRecording',
-    'multipleChoice'
+    'Do you like blue?',
+    'imageFormGallery',
+    null,
+    null,
+    null,
+    null
+  ),
+  new Question(
+    's1q5',
+    'Which one you prefer? green or gray or black?',
+    'singleChoice',
+    'green',
+    'gray',
+    'black',
+    'none'
   ),
 ];

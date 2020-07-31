@@ -14,7 +14,6 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 const SetPreQuestionsScreen = (props) => {
-  // const [selection, setSelection] = useState();
   const [dropdown, setDropdown] = useState('text');
   const [isSingleChoice, setIsSingleChoice] = useState(false);
   const dropdownItems = [
@@ -49,21 +48,8 @@ const SetPreQuestionsScreen = (props) => {
             Type the quetion
           </SubtitleInput>
           <SubTitle>Select the answer type</SubTitle>
-          <View style={styles.dropdownContainer}>
-            <DropDownPicker
-              items={dropdownItems}
-              defaultValue={dropdown}
-              containerStyle={styles.dropdownMenu}
-              placeholder='Select the answer type'
-              itemStyle={{
-                justifyContent: 'flex-start',
-              }}
-              labelStyle={styles.dropdownLabel}
-              onChangeItem={(item) => dropdownHandler(item.value)}
-            />
-          </View>
-          {/* <DropdownPicker
-            items={{ dropdownItems }}
+          <DropdownPicker
+            items={dropdownItems}
             defaultValue={dropdown}
             containerStyle={styles.dropdownMenu}
             placeholder='Select the answer type'
@@ -72,7 +58,7 @@ const SetPreQuestionsScreen = (props) => {
             }}
             labelStyle={styles.dropdownLabel}
             onChangeItem={(item) => dropdownHandler(item.value)}
-          /> */}
+          />
 
           {isSingleChoice && (
             <View>

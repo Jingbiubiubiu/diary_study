@@ -34,8 +34,7 @@ const AnswerIcon = (props) => {
           {props.index}. {props.content}
         </Text>
       </View>
-      <View style={styles.iconContainer1}>{chooseIcon(props.answerType1)}</View>
-      <View style={styles.iconContainer2}>{chooseIcon(props.answerType2)}</View>
+      <View style={styles.iconContainer1}>{chooseIcon(props.answerType)}</View>
     </View>
   );
 };
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.85,
   },
   questionTextContainer: {
-    width: '45%',
+    width: '70%',
     justifyContent: 'center',
   },
   questionText: {

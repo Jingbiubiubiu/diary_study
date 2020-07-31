@@ -10,7 +10,7 @@ const CusDropdownPicker = (props) => {
     <View style={styles.dropdownContainer}>
       <DropDownPicker
         items={props.items}
-        defaultValue={items.defaultValue}
+        defaultValue={props.defaultValue}
         containerStyle={styles.dropdownMenu}
         placeholder={props.placeholder}
         itemStyle={props.itemStyle}

@@ -11,21 +11,25 @@ import CheckBox from '@react-native-community/checkbox';
 
 import Colors from '../constants/Colors';
 
-export const AudioIcon = () => {
-  return <Feather name='mic' color='black' size={32} />;
+export const AudioIcon = (onPress) => {
+  return <Feather name='mic' color='black' size={32} onPress={() => onPress} />;
 };
 
-export const CameraIcon = () => {
-  return <Feather name='camera' color='black' size={32} />;
+export const CameraIcon = (onPress) => {
+  return (
+    <Feather name='camera' color='black' size={32} onPress={() => onPress} />
+  );
 };
 
-export const VideoIcon = () => {
-  return <Feather name='video' color='black' size={32} />;
+export const VideoIcon = (onPress) => {
+  return (
+    <Feather name='video' color='black' size={32} onPress={() => onPress} />
+  );
 };
 
 export const TextIcon = (props) => {
   return (
-    <View style={styles.checkboxTextContainer}>
+    <View style={styles.checkboxTextContainer} onPress={props.onPress}>
       <Text
         style={{ ...styles.checkboxText, ...props.textStyle }}
         numberOfLines={2}
