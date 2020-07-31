@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   inputBox: {
-    width: '50%',
+    width: '100%',
   },
   audioContainer: {
     flexDirection: 'row',

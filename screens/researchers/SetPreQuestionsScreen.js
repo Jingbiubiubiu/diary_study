@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
+import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
@@ -14,8 +8,7 @@ import SubTitle from '../../components/SubTitle';
 import CommonButton from '../../components/CommonButton';
 import SubtitleInput from '../../components/SubtitleInput';
 import Input from '../../components/Input';
-import DropDownPicker from 'react-native-dropdown-picker';
-import Colors from '../../constants/Colors';
+import DropdownPicker from '../../components/DropDownPicker';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -24,6 +17,16 @@ const SetPreQuestionsScreen = (props) => {
   // const [selection, setSelection] = useState();
   const [dropdown, setDropdown] = useState('text');
   const [isSingleChoice, setIsSingleChoice] = useState(false);
+  const dropdownItems = [
+    {
+      label: 'Text',
+      value: 'text',
+    },
+    {
+      label: 'Single Choice',
+      value: 'single choice',
+    },
+  ];
 
   const dropdownHandler = (value) => {
     setDropdown(value);
@@ -46,22 +49,9 @@ const SetPreQuestionsScreen = (props) => {
             Type the quetion
           </SubtitleInput>
           <SubTitle>Select the answer type</SubTitle>
-          {/* <SubtitleInput numberOfLines={4} style={{ marginBottom: 10 }}>
-            Type the quetion
-          </SubtitleInput>
-          <SubTitle>Select the answer type</SubTitle> */}
           <View style={styles.dropdownContainer}>
             <DropDownPicker
-              items={[
-                {
-                  label: 'Text',
-                  value: 'text',
-                },
-                {
-                  label: 'Single Choice',
-                  value: 'single choice',
-                },
-              ]}
+              items={dropdownItems}
               defaultValue={dropdown}
               containerStyle={styles.dropdownMenu}
               placeholder='Select the answer type'
@@ -72,6 +62,17 @@ const SetPreQuestionsScreen = (props) => {
               onChangeItem={(item) => dropdownHandler(item.value)}
             />
           </View>
+          {/* <DropdownPicker
+            items={{ dropdownItems }}
+            defaultValue={dropdown}
+            containerStyle={styles.dropdownMenu}
+            placeholder='Select the answer type'
+            itemStyle={{
+              justifyContent: 'flex-start',
+            }}
+            labelStyle={styles.dropdownLabel}
+            onChangeItem={(item) => dropdownHandler(item.value)}
+          /> */}
 
           {isSingleChoice && (
             <View>
