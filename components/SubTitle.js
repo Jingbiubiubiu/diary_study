@@ -4,7 +4,9 @@ import { View, Text, StyleSheet } from 'react-native';
 const SubTitle = (props) => {
   return (
     <View style={{ ...styles.subTitleContainer, ...props.style }}>
-      <Text style={styles.subTitleText}>{props.children}</Text>
+      <Text style={{ ...styles.subTitleText, ...props.subTitleText }}>
+        {props.children}
+      </Text>
     </View>
   );
 };

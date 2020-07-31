@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
 import * as Icons from '../components/Icons';
 
-const chooseIcon = (answerType) => {
+const chooseIcon = (answerType, onPress) => {
   switch (answerType) {
     case 'audio':
-      return <Icons.AudioIcon />;
+      return <Icons.AudioIcon onPress={onPress} />;
     case 'video':
       return <Icons.VideoIcon />;
     case 'camera':
@@ -19,8 +19,10 @@ const chooseIcon = (answerType) => {
       return <Icons.TextIcon>Screen Recording</Icons.TextIcon>;
     case 'multipleChoice':
       return <Icons.TextIcon>Multiple Choice</Icons.TextIcon>;
+    // case 'singleChoice':
+    //   return <Icons.TextIcon>Single Choice</Icons.TextIcon>;
     case 'singleChoice':
-      return <Icons.TextIcon>Single Choice</Icons.TextIcon>;
+      return <Icons.SingleChoiceIcon onPress={() => console.log('single')} />;
     default:
       return;
   }
@@ -34,7 +36,9 @@ const AnswerIcon = (props) => {
           {props.index}. {props.content}
         </Text>
       </View>
-      <View style={styles.iconContainer1}>{chooseIcon(props.answerType)}</View>
+      <View style={styles.iconContainer1}>
+        {chooseIcon(props.answerType, props.onPress)}
+      </View>
     </View>
   );
 };
@@ -53,15 +57,19 @@ const styles = StyleSheet.create({
   questionText: {
     fontSize: 16,
   },
+  // iconContainer1: {
+  //   width: '23%',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   borderColor: 'red',
+  //   borderWidth: 1,
+  // },
   iconContainer1: {
     width: '23%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  iconContainer2: {
-    width: '23%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderColor: 'green',
+    borderWidth: 1,
   },
 });
 

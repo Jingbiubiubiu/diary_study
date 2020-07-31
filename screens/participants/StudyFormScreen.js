@@ -8,15 +8,15 @@ import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
 import AnswerIcon from '../../components/AnswerIcon';
 
-const functionIdentifier = (answerType) => {
-  switch (answerType) {
-    case 'andio':
-      console.log('audio');
-  }
-};
-
 const StudyFormScreen = (props) => {
   const questions = DATA.QUESTION1;
+
+  const functionIdentifier = (answerType) => {
+    switch (answerType) {
+      case 'audio':
+        console.log('audio');
+    }
+  };
   return (
     <View style={styles.screen}>
       <TitleName>Jing Wu</TitleName>
@@ -29,7 +29,8 @@ const StudyFormScreen = (props) => {
             index={itemData.index + 1}
             content={itemData.item.content}
             answerType={itemData.item.answerType}
-            onPress={functionIdentifier(itemData.item.answerType)}
+            onPress={() => functionIdentifier(itemData.item.answerType)}
+            // onPress={functionIdentifier(itemData.item.answerType)}
           />
         )}
       />

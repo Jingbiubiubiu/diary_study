@@ -51,12 +51,12 @@ const SetPreQuestionsScreen = (props) => {
           <DropdownPicker
             items={dropdownItems}
             defaultValue={dropdown}
-            containerStyle={styles.dropdownMenu}
+            // containerStyle={styles.dropdownMenu}
             placeholder='Select the answer type'
             itemStyle={{
               justifyContent: 'flex-start',
             }}
-            labelStyle={styles.dropdownLabel}
+            // labelStyle={styles.dropdownLabel}
             onChangeItem={(item) => dropdownHandler(item.value)}
           />
 

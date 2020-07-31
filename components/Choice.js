@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     alignItems: 'flex-start',
+    width: '100%',
   },
   inputBox: {
     width: '100%',

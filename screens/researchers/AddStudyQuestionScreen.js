@@ -8,8 +8,6 @@ import {
   Alert,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-// import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
@@ -21,103 +19,81 @@ import Choice from '../../components/Choice';
 import Colors from '../../constants/Colors';
 import * as questionActions from '../../store/actions/question';
 import SaveButton from '../../components/SaveButton';
+import DropdownPicker from '../../components/DropDownPicker';
+import SubtitleInput from '../../components/SubtitleInput';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const AddStudyQuestionScreen = (props) => {
   const [questionContent, setQuetionContent] = useState();
-  const [selectedAudio, setSelectedAudio] = useState(false);
-  const [selectedCamera, setSelectedCamera] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState(false);
-  const [selectedImagefromGallery, setSelectedImagefromGallery] = useState(
-    false
-  );
-  const [selectedTypeAnswer, setSelectedTypeAnswer] = useState(false);
-  const [selectedSingleChoice, setSelectedSingleChoice] = useState(false);
-  const [selectedMultiChoice, setSelectedMultiChoice] = useState(false);
-  const [selectList, setSelectList] = useState([]);
 
-  const dispatch = useDispatch();
+  const studyName = props.navigation.getParam('sdName');
 
-  const selectionIdentifier = (buttonId) => {
-    switch (buttonId) {
-      case 'audio':
-        if (selectedAudio) {
-          setSelectList(selectList.filter((item) => item !== 'audio'));
-          console.log('delete audio');
-          selectedAudio ? setSelectedAudio(false) : setSelectedAudio(true);
-        }
-        if (!selectedAudio && selectList.length <= 1) {
-          setSelectList(selectList.concat('audio'));
-          console.log('add audio');
-          selectedAudio ? setSelectedAudio(false) : setSelectedAudio(true);
-        }
+  const [dropdown, setDropdown] = useState();
+  const [isSingleChoice, setIsSingleChoice] = useState(false);
+  const [isMultipleChoice, setIsMultipleChoice] = useState(false);
 
-        break;
+  const dropdownItems = [
+    {
+      label: 'Single Choice',
+      value: 'single choice',
+    },
+    {
+      label: 'Multiple Choice',
+      value: 'multiple choice',
+    },
+    {
+      label: 'Audio',
+      value: 'audio',
+    },
+    {
+      label: 'Take photo',
+      value: 'camera',
+    },
+    {
+      label: 'Image from Gallery',
+      value: 'gallery',
+    },
+    {
+      label: 'Type answer',
+      value: 'Type answer',
+    },
+    {
+      label: 'Take video',
+      value: 'video',
+    },
+  ];
 
-      case 'camera':
-        if (selectedCamera) {
-          setSelectList(selectList.filter((item) => item !== 'camera'));
-          console.log('delete camera');
-          selectedCamera ? setSelectedCamera(false) : setSelectedCamera(true);
-        }
-        if (!selectedCamera && selectList.length <= 1) {
-          setSelectList(selectList.concat('camera'));
-          console.log('add camera');
-          selectedCamera ? setSelectedCamera(false) : setSelectedCamera(true);
-        }
-        break;
-
-      case 'imageFromGallery':
-        if (selectedImagefromGallery) {
-          setSelectList(
-            selectList.filter((item) => item !== 'imageFromGallery')
-          );
-          console.log('delete imageFromGallery');
-          selectedImagefromGallery
-            ? setSelectedImagefromGallery(false)
-            : setSelectedImagefromGallery(true);
-        }
-        if (!selectedImagefromGallery && selectList.length <= 1) {
-          setSelectList(selectList.concat('imageFromGallery'));
-          console.log('add imageFromGallery');
-          selectedImagefromGallery
-            ? setSelectedImagefromGallery(false)
-            : setSelectedImagefromGallery(true);
-        }
-        break;
-      case 'typeAnswer':
-        selectedTypeAnswer
-          ? setSelectedTypeAnswer(false)
-          : setSelectedTypeAnswer(true);
-        console.log('select typeAnswer');
-        break;
-      case 'video':
-        selectedVideo ? setSelectedVideo(false) : setSelectedVideo(true);
-        console.log('select video');
-        break;
-      case 'singleChoice':
-        selectedSingleChoice
-          ? setSelectedSingleChoice(false)
-          : setSelectedSingleChoice(true);
-        console.log('select singleChoice');
-        break;
-      case 'multipleChoice':
-        selectedMultiChoice
-          ? setSelectedMultiChoice(false)
-          : setSelectedMultiChoice(true);
-        console.log('select multipleChoice');
-        break;
+  const dropdownHandler = (value) => {
+    setDropdown(value);
+    if (value === 'single choice') {
+      setIsSingleChoice(true);
+    }
+    if (value !== 'single choice') {
+      setIsSingleChoice(false);
+    }
+    if (value === 'multiple choice') {
+      setIsMultipleChoice(true);
+    }
+    if (value !== 'multiple choice') {
+      setIsMultipleChoice(false);
     }
   };
 
-  // useEffect(() => selectionIdentifier, [selectionIdentifier]);
+  const dispatch = useDispatch();
 
-  const studyName = props.navigation.getParam('sdName');
   return (
     <View style={styles.screen}>
       <TitleName>Jing Wu</TitleName>
       <MainTitle style={styles.mainTitle}>Study name : {studyName}</MainTitle>
-      <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-        <SubTitle>Add new question</SubTitle>
+      <ScrollView
+        contentContainerStyle={{
+          alignItems: 'center',
+          height: screenHeight * 0.85,
+        }}
+      >
+        <SubTitle style={{ alignItems: 'center' }}>Add new question</SubTitle>
         <Input
           style={styles.inputBox}
           label='Type Question'
@@ -125,67 +101,27 @@ const AddStudyQuestionScreen = (props) => {
           value={questionContent}
           onChangeText={(newText) => setQuetionContent(newText)}
         />
-        <View style={styles.selectTypesContainer}>
-          <Text style={styles.selectTypesText}>Select answer types</Text>
-        </View>
-        <View>
-          <View style={styles.threeRows}>
-            <View style={styles.IconsColumn}>
-              <Icons.AudioCheckbox
-                id='audio'
-                value={selectedAudio}
-                onPress={() => selectionIdentifier('audio')}
-                onValueChange={() => selectionIdentifier('audio')}
-              />
-              <Icons.TypeAnswerCheckbox
-                id='typeAnswer'
-                value={selectedTypeAnswer}
-                onPress={() => selectionIdentifier('typeAnswer')}
-                onValueChange={() => selectionIdentifier('typeAnswer')}
-                textStyle={{ width: Dimensions.get('window').width / 6 }}
-              />
-            </View>
-            <View style={styles.IconsColumn}>
-              <Icons.CameraCheckbox
-                id='camera'
-                value={selectedCamera}
-                onPress={() => selectionIdentifier('camera')}
-                onValueChange={() => selectionIdentifier('camera')}
-              />
-              <Icons.VideoCheckbox
-                id='video'
-                value={selectedVideo}
-                onPress={() => selectionIdentifier('video')}
-                onValueChange={() => selectionIdentifier('video')}
-              />
-            </View>
+        <View style={styles.dropdownContainer}>
+          <SubTitle subTitleText={{ fontSize: 20, fontWeight: 'bold' }}>
+            Select answer types
+          </SubTitle>
 
-            <View style={styles.IconsColumn}>
-              <Icons.ImagefromGalleryCheckbox
-                id='imageFromGallery'
-                value={selectedImagefromGallery}
-                onPress={() => selectionIdentifier('imageFromGallery')}
-                onValueChange={() => selectionIdentifier('imageFromGallery')}
-              />
-              <Icons.SingleChoiceCheckbox
-                id='singleChoice'
-                value={selectedSingleChoice}
-                onPress={() => selectionIdentifier('singleChoice')}
-                onValueChange={() => selectionIdentifier('singleChoice')}
-              />
-            </View>
-          </View>
-          <View style={styles.lastRow}>
-            <Icons.MultipleChoiceCheckbox
-              id='multipleChoice'
-              value={selectedMultiChoice}
-              onPress={() => selectionIdentifier('multipleChoice')}
-              onValueChange={() => selectionIdentifier('multipleChoice')}
-            />
-          </View>
+          <DropdownPicker
+            items={dropdownItems}
+            defaultValue={dropdown}
+            // containerStyle={styles.dropdownMenu}
+            placeholder='Select the answer type'
+            itemStyle={{
+              justifyContent: 'flex-start',
+            }}
+            // labelStyle={styles.dropdownLabel}
+            onChangeItem={(item) => dropdownHandler(item.value)}
+          />
         </View>
-        <View>
-          {selectedSingleChoice && (
+
+        <View style={styles.optionsContainer}>
+          {/* {selectedSingleChoice && ( */}
+          {isSingleChoice && (
             <View>
               <Choice>
                 Set the <Text style={styles.hightlightText}>single</Text>{' '}
@@ -194,8 +130,9 @@ const AddStudyQuestionScreen = (props) => {
             </View>
           )}
         </View>
-        <View>
-          {selectedMultiChoice && (
+        <View style={styles.optionsContainer}>
+          {/* {selectedMultiChoice && ( */}
+          {isMultipleChoice && (
             <View>
               <Choice>
                 Set the <Text style={styles.hightlightText}>multiple</Text>{' '}
@@ -206,9 +143,9 @@ const AddStudyQuestionScreen = (props) => {
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <Text>Audio:{selectedAudio.toString()}</Text>
+        {/* <Text>Audio:{selectedAudio.toString()}</Text>
         <Text>Camera:{selectedCamera.toString()}</Text>
-        <Text>{selectList.toString()}</Text>
+        <Text>{selectList.toString()}</Text> */}
         <CommonButton>Save</CommonButton>
       </View>
     </View>
@@ -229,45 +166,34 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     marginTop: 15,
-    width: Dimensions.get('window').width * 0.85,
+    width: screenWidth * 0.85,
+    // borderColor: 'blue',
+    // borderWidth: 1,
   },
 
   inputBox: {
     marginTop: 15,
-  },
-  inputLabel: {
-    fontSize: 18,
-  },
-  selectTypesContainer: {
-    marginTop: 20,
-  },
-  selectTypesText: {
-    fontSize: 18,
-  },
-  threeRows: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: Dimensions.get('window').width * 0.85,
-  },
-
-  IconsColumn: {
+    width: screenWidth * 0.85,
     // borderColor: 'red',
     // borderWidth: 1,
-    height: Dimensions.get('window').height * 0.14,
-    marginTop: 20,
-    justifyContent: 'space-between',
   },
-  lastRow: {
-    marginTop: 30,
-    justifyContent: 'flex-start',
+  inputLabel: {
+    fontSize: 20,
+  },
+  dropdownContainer: {
     alignItems: 'flex-start',
+    // borderWidth: 1,
+    // borderColor: 'green',
+    width: screenWidth * 0.85,
   },
   buttonContainer: {
     marginVertical: 30,
   },
   hightlightText: {
     color: Colors.primary,
+  },
+  optionsContainer: {
+    width: Dimensions.get('window').width * 0.85,
   },
 });
 

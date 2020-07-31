@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -11,8 +11,15 @@ import CheckBox from '@react-native-community/checkbox';
 
 import Colors from '../constants/Colors';
 
-export const AudioIcon = (onPress) => {
-  return <Feather name='mic' color='black' size={32} onPress={() => onPress} />;
+export const AudioIcon = (props) => {
+  return (
+    // <TouchableOpacity onPress={props.onPress}>
+    <TouchableOpacity onPress={() => console.log('AUDIO')}>
+      <View>
+        <Feather name='mic' color='black' size={32} />
+      </View>
+    </TouchableOpacity>
+  );
 };
 
 export const CameraIcon = (onPress) => {
@@ -29,13 +36,41 @@ export const VideoIcon = (onPress) => {
 
 export const TextIcon = (props) => {
   return (
-    <View style={styles.checkboxTextContainer} onPress={props.onPress}>
-      <Text
-        style={{ ...styles.checkboxText, ...props.textStyle }}
-        numberOfLines={2}
-      >
-        {props.children}
-      </Text>
+    <TouchableOpacity>
+      <View style={styles.checkboxTextContainer}>
+        <Text
+          style={{ ...styles.checkboxText, ...props.textStyle }}
+          numberOfLines={2}
+        >
+          {props.children}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export const SingleChoiceIcon = (props) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const onPressHandler = () => {
+    isSelected ? setIsSelected(false) : setIsSelected(true);
+  };
+
+  return (
+    <View style={{ borderColor: 'blue', borderWidth: 1 }}>
+      <View>
+        <TouchableOpacity onPress={onPressHandler}>
+          <View style={styles.checkboxTextContainer}>
+            <Text
+              style={{ ...styles.checkboxText, ...props.textStyle }}
+              numberOfLines={2}
+            >
+              Single Choice
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={{}}>{isSelected && <Text>single</Text>}</View>
     </View>
   );
 };
