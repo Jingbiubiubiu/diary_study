@@ -6,8 +6,6 @@ import DropdownPicker from '../components/DropDownPicker';
 
 const SingleChoice = (props) => {
   return (
-    <View style={{ ...props.style }}>
-      {/* <SubTitle>{props.questionContent}</SubTitle> */}
       <DropdownPicker
         items={props.questionOptions}
         defaultValue={props.defaultValue}
@@ -19,7 +17,6 @@ const SingleChoice = (props) => {
         // labelStyle={styles.dropdownLabel}
         onChangeItem={props.onChangeItem}
       />
-    </View>
   );
 };
 

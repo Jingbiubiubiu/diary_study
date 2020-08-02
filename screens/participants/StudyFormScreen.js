@@ -60,7 +60,7 @@ const StudyFormScreen = (props) => {
               }}
             />
             {selectSingleChoice && itemData.item.option1 !== null && (
-              <View style={{ zIndex: 5 }}>
+              <View>
                 <SingleChoice
                   questionOptions={[
                     {

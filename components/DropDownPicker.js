@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Platform, FlatList } from 'react-native';
+import Constants from 'expo-constants';
 
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -7,27 +8,40 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 const CusDropdownPicker = (props) => {
   return (
-    // <View style={styles.dropdownContainer}>
-    <View
-      style={{
-        // The solution: Apply zIndex to any device except Android
-        ...(Platform.OS !== 'android' && {
-          zIndex: 10,
-        }),
-      }}
-    >
+    <View style={styles.container}>
+
       <DropDownPicker
-        items={props.items}
-        defaultValue={props.defaultValue}
-        containerStyle={styles.dropdownMenu}
-        placeholder={props.placeholder}
-        itemStyle={props.itemStyle}
-        labelStyle={styles.dropdownLabel}
-        onChangeItem={props.onChangeItem}
-        // zIndex={10000}
-        dropDownStyle={styles.dropDownStyle}
-        style={{ backgroundColor: '#ffffff' }}
+      items={props.items}
+      defaultValue={props.defaultValue}
+      containerStyle={styles.dropdownMenu}
+      placeholder={props.placeholder}
+      itemStyle={props.itemStyle}
+      labelStyle={styles.dropdownLabel}
+      onChangeItem={props.onChangeItem}
+      dropDownStyle={styles.dropDownStyle}
+      style={{ backgroundColor: '#ffffff' }}
+    />
+
+      <FlatList
+        data={[
+          {title: '1. Das Leben ist nicht fair'},
+          {title: '2. Wir werden trotzdem sterben'},
+          {title: '3. Aber lass uns so leben, wie wir wollen'},
+          {title: '4. Das ist besser'},
+        ]}
+        renderItem={(item, index) => <Text>{item.item.title}</Text>}
+        keyExtractor={(item, index) => index.toString()}
+        style={{
+          marginTop: 40
+        }}
+        contentContainerStyle={{
+          borderRadius: 5,
+          padding: 15,
+          backgroundColor: 'red'
+        }}
       />
+
+
     </View>
   );
 };
@@ -35,25 +49,32 @@ const CusDropdownPicker = (props) => {
 const styles = StyleSheet.create({
   dropdownContainer: {
     marginVertical: 15,
-
     borderColor: 'red',
     borderWidth: 1,
   },
   dropdownMenu: {
     height: 50,
-    width: Dimensions.get('window').width * 0.85,
-    zIndex: 10,
+    width: Dimensions.get('window').width * 0.85
     // zIndex: 2000000,
   },
   dropdownLabel: {
     fontSize: 18,
   },
   dropDownStyle: {
-    // borderColor: 'blue',
-    // borderWidth: 1,
-    // backgroundColor: 'red',
-    // zIndex: 2,
     backgroundColor: 'white',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
