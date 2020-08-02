@@ -6,23 +6,19 @@ import * as Icons from '../components/Icons';
 const chooseIcon = (props) => {
   switch (props.answerType) {
     case 'audio':
-    return <Icons.AudioIcon {...props} />;
+      return <Icons.AudioIcon {...props} />;
     case 'video':
       return <Icons.VideoIcon {...props} />;
     case 'camera':
-      return <Icons.CameraIcon />;
+      return <Icons.CameraIcon {...props} />;
     case 'imageFormGallery':
-      return <Icons.TextIcon>Image from Gallery</Icons.TextIcon>;
+      return <Icons.TextIcon {...props}>Image from Gallery</Icons.TextIcon>;
     case 'typeAnswer':
-      return <Icons.TextIcon>Type Answer</Icons.TextIcon>;
-    case 'screenRecording':
-      return <Icons.TextIcon>Screen Recording</Icons.TextIcon>;
+      return <Icons.TextIcon {...props}>Type Answer</Icons.TextIcon>;
     case 'multipleChoice':
-      return <Icons.TextIcon>Multiple Choice</Icons.TextIcon>;
-    // case 'singleChoice':
-    //   return <Icons.TextIcon>Single Choice</Icons.TextIcon>;
+      return <Icons.TextIcon {...props}>Multiple Choice</Icons.TextIcon>;
     case 'singleChoice':
-      return <Icons.SingleChoiceIcon onPress={() => console.log('single')} />;
+      return <Icons.TextIcon {...props}>Single Choice</Icons.TextIcon>;
     default:
       return;
   }
@@ -36,9 +32,7 @@ const AnswerIcon = (props) => {
           {props.index}. {props.content}
         </Text>
       </View>
-      <View style={styles.iconContainer1}>
-        {chooseIcon(props)}
-      </View>
+      <View style={styles.iconContainer1}>{chooseIcon(props)}</View>
     </View>
   );
 };

@@ -13,7 +13,6 @@ import Colors from '../constants/Colors';
 
 export const AudioIcon = (props) => {
   return (
-    // <TouchableOpacity onPress={props.onPress}>
     <TouchableOpacity onPress={props.onSelect}>
       <View>
         <Feather name='mic' color='black' size={32} />
@@ -22,15 +21,18 @@ export const AudioIcon = (props) => {
   );
 };
 
-export const CameraIcon = (onPress) => {
+export const CameraIcon = (props) => {
   return (
-    <Feather name='camera' color='black' size={32} onPress={() => onPress} />
+    <TouchableOpacity onPress={props.onSelect}>
+      <View>
+        <Feather name='camera' color='black' size={32} />
+      </View>
+    </TouchableOpacity>
   );
 };
 
 export const VideoIcon = (props) => {
   return (
-    // <TouchableOpacity onPress={props.onPress}>
     <TouchableOpacity onPress={props.onSelect}>
       <View>
         <Feather name='video' color='black' size={32} />
@@ -41,7 +43,7 @@ export const VideoIcon = (props) => {
 
 export const TextIcon = (props) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={props.onSelect}>
       <View style={styles.checkboxTextContainer}>
         <Text
           style={{ ...styles.checkboxText, ...props.textStyle }}
@@ -54,31 +56,31 @@ export const TextIcon = (props) => {
   );
 };
 
-export const SingleChoiceIcon = (props) => {
-  const [isSelected, setIsSelected] = useState(false);
+// export const SingleChoiceIcon = (props) => {
+//   const [isSelected, setIsSelected] = useState(false);
 
-  const onPressHandler = () => {
-    isSelected ? setIsSelected(false) : setIsSelected(true);
-  };
+//   const onPressHandler = () => {
+//     isSelected ? setIsSelected(false) : setIsSelected(true);
+//   };
 
-  return (
-    <View style={{ borderColor: 'blue', borderWidth: 1 }}>
-      <View>
-        <TouchableOpacity onPress={onPressHandler}>
-          <View style={styles.checkboxTextContainer}>
-            <Text
-              style={{ ...styles.checkboxText, ...props.textStyle }}
-              numberOfLines={2}
-            >
-              Single Choice
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={{}}>{isSelected && <Text>single</Text>}</View>
-    </View>
-  );
-};
+//   return (
+//     <View style={{ borderColor: 'blue', borderWidth: 1 }}>
+//       <View>
+//         <TouchableOpacity onPress={onPressHandler}>
+//           <View style={styles.checkboxTextContainer}>
+//             <Text
+//               style={{ ...styles.checkboxText, ...props.textStyle }}
+//               numberOfLines={2}
+//             >
+//               Single Choice
+//             </Text>
+//           </View>
+//         </TouchableOpacity>
+//       </View>
+//       <View style={{}}>{isSelected && <Text>single</Text>}</View>
+//     </View>
+//   );
+// };
 
 // export const MultipleChoiceIcon = (props) => {
 //   return (
