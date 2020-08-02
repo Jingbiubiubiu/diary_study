@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
 import * as Icons from '../components/Icons';
 
-const chooseIcon = (answerType, onPress) => {
-  switch (answerType) {
+const chooseIcon = (props) => {
+  switch (props.answerType) {
     case 'audio':
-      return <Icons.AudioIcon onPress={onPress} />;
+    return <Icons.AudioIcon {...props} />;
     case 'video':
-      return <Icons.VideoIcon />;
+      return <Icons.VideoIcon {...props} />;
     case 'camera':
       return <Icons.CameraIcon />;
     case 'imageFormGallery':
@@ -37,7 +37,7 @@ const AnswerIcon = (props) => {
         </Text>
       </View>
       <View style={styles.iconContainer1}>
-        {chooseIcon(props.answerType, props.onPress)}
+        {chooseIcon(props)}
       </View>
     </View>
   );

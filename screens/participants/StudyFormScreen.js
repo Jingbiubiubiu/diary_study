@@ -12,9 +12,14 @@ const StudyFormScreen = (props) => {
   const questions = DATA.QUESTION1;
 
   const functionIdentifier = (answerType) => {
+    console.log(answerType);
     switch (answerType) {
       case 'audio':
         console.log('audio');
+        break;
+      case 'video':
+        console.log('video');
+        break;
     }
   };
   return (
@@ -29,7 +34,7 @@ const StudyFormScreen = (props) => {
             index={itemData.index + 1}
             content={itemData.item.content}
             answerType={itemData.item.answerType}
-            onPress={() => functionIdentifier(itemData.item.answerType)}
+            onSelect={() => {functionIdentifier(itemData.item.answerType)}}
             // onPress={functionIdentifier(itemData.item.answerType)}
           />
         )}

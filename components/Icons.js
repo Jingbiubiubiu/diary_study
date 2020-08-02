@@ -14,7 +14,7 @@ import Colors from '../constants/Colors';
 export const AudioIcon = (props) => {
   return (
     // <TouchableOpacity onPress={props.onPress}>
-    <TouchableOpacity onPress={() => console.log('AUDIO')}>
+    <TouchableOpacity onPress={props.onSelect}>
       <View>
         <Feather name='mic' color='black' size={32} />
       </View>
@@ -28,9 +28,14 @@ export const CameraIcon = (onPress) => {
   );
 };
 
-export const VideoIcon = (onPress) => {
+export const VideoIcon = (props) => {
   return (
-    <Feather name='video' color='black' size={32} onPress={() => onPress} />
+    // <TouchableOpacity onPress={props.onPress}>
+    <TouchableOpacity onPress={props.onSelect}>
+      <View>
+        <Feather name='video' color='black' size={32} />
+      </View>
+    </TouchableOpacity>
   );
 };
 
