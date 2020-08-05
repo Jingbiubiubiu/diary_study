@@ -6,7 +6,9 @@ class Question {
     option1,
     option2,
     option3,
-    option4
+    option4,
+    option5,
+    option6
   ) {
     // this.studyId = studyId;
     this.questionId = questionId;
@@ -16,6 +18,8 @@ class Question {
     this.option2 = option2;
     this.option3 = option3;
     this.option4 = option4;
+    this.option5 = option5;
+    this.option6 = option6;
   }
 }
 

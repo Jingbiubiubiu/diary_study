@@ -12,7 +12,9 @@ import SingleChoice from '../../components/SingleChoice';
 const StudyFormScreen = (props) => {
   const questions = DATA.QUESTION1;
   const [selectSingleChoice, setSelectSingleChoice] = useState(false);
+  const [selectMultipleChoice, setSelectMultipleChoice] = useState(false);
   const [dropdown, setDropdown] = useState('');
+  const [dropdown1, setDropdown1] = useState('');
 
   const functionIdentifier = (answerType) => {
     console.log(answerType);
@@ -33,9 +35,14 @@ const StudyFormScreen = (props) => {
         console.log('typeAnswer');
         break;
       case 'multipleChoice':
-        console.log('multipleChoice');
+        console.log('mulmul');
+        selectMultipleChoice
+          ? setSelectMultipleChoice(false)
+          : setSelectMultipleChoice(true);
+
         break;
       case 'singleChoice':
+        console.log('sinsin');
         selectSingleChoice
           ? setSelectSingleChoice(false)
           : setSelectSingleChoice(true);
@@ -48,6 +55,7 @@ const StudyFormScreen = (props) => {
       <MainTitle>Personal Info</MainTitle>
       <FlatList
         data={questions}
+        listKey={(item) => item.questionId}
         keyExtractor={(item) => item.questionId}
         renderItem={(itemData) => (
           <View>
@@ -60,8 +68,9 @@ const StudyFormScreen = (props) => {
               }}
             />
             {selectSingleChoice && itemData.item.option1 !== null && (
-              <View>
+              <View listKey='111'>
                 <SingleChoice
+                  listKey='111'
                   questionOptions={[
                     {
                       label: itemData.item.option1,
@@ -89,6 +98,47 @@ const StudyFormScreen = (props) => {
                 />
               </View>
             )}
+            <View listKey='222'>
+              {selectMultipleChoice && itemData.item.option2 !== null && (
+                <View>
+                  <SingleChoice
+                    listKey='222'
+                    questionOptions={[
+                      {
+                        label: itemData.item.option1,
+                        value: itemData.item.option1,
+                      },
+                      {
+                        label: itemData.item.option2,
+                        value: itemData.item.option2,
+                      },
+                      {
+                        label: itemData.item.option3,
+                        value: itemData.item.option3,
+                      },
+                      {
+                        label: itemData.item.option4,
+                        value: itemData.item.option4,
+                      },
+                      {
+                        label: itemData.item.option5,
+                        value: itemData.item.option5,
+                      },
+                      {
+                        label: itemData.item.option6,
+                        value: itemData.item.option6,
+                      },
+                    ]}
+                    defaultValue={dropdown1}
+                    placeholder='Select the answer'
+                    itemStyle={{
+                      justifyContent: 'flex-start',
+                    }}
+                    onChangeItem={(item) => setDropdown1(item.value)}
+                  />
+                </View>
+              )}
+            </View>
           </View>
         )}
       />

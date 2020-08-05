@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import Input from '../components/Input';
 
-const Choice = (props) => {
+export const SingleChoice = (props) => {
   return (
     <View style={styles.choiceContainer}>
       <View style={styles.textContainer}>
@@ -41,6 +41,58 @@ const Choice = (props) => {
   );
 };
 
+export const MultipleChoice = (props) => {
+  return (
+    <View style={styles.choiceContainer}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{props.children}</Text>
+      </View>
+      <Input
+        label='First Option:'
+        style={styles.inputContainer}
+        inputBox={styles.inputBox}
+        value={props.option1}
+        onChangeText={props.setOption1}
+      />
+      <Input
+        label='Second Option:'
+        style={styles.inputContainer}
+        inputBox={styles.inputBox}
+        value={props.option2}
+        onChangeText={props.setOption2}
+      />
+      <Input
+        label='Third Option:'
+        style={styles.inputContainer}
+        inputBox={styles.inputBox}
+        value={props.option3}
+        onChangeText={props.setOption3}
+      />
+      <Input
+        label='Forth Option:'
+        style={styles.inputContainer}
+        inputBox={styles.inputBox}
+        value={props.option4}
+        onChangeText={props.setOption4}
+      />
+      <Input
+        label='Fifth Option:'
+        style={styles.inputContainer}
+        inputBox={styles.inputBox}
+        value={props.option5}
+        onChangeText={props.setOption5}
+      />
+      <Input
+        label='Sixth Option:'
+        style={styles.inputContainer}
+        inputBox={styles.inputBox}
+        value={props.option6}
+        onChangeText={props.setOption6}
+      />
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   choiceContainer: {
     marginTop: 20,
@@ -61,5 +113,3 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-export default Choice;

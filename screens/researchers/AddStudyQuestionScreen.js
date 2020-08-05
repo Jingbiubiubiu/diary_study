@@ -15,7 +15,7 @@ import SubTitle from '../../components/SubTitle';
 import Input from '../../components/Input';
 import * as Icons from '../../components/Icons';
 import CommonButton from '../../components/CommonButton';
-import Choice from '../../components/Choice';
+import * as Choice from '../../components/Choice';
 import Colors from '../../constants/Colors';
 import * as questionActions from '../../store/actions/question';
 import SaveButton from '../../components/SaveButton';
@@ -38,6 +38,8 @@ const AddStudyQuestionScreen = (props) => {
   const [option2, setOption2] = useState();
   const [option3, setOption3] = useState();
   const [option4, setOption4] = useState();
+  const [option5, setOption5] = useState();
+  const [option6, setOption6] = useState();
 
   const dropdownItems = [
     {
@@ -99,7 +101,7 @@ const AddStudyQuestionScreen = (props) => {
       <ScrollView
         contentContainerStyle={{
           alignItems: 'center',
-          height: screenHeight * 0.85,
+          height: screenHeight,
         }}
       >
         <SubTitle style={{ alignItems: 'center' }}>Add new question</SubTitle>
@@ -132,7 +134,7 @@ const AddStudyQuestionScreen = (props) => {
           {/* {selectedSingleChoice && ( */}
           {isSingleChoice && (
             <View>
-              <Choice
+              <Choice.SingleChoice
                 option1={option1}
                 setOption1={(newText) => setOption1(newText)}
                 option2={option2}
@@ -144,7 +146,7 @@ const AddStudyQuestionScreen = (props) => {
               >
                 Set the <Text style={styles.hightlightText}>single</Text>{' '}
                 choice's options
-              </Choice>
+              </Choice.SingleChoice>
             </View>
           )}
         </View>
@@ -152,7 +154,7 @@ const AddStudyQuestionScreen = (props) => {
           {/* {selectedMultiChoice && ( */}
           {isMultipleChoice && (
             <View>
-              <Choice
+              <Choice.MultipleChoice
                 option1={option1}
                 setOption1={(newText) => setOption1(newText)}
                 option2={option2}
@@ -161,10 +163,14 @@ const AddStudyQuestionScreen = (props) => {
                 setOption3={(newText) => setOption3(newText)}
                 option4={option4}
                 setOption4={(newText) => setOption4(newText)}
+                option5={option5}
+                setOption5={(newText) => setOption5(newText)}
+                option6={option6}
+                setOption6={(newText) => setOption6(newText)}
               >
                 Set the <Text style={styles.hightlightText}>multiple</Text>{' '}
                 choice's options
-              </Choice>
+              </Choice.MultipleChoice>
             </View>
           )}
         </View>
@@ -225,6 +231,8 @@ const styles = StyleSheet.create({
   },
   optionsContainer: {
     width: Dimensions.get('window').width * 0.85,
+    borderWidth: 1,
+    borderColor: 'green',
   },
 });
 
