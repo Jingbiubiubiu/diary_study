@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     width: '23%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'green',
-    borderWidth: 1,
+    // borderColor: 'green',
+    // borderWidth: 1,
   },
 });
 

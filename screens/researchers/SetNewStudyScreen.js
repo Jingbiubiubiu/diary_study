@@ -46,8 +46,7 @@ const SetNewStudyScreen = (props) => {
           <AnswerIcon
             index={itemData.index + 1}
             content={itemData.item.content}
-            answerType1={itemData.item.answerType1}
-            answerType2={itemData.item.answerType2}
+            answerType={itemData.item.answerType}
           />
         )}
       />

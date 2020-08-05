@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
@@ -8,7 +7,7 @@ import SubTitle from '../../components/SubTitle';
 import CommonButton from '../../components/CommonButton';
 import SubtitleInput from '../../components/SubtitleInput';
 import Input from '../../components/Input';
-import DropdownPicker from '../../components/DropDownPicker';
+import * as DropdownPicker from '../../components/DropDownPicker';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -48,7 +47,7 @@ const SetPreQuestionsScreen = (props) => {
             Type the quetion
           </SubtitleInput>
           <SubTitle>Select the answer type</SubTitle>
-          <DropdownPicker
+          <DropdownPicker.ChooseTypeDropdownPicker
             items={dropdownItems}
             defaultValue={dropdown}
             // containerStyle={styles.dropdownMenu}

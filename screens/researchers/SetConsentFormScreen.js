@@ -23,7 +23,9 @@ const SetConsentFormScreen = (props) => {
       <TitleName>Jing Wu</TitleName>
       <MainTitle style={styles.mainTitle}>Setup Consent Form</MainTitle>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <SubtitleInput numberOfLines={7}>Type the quetion</SubtitleInput>
+        <SubtitleInput numberOfLines={7}>
+          Input the description of the study
+        </SubtitleInput>
         <View style={{ alignItem: 'flex-start' }}>
           <SubTitle>Set up pre-study questions</SubTitle>
         </View>

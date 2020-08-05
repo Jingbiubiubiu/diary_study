@@ -19,7 +19,7 @@ import Choice from '../../components/Choice';
 import Colors from '../../constants/Colors';
 import * as questionActions from '../../store/actions/question';
 import SaveButton from '../../components/SaveButton';
-import DropdownPicker from '../../components/DropDownPicker';
+import * as DropdownPicker from '../../components/DropDownPicker';
 import SubtitleInput from '../../components/SubtitleInput';
 
 const screenWidth = Dimensions.get('window').width;
@@ -115,7 +115,7 @@ const AddStudyQuestionScreen = (props) => {
             Select answer types
           </SubTitle>
 
-          <DropdownPicker
+          <DropdownPicker.ChooseTypeDropdownPicker
             items={dropdownItems}
             defaultValue={dropdown}
             // containerStyle={styles.dropdownMenu}
