@@ -11,44 +11,110 @@ import SingleChoice from '../../components/SingleChoice';
 
 const StudyFormScreen = (props) => {
   const questions = DATA.QUESTION1;
-  const [selectSingleChoice, setSelectSingleChoice] = useState(false);
-  const [selectMultipleChoice, setSelectMultipleChoice] = useState(false);
+
   const [dropdown, setDropdown] = useState('');
   const [dropdown1, setDropdown1] = useState('');
 
-  const functionIdentifier = (answerType) => {
-    console.log(answerType);
+  const [visibility, setVisibility] = useState(Array(questions.length).fill(false));
+
+  const [answer, setAnswer] = useState([{}, {}, {}, {}, {}, {}]);
+
+  const updateVisibility = (index) => {
+    const previous = visibility[index];
+    if (previous) {
+      let markers = [...visibility];
+      markers[index] = false;
+      setVisibility(markers);
+    } else {
+      let markers = [...visibility];
+      markers[index] = true;
+      setVisibility(markers);
+    }
+  }
+
+  const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
       case 'audio':
-        console.log('audio');
         break;
       case 'video':
-        console.log('video');
         break;
       case 'camera':
-        console.log('camera');
         break;
       case 'imageFormGallery':
-        console.log('imageFormGallery');
         break;
       case 'typeAnswer':
-        console.log('typeAnswer');
-        break;
-      case 'multipleChoice':
-        console.log('mulmul');
-        selectMultipleChoice
-          ? setSelectMultipleChoice(false)
-          : setSelectMultipleChoice(true);
-
         break;
       case 'singleChoice':
-        console.log('sinsin');
-        selectSingleChoice
-          ? setSelectSingleChoice(false)
-          : setSelectSingleChoice(true);
+        return (
+          visibility[index] && (
+            <View>
+              <SingleChoice
+                questionOptions={[
+                  {
+                    label: itemData.item.option1,
+                    value: itemData.item.option1,
+                  },
+                  {
+                    label: itemData.item.option2,
+                    value: itemData.item.option2,
+                  },
+                  {
+                    label: itemData.item.option3,
+                    value: itemData.item.option3,
+                  },
+                  {
+                    label: itemData.item.option4,
+                    value: itemData.item.option4,
+                  },
+                ]}
+                defaultValue={dropdown}
+                placeholder='Select the answer'
+                itemStyle={{
+                  justifyContent: 'flex-start',
+                }}
+                onChangeItem={(item) => setDropdown(item.value)}
+              />
+            </View>
+          )
+        );
+        break;
+      case 'multipleChoice':
+        return (
+          visibility[index] && (
+            <View>
+              <SingleChoice
+                questionOptions={[
+                  {
+                    label: itemData.item.option1,
+                    value: itemData.item.option1,
+                  },
+                  {
+                    label: itemData.item.option2,
+                    value: itemData.item.option2,
+                  },
+                  {
+                    label: itemData.item.option3,
+                    value: itemData.item.option3,
+                  },
+                  {
+                    label: itemData.item.option4,
+                    value: itemData.item.option4,
+                  },
+                ]}
+                defaultValue={dropdown}
+                placeholder='Select the answer'
+                itemStyle={{
+                  justifyContent: 'flex-start',
+                }}
+                onChangeItem={(item) => setDropdown(item.value)}
+              />
+            </View>
+          )
+        );
         break;
     }
   };
+
   return (
     <View style={styles.screen}>
       <TitleName>Jing Wu</TitleName>
@@ -63,85 +129,13 @@ const StudyFormScreen = (props) => {
               index={itemData.index + 1}
               content={itemData.item.content}
               answerType={itemData.item.answerType}
-              onSelect={() => {
-                functionIdentifier(itemData.item.answerType);
-              }}
+              onSelect={() => updateVisibility(itemData.index)}
             />
-            {selectSingleChoice && itemData.item.option1 !== null && (
-              <View listKey='111'>
-                <SingleChoice
-                  listKey='111'
-                  questionOptions={[
-                    {
-                      label: itemData.item.option1,
-                      value: itemData.item.option1,
-                    },
-                    {
-                      label: itemData.item.option2,
-                      value: itemData.item.option2,
-                    },
-                    {
-                      label: itemData.item.option3,
-                      value: itemData.item.option3,
-                    },
-                    {
-                      label: itemData.item.option4,
-                      value: itemData.item.option4,
-                    },
-                  ]}
-                  defaultValue={dropdown}
-                  placeholder='Select the answer'
-                  itemStyle={{
-                    justifyContent: 'flex-start',
-                  }}
-                  onChangeItem={(item) => setDropdown(item.value)}
-                />
-              </View>
-            )}
-            <View listKey='222'>
-              {selectMultipleChoice && itemData.item.option2 !== null && (
-                <View>
-                  <SingleChoice
-                    listKey='222'
-                    questionOptions={[
-                      {
-                        label: itemData.item.option1,
-                        value: itemData.item.option1,
-                      },
-                      {
-                        label: itemData.item.option2,
-                        value: itemData.item.option2,
-                      },
-                      {
-                        label: itemData.item.option3,
-                        value: itemData.item.option3,
-                      },
-                      {
-                        label: itemData.item.option4,
-                        value: itemData.item.option4,
-                      },
-                      {
-                        label: itemData.item.option5,
-                        value: itemData.item.option5,
-                      },
-                      {
-                        label: itemData.item.option6,
-                        value: itemData.item.option6,
-                      },
-                    ]}
-                    defaultValue={dropdown1}
-                    placeholder='Select the answer'
-                    itemStyle={{
-                      justifyContent: 'flex-start',
-                    }}
-                    onChangeItem={(item) => setDropdown1(item.value)}
-                  />
-                </View>
-              )}
-            </View>
+            {createComponent(itemData.item.answerType, itemData.index, itemData)}
           </View>
         )}
       />
+      <Text>Audio:{visibility.toString()}</Text>
       <View style={styles.buttonContainer}>
         <CommonButton>Submit</CommonButton>
       </View>
