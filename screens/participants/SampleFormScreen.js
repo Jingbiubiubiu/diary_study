@@ -28,12 +28,12 @@ const SampleFormScreen = (props) => {
           Consent form, description and pre-study questions
         </Text>
       </View>
-      <ScrollView contentContainerStyle={{ width: '90%' }}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.description}>
           <Text>{consentForm1.description}</Text>
         </View>
 
-        <View>
+        <View style={styles.agreementContainer}>
           <Icons.CommonCheckbox
             value={agree}
             onChangeText={agreeHandler}
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
+    // width: screenWidth,
   },
   titleName: {
     marginTop: 10,
@@ -76,6 +77,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
   },
+  scrollView: {
+    width: '95%',
+    alignItems: 'center',
+    borderColor: 'red',
+    borderWidth: 1,
+  },
   description: {
     marginTop: 8,
     width: '90%',
@@ -89,21 +96,12 @@ const styles = StyleSheet.create({
   inputBox: {
     width: '100%',
   },
-  audioContainer: {
-    flexDirection: 'row',
-    // justifyContent: 'center',
+  agreementContainer: {
+    width: '81.5%',
+
     alignItems: 'center',
-  },
-  Q5Container: {
-    flexDirection: 'row',
-    marginVertical: 8,
-    // justifyContent: 'center',
-    alignItems: 'center',
-  },
-  Q5Choices: {
-    // borderColor: 'blue',
-    // borderWidth: 1,
-    marginLeft: 10,
+    borderColor: 'blue',
+    borderWidth: 1,
   },
   buttonContainer: {
     marginBottom: 30,
