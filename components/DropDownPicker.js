@@ -87,11 +87,14 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+
     backgroundColor: '#ecf0f1',
-    padding: 8,
+    padding: 5,
     height: Dimensions.get('window').height * 0.3,
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
   paragraph: {
     margin: 24,

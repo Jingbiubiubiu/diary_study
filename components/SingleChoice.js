@@ -7,8 +7,9 @@ import * as DropdownPicker from '../components/DropDownPicker';
 const SingleChoice = (props) => {
   return (
     <DropdownPicker.DisplayOptionsDropdownPicker
-      keyList={props.keyList}
-      items={props.questionOptions}
+      {...props}
+      // items={props.questionOptions}
+      items={props.items}
       defaultValue={props.defaultValue}
       // containerStyle={styles.dropdownMenu}
       placeholder='Select the answer'

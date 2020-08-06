@@ -68,6 +68,17 @@ export const QUESTION1 = [
     'pink'
   ),
   new Question(
+    's1q7',
+    'How old are you?',
+    'typeAnswer',
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ),
+  new Question(
     's1q1',
     'How are you?',
     'audio',

@@ -6,15 +6,17 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
+  TextInput,
 } from 'react-native';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
-import Input from '../../components/Input';
+import InputWithoutLabel from '../../components/InputWithoutLabel';
 import * as Icons from '../../components/Icons';
 import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
+import SingleChoice from '../../components/SingleChoice';
 
 const screenWidth = Dimensions.get('window').height;
 
@@ -28,10 +30,18 @@ const SampleFormScreen = (props) => {
     Array(consentForm1.preQuetions.length).fill(false)
   );
 
-  console.log(consentForm1.preQuetions.length);
-  console.log(consentForm1);
+  const [answers, setAnswers] = useState(
+    Array(consentForm1.preQuetions.length).fill(null)
+  );
 
-  const [answer, setAnswer] = useState([{}, {}, {}, {}, {}, {}]);
+  const updateAnswers = (index, value) => {
+    console.log(index, value);
+    let updateAnswers = [...answers];
+    console.log('Original: ' + updateAnswers.toString());
+    updateAnswers[index] = value;
+    setAnswers(updateAnswers);
+    console.log('Update: ' + updateAnswers.toString());
+  };
 
   const updateVisibility = (index) => {
     const previous = visibility[index];
@@ -49,13 +59,21 @@ const SampleFormScreen = (props) => {
   const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
       case 'typeAnswer':
+        return (
+          visibility[index] && (
+            <InputWithoutLabel
+              value={answers[index]}
+              onChangeText={(newText) => updateAnswers(itemData.index, newText)}
+            />
+          )
+        );
         break;
       case 'singleChoice':
         return (
           visibility[index] && (
             <View>
               <SingleChoice
-                questionOptions={[
+                items={[
                   {
                     label: itemData.item.option1,
                     value: itemData.item.option1,
@@ -73,12 +91,14 @@ const SampleFormScreen = (props) => {
                     value: itemData.item.option4,
                   },
                 ]}
-                defaultValue={dropdown}
+                defaultValue={answers[itemData.index]}
                 placeholder='Select the answer'
                 itemStyle={{
                   justifyContent: 'flex-start',
                 }}
-                onChangeItem={(item) => setDropdown(item.value)}
+                onChangeItem={(item) =>
+                  updateAnswers(itemData.index, item.value)
+                }
               />
             </View>
           )
@@ -105,12 +125,10 @@ const SampleFormScreen = (props) => {
         <Text>{consentForm1.description}</Text>
       </View>
       <FlatList
-        style={{ borderColor: 'red', borderWidth: 1, width: '85%' }}
         data={consentForm1.preQuetions}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={(itemData) => {
+        renderItem={(itemData) => (
           <View>
-            <Text>hi</Text>
             <AnswerIcon
               index={itemData.index + 1}
               content={itemData.item.question}
@@ -122,8 +140,8 @@ const SampleFormScreen = (props) => {
               itemData.index,
               itemData
             )}
-          </View>;
-        }}
+          </View>
+        )}
       />
 
       <View style={styles.agreementContainer}>
@@ -136,7 +154,10 @@ const SampleFormScreen = (props) => {
         </Icons.CommonCheckbox>
       </View>
       {/* </ScrollView> */}
-      <Text>Audio:{visibility.toString()}</Text>
+      <Text>Answers:{answers.toString()}</Text>
+      {/* <Text>dropdown:{dropdown}</Text> */}
+      <Text>states:{visibility.toString()}</Text>
+
       <View style={styles.buttonContainer}>
         <CommonButton onPress={() => props.navigation.navigate('StudyForm')}>
           Submit
@@ -171,31 +192,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
   },
-  // scrollView: {
-  //   width: '95%',
-  //   alignItems: 'center',
-  //   borderColor: 'red',
-  //   borderWidth: 1,
-  // },
   description: {
     marginTop: 8,
     width: '85%',
     // alignItems: 'center',
-    borderColor: 'green',
-    borderWidth: 1,
+    // borderColor: 'green',
+    // borderWidth: 1,
   },
   input: {
     marginVertical: 5,
   },
   inputBox: {
-    width: '100%',
+    width: '90%',
+    borderColor: '#ccc',
+    borderWidth: 1,
   },
   agreementContainer: {
     width: '83%',
 
     alignItems: 'center',
-    borderColor: 'blue',
-    borderWidth: 1,
+    // borderColor: 'blue',
+    // borderWidth: 1,
   },
   buttonContainer: {
     marginBottom: 30,

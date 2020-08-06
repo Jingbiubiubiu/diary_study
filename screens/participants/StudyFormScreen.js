@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
+import { View, StyleSheet, FlatList, Text, TextInput } from 'react-native';
 
 import * as DATA from '../../data/dummy-questions';
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
-import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
 import AnswerIcon from '../../components/AnswerIcon';
 import SingleChoice from '../../components/SingleChoice';
+import InputWithoutLabel from '../../components/InputWithoutLabel';
 
 const StudyFormScreen = (props) => {
   const questions = DATA.QUESTION1;
 
-  const [dropdown, setDropdown] = useState('');
-  const [dropdown1, setDropdown1] = useState('');
+  // const [dropdown, setDropdown] = useState('');
+  // const [dropdown1, setDropdown1] = useState('');
 
   const [visibility, setVisibility] = useState(
     // create an array which length equals to the data's length,
@@ -21,7 +21,9 @@ const StudyFormScreen = (props) => {
     Array(questions.length).fill(false)
   );
 
-  const [answer, setAnswer] = useState([{}, {}, {}, {}, {}, {}]);
+  const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+
+  console.log(questions.length);
 
   const updateVisibility = (index) => {
     const previous = visibility[index];
@@ -36,6 +38,15 @@ const StudyFormScreen = (props) => {
     }
   };
 
+  const updateAnswers = (index, value) => {
+    console.log(index, value);
+    let updateAnswers = [...answers];
+    console.log('Original: ' + updateAnswers.toString());
+    updateAnswers[index] = value;
+    setAnswers(updateAnswers);
+    console.log('Update: ' + updateAnswers.toString());
+  };
+
   const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
       case 'audio':
@@ -47,13 +58,21 @@ const StudyFormScreen = (props) => {
       case 'imageFormGallery':
         break;
       case 'typeAnswer':
+        return (
+          visibility[index] && (
+            <InputWithoutLabel
+              value={answers[index]}
+              onChangeText={(newText) => updateAnswers(itemData.index, newText)}
+            />
+          )
+        );
         break;
       case 'singleChoice':
         return (
           visibility[index] && (
             <View>
               <SingleChoice
-                questionOptions={[
+                items={[
                   {
                     label: itemData.item.option1,
                     value: itemData.item.option1,
@@ -71,12 +90,14 @@ const StudyFormScreen = (props) => {
                     value: itemData.item.option4,
                   },
                 ]}
-                defaultValue={dropdown}
+                defaultValue={answers[itemData.index]}
                 placeholder='Select the answer'
                 itemStyle={{
                   justifyContent: 'flex-start',
                 }}
-                onChangeItem={(item) => setDropdown(item.value)}
+                onChangeItem={(item) =>
+                  updateAnswers(itemData.index, item.value)
+                }
               />
             </View>
           )
@@ -87,7 +108,7 @@ const StudyFormScreen = (props) => {
           visibility[index] && (
             <View>
               <SingleChoice
-                questionOptions={[
+                items={[
                   {
                     label: itemData.item.option1,
                     value: itemData.item.option1,
@@ -113,12 +134,14 @@ const StudyFormScreen = (props) => {
                     value: itemData.item.option6,
                   },
                 ]}
-                defaultValue={dropdown}
+                defaultValue={answers[itemData.index]}
                 placeholder='Select the answer'
                 itemStyle={{
                   justifyContent: 'flex-start',
                 }}
-                onChangeItem={(item) => setDropdown(item.value)}
+                onChangeItem={(item) =>
+                  updateAnswers(itemData.index, item.value)
+                }
               />
             </View>
           )
@@ -151,7 +174,8 @@ const StudyFormScreen = (props) => {
           </View>
         )}
       />
-      <Text>Audio:{visibility.toString()}</Text>
+      <Text>Answers:{answers.toString()}</Text>
+      <Text>states:{visibility.toString()}</Text>
       <View style={styles.buttonContainer}>
         <CommonButton>Submit</CommonButton>
       </View>
