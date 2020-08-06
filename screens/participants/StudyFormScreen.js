@@ -15,7 +15,11 @@ const StudyFormScreen = (props) => {
   const [dropdown, setDropdown] = useState('');
   const [dropdown1, setDropdown1] = useState('');
 
-  const [visibility, setVisibility] = useState(Array(questions.length).fill(false));
+  const [visibility, setVisibility] = useState(
+    // create an array which length equals to the data's length,
+    // and every element in the array is false
+    Array(questions.length).fill(false)
+  );
 
   const [answer, setAnswer] = useState([{}, {}, {}, {}, {}, {}]);
 
@@ -30,7 +34,7 @@ const StudyFormScreen = (props) => {
       markers[index] = true;
       setVisibility(markers);
     }
-  }
+  };
 
   const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
@@ -100,6 +104,14 @@ const StudyFormScreen = (props) => {
                     label: itemData.item.option4,
                     value: itemData.item.option4,
                   },
+                  {
+                    label: itemData.item.option5,
+                    value: itemData.item.option5,
+                  },
+                  {
+                    label: itemData.item.option6,
+                    value: itemData.item.option6,
+                  },
                 ]}
                 defaultValue={dropdown}
                 placeholder='Select the answer'
@@ -121,7 +133,7 @@ const StudyFormScreen = (props) => {
       <MainTitle>Personal Info</MainTitle>
       <FlatList
         data={questions}
-        listKey={(item) => item.questionId}
+        // listKey={(item) => item.questionId}
         keyExtractor={(item) => item.questionId}
         renderItem={(itemData) => (
           <View>
@@ -131,7 +143,11 @@ const StudyFormScreen = (props) => {
               answerType={itemData.item.answerType}
               onSelect={() => updateVisibility(itemData.index)}
             />
-            {createComponent(itemData.item.answerType, itemData.index, itemData)}
+            {createComponent(
+              itemData.item.answerType,
+              itemData.index,
+              itemData
+            )}
           </View>
         )}
       />
