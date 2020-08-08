@@ -20,5 +20,12 @@ export default (state = initailState, action) => {
         true,
         null
       );
+      console.log(newStudy);
+      console.log(state.studies);
+      return {
+        ...state,
+        studies: state.studies.concat(newQuestion),
+      };
   }
+  return state;
 };
