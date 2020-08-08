@@ -144,7 +144,6 @@ const AddStudyQuestionScreen = (props) => {
         </View>
 
         <View style={styles.optionsContainer}>
-          {/* {selectedSingleChoice && ( */}
           {isSingleChoice && (
             <View>
               <Choice.SingleChoice

@@ -23,7 +23,10 @@ const screenHeight = Dimensions.get('window').height;
 
 const SetConsentFormScreen = (props) => {
   // const preQuestions = DATA.CONSENTFORM1[0].preQuetions;
-  const preQuestions = DATA.PreSTUDYQUESTIONS;
+
+  const preQuestions = useSelector(
+    (state) => state.preStudyQuesitons.preStudyQuesitons
+  );
   // console.log(preQuestions);
 
   const [description, setDescription] = useState();
@@ -32,7 +35,7 @@ const SetConsentFormScreen = (props) => {
   const dispatch = useDispatch();
 
   const saveHandler = () => {
-    console.log('hello');
+    // console.log('hello');
     dispatch(
       consentFormActions.createConsentForm(description, preQuestions, agreement)
     );

@@ -3,7 +3,7 @@ import { CREATE_PREQUESTION } from '../actions/preStudyQuestion';
 import PreStudyQuestion from '../../models/preStudyQuestion';
 
 const initialState = {
-  preStudyQuesitons: DATA.CONSENTFORM1.preQuetions,
+  preStudyQuesitons: DATA.PreSTUDYQUESTIONS,
 };
 
 export default (state = initialState, action) => {
@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
       console.log(state.preStudyQuesitons);
       return {
         ...state,
-        questions: state.preStudyQuesitons.concat(newQuestion),
+        preStudyQuesitons: state.preStudyQuesitons.concat(newQuestion),
       };
   }
   return state;

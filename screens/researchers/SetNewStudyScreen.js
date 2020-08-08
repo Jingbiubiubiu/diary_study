@@ -35,7 +35,7 @@ const SetNewStudyScreen = (props) => {
       >
         Set Consent Form
       </AddButton>
-      <Text>{consentForms.length}</Text>
+      {/* <Text>{consentForms.length}</Text> */}
       <AddButton
         style={{ marginTop: 5 }}
         navigation={props.navigation}

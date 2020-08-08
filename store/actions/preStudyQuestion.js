@@ -1,6 +1,6 @@
 export const CREATE_PREQUESTION = 'CREATE_PREQUESTION';
 
-export const createQuestion = (
+export const createPreStudyQuestion = (
   // questionId,
   content,
   answerType,

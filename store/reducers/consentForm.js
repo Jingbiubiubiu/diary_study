@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
       );
       console.log('hi');
 
-      console.log(newConsentForm);
+      // console.log(newConsentForm);
       // console.log(state.consentForm);
       return {
         ...state,
