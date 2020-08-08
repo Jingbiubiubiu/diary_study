@@ -7,11 +7,13 @@ import DiaryNavigator from './navigation/DiaryNavigator';
 import questionReducer from './store/reducers/question';
 import preStudyQuestionReducer from './store/reducers/preStudyQuestion';
 import consentFormReducer from './store/reducers/consentForm';
+import studyRecuder from './store/reducers/study';
 
 const rootReducer = combineReducers({
   questions: questionReducer,
   preStudyQuesitons: preStudyQuestionReducer,
   consentForm: consentFormReducer,
+  study: studyRecuder,
 });
 
 const store = createStore(rootReducer);

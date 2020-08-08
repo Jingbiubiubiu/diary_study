@@ -51,8 +51,28 @@ export const CONSENTFORM1 = [
 ];
 
 export const STUDY1 = [
-  new Study('s1', 'Personal Info', true, 'ABC123', 'ABC123', null, QUESTION1),
-  new Study('s2', 'Favorite color', false, '123ABC', '123ABC', null, QUESTION1),
+  new Study(
+    's1',
+    'Personal Info',
+    'ABC123',
+    'ABC123',
+    CONSENTFORM1,
+    QUESTION1,
+    null,
+    true,
+    null
+  ),
+  new Study(
+    's2',
+    'Favorite color',
+    '123ABC',
+    '123ABC',
+    CONSENTFORM1,
+    QUESTION1,
+    null,
+    false,
+    null
+  ),
 ];
 
 export const QUESTION1 = [

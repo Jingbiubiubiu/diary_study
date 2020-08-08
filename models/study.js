@@ -2,20 +2,25 @@ class Study {
   constructor(
     studyId,
     studyName,
-    isOpen,
     studyNumber,
     studyPassword,
-    endTime,
-    questions
+    consentForm,
+    questions,
+    establishTime,
+    isOpen,
+    endTime
   ) {
     this.studyId = studyId;
     this.studyName = studyName;
-    this.isOpen = isOpen;
     this.studyNumber = studyNumber;
     this.studyPassword = studyPassword;
-    this.endTime = endTime;
+    // consentForm是一个object
+    this.consentForm = consentForm;
     // questions是一个object，里面都是由每个question组成
     this.questions = questions;
+    this.establishTime = establishTime;
+    this.isOpen = isOpen;
+    this.endTime = endTime;
   }
 }
 
