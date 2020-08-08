@@ -1,30 +1,28 @@
 import * as DATA from '../../data/dummy-questions';
-import { CREATE_QUESTION } from '../actions/question';
-import Question from '../../models/question';
+import { CREATE_PREQUESTION } from '../actions/preStudyQuestion';
+import PreStudyQuestion from '../../models/preStudyQuestion';
 
 const initialState = {
-  questions: DATA.QUESTION1,
+  preStudyQuesitons: DATA.CONSENTFORM1.preQuetions,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_QUESTION:
-      const newQuestion = new Question(
+    case CREATE_PREQUESTION:
+      const newQuestion = new PreStudyQuestion(
         new Date().toString(),
         action.questionData.content,
         action.questionData.answerType,
         action.questionData.option1,
         action.questionData.option2,
         action.questionData.option3,
-        action.questionData.option4,
-        action.questionData.option5,
-        action.questionData.option6
+        action.questionData.option4
       );
       console.log(newQuestion);
-      console.log(state.questions);
+      console.log(state.preStudyQuesitons);
       return {
         ...state,
-        questions: state.questions.concat(newQuestion),
+        questions: state.preStudyQuesitons.concat(newQuestion),
       };
   }
   return state;

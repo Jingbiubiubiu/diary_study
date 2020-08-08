@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
@@ -11,7 +12,11 @@ import AnswerIcon from '../../components/AnswerIcon';
 
 const SetNewStudyScreen = (props) => {
   const [studyName, setStudyName] = useState();
-  const questions = DATA.QUESTION1;
+  const consentForms = useSelector((state) => state.consentForm.consentForm);
+  // const questions = DATA.QUESTION1;
+  const questions = useSelector((state) => state.questions.questions);
+
+  // console.log(questions);
 
   return (
     <View style={styles.screen}>
@@ -30,6 +35,7 @@ const SetNewStudyScreen = (props) => {
       >
         Set Consent Form
       </AddButton>
+      <Text>{consentForms.length}</Text>
       <AddButton
         style={{ marginTop: 5 }}
         navigation={props.navigation}

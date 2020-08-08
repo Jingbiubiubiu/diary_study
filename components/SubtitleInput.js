@@ -10,6 +10,8 @@ const SubtitleInput = (props) => {
         numberOfLines={props.numberOfLines}
         placeholder={props.placeholder}
         style={styles.input}
+        value={props.value}
+        onChangeText={props.onChangeText}
       />
     </View>
   );
@@ -31,7 +33,8 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     width: '100%',
-    marginTop: 10,
+    marginTop: 5,
+    paddingHorizontal: 10,
   },
 });
 

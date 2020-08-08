@@ -3,38 +3,49 @@ import Study from '../models/study';
 import ConsentForm from '../models/consentForm';
 import PreStudyQuestion from '../models/preStudyQuestion';
 
+export const PreSTUDYQUESTIONS = [
+  new PreStudyQuestion(
+    '1',
+    'How old are you?',
+    'typeAnswer',
+    null,
+    null,
+    null,
+    null
+  ),
+  new PreStudyQuestion(
+    '2',
+    'which is your favorite color?',
+    'singleChoice',
+    'red',
+    'yellow',
+    'green',
+    'blue'
+  ),
+  new PreStudyQuestion(
+    '3',
+    'which is your favorite color?',
+    'singleChoice',
+    'pink',
+    'yellow',
+    'green',
+    'blue'
+  ),
+  new PreStudyQuestion(
+    '4',
+    'which is your favorite color?',
+    'singleChoice',
+    'pink',
+    'yellow',
+    'green',
+    'blue'
+  ),
+];
+
 export const CONSENTFORM1 = [
   new ConsentForm(
     'Description of the study and of consent etc. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo',
-    [
-      new PreStudyQuestion(
-        1,
-        'How old are you?',
-        'typeAnswer',
-        null,
-        null,
-        null,
-        null
-      ),
-      new PreStudyQuestion(
-        2,
-        'which is your favorite color?',
-        'singleChoice',
-        'red',
-        'yellow',
-        'green',
-        'blue'
-      ),
-      new PreStudyQuestion(
-        3,
-        'which is your favorite color?',
-        'singleChoice',
-        'pink',
-        'yellow',
-        'green',
-        'blue'
-      ),
-    ],
+    PreSTUDYQUESTIONS,
     'asdfasohfoaisgoasuoawjsfoajoaiugdoufnavduo afoasfianodfuoafaosfiaog'
   ),
 ];

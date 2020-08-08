@@ -126,12 +126,12 @@ const SampleFormScreen = (props) => {
       </View>
       <FlatList
         data={consentForm1.preQuetions}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.questionId}
         renderItem={(itemData) => (
           <View>
             <AnswerIcon
               index={itemData.index + 1}
-              content={itemData.item.question}
+              content={itemData.item.content}
               answerType={itemData.item.answerType}
               onSelect={() => updateVisibility(itemData.index)}
             />

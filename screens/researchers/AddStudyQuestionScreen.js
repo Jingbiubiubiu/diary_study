@@ -13,14 +13,11 @@ import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
 import SubTitle from '../../components/SubTitle';
 import Input from '../../components/Input';
-import * as Icons from '../../components/Icons';
 import CommonButton from '../../components/CommonButton';
 import * as Choice from '../../components/Choice';
 import Colors from '../../constants/Colors';
 import * as questionActions from '../../store/actions/question';
-import SaveButton from '../../components/SaveButton';
 import * as DropdownPicker from '../../components/DropDownPicker';
-import SubtitleInput from '../../components/SubtitleInput';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -30,25 +27,27 @@ const AddStudyQuestionScreen = (props) => {
 
   const studyName = props.navigation.getParam('sdName');
 
-  const [dropdown, setDropdown] = useState();
+  const [answerType, setAnswerType] = useState();
   const [isSingleChoice, setIsSingleChoice] = useState(false);
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
 
-  const [option1, setOption1] = useState();
-  const [option2, setOption2] = useState();
-  const [option3, setOption3] = useState();
-  const [option4, setOption4] = useState();
-  const [option5, setOption5] = useState();
-  const [option6, setOption6] = useState();
+  const dispatch = useDispatch();
+
+  const [option1, setOption1] = useState(null);
+  const [option2, setOption2] = useState(null);
+  const [option3, setOption3] = useState(null);
+  const [option4, setOption4] = useState(null);
+  const [option5, setOption5] = useState(null);
+  const [option6, setOption6] = useState(null);
 
   const dropdownItems = [
     {
       label: 'Single Choice',
-      value: 'single choice',
+      value: 'singleChoice',
     },
     {
       label: 'Multiple Choice',
-      value: 'multiple choice',
+      value: 'multipleChoice',
     },
     {
       label: 'Audio',
@@ -73,26 +72,40 @@ const AddStudyQuestionScreen = (props) => {
   ];
 
   const dropdownHandler = (value) => {
-    setDropdown(value);
+    setAnswerType(value);
     setOption1();
     setOption2();
     setOption3();
     setOption4();
-    if (value === 'single choice') {
+    if (value === 'singleChoice') {
       setIsSingleChoice(true);
     }
-    if (value !== 'single choice') {
+    if (value !== 'singleChoice') {
       setIsSingleChoice(false);
     }
-    if (value === 'multiple choice') {
+    if (value === 'multipleChoice') {
       setIsMultipleChoice(true);
     }
-    if (value !== 'multiple choice') {
+    if (value !== 'multipleChoice') {
       setIsMultipleChoice(false);
     }
   };
 
-  const dispatch = useDispatch();
+  const saveHandler = () => {
+    dispatch(
+      questionActions.createQuestion(
+        questionContent,
+        answerType,
+        option1,
+        option2,
+        option3,
+        option4,
+        option5,
+        option6
+      )
+    );
+    props.navigation.goBack();
+  };
 
   return (
     <View style={styles.screen}>
@@ -119,7 +132,7 @@ const AddStudyQuestionScreen = (props) => {
 
           <DropdownPicker.ChooseTypeDropdownPicker
             items={dropdownItems}
-            defaultValue={dropdown}
+            defaultValue={answerType}
             // containerStyle={styles.dropdownMenu}
             placeholder='Select the answer type'
             itemStyle={{
@@ -180,7 +193,8 @@ const AddStudyQuestionScreen = (props) => {
         <Text>Camera:{selectedCamera.toString()}</Text>
         <Text>{selectList.toString()}</Text> */}
         <CommonButton
-          onPress={() => console.log(option1, option2, option3, option4)}
+          // onPress={() => console.log(option1, option2, option3, option4)}
+          onPress={saveHandler}
         >
           Save
         </CommonButton>
@@ -231,8 +245,8 @@ const styles = StyleSheet.create({
   },
   optionsContainer: {
     width: Dimensions.get('window').width * 0.85,
-    borderWidth: 1,
-    borderColor: 'green',
+    // borderWidth: 1,
+    // borderColor: 'green',
   },
 });
 

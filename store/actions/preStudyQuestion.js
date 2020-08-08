@@ -1,4 +1,4 @@
-export const CREATE_QUESTION = 'CREATE_QUESTION';
+export const CREATE_PREQUESTION = 'CREATE_PREQUESTION';
 
 export const createQuestion = (
   // questionId,
@@ -7,12 +7,10 @@ export const createQuestion = (
   option1,
   option2,
   option3,
-  option4,
-  option5,
-  option6
+  option4
 ) => {
   return {
-    type: CREATE_QUESTION,
+    type: CREATE_PREQUESTION,
     questionData: {
       content,
       answerType,
@@ -20,8 +18,6 @@ export const createQuestion = (
       option2,
       option3,
       option4,
-      option5,
-      option6,
     },
   };
 };

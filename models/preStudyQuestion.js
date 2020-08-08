@@ -1,7 +1,15 @@
 class PreStudyQuestion {
-  constructor(id, question, answerType, option1, option2, option3, option4) {
-    this.id = id;
-    this.question = question;
+  constructor(
+    questionId,
+    content,
+    answerType,
+    option1,
+    option2,
+    option3,
+    option4
+  ) {
+    this.questionId = questionId;
+    this.content = content;
     this.answerType = answerType;
     this.option1 = option1;
     this.option2 = option2;
