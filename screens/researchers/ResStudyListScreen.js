@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
 import Colors from '../../constants/Colors';
 import LogoutButton from '../../components/LogoutButton';
-import * as DATA from '../../data/dummy-questions';
 import StudyItem from '../../components/StudyItem';
 
 const onEndHandler = () => {
@@ -19,7 +19,8 @@ const onEndHandler = () => {
 };
 
 const ResStudyListScreen = (props) => {
-  const study = DATA.STUDY1;
+  // const studies = DATA.STUDY1;
+  const studies = useSelector((state) => state.studies.studies);
 
   return (
     <View style={styles.screen}>
@@ -33,7 +34,7 @@ const ResStudyListScreen = (props) => {
         }}
       />
       <FlatList
-        data={study}
+        data={studies}
         keyExtractor={(item) => item.studyId}
         renderItem={(itemData) => (
           <StudyItem

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import TitleName from '../../components/TitleName';
@@ -11,91 +11,39 @@ import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
 import * as studyActions from '../../store/actions/study';
 
-// const chars = [
-//   '0',
-//   '1',
-//   '2',
-//   '3',
-//   '4',
-//   '5',
-//   '6',
-//   '7',
-//   '8',
-//   '9',
-//   'A',
-//   'B',
-//   'C',
-//   'D',
-//   'E',
-//   'F',
-//   'G',
-//   'H',
-//   'I',
-//   'J',
-//   'K',
-//   'L',
-//   'M',
-//   'N',
-//   'O',
-//   'P',
-//   'Q',
-//   'R',
-//   'S',
-//   'T',
-//   'U',
-//   'V',
-//   'W',
-//   'X',
-//   'Y',
-//   'Z',
-//   'a',
-//   'b',
-//   'c',
-//   'd',
-//   'e',
-//   'f',
-//   'g',
-//   'h',
-//   'i',
-//   'j',
-//   'k',
-//   'l',
-//   'm',
-//   'n',
-//   'o',
-//   'p',
-//   'q',
-//   'r',
-//   's',
-//   't',
-//   'u',
-//   'v',
-//   'w',
-//   'x',
-//   'y',
-//   'z',
-// ];
-
-// const createRandom = () => {
-//   var randomString = '';
-//   for (let i = 0; i < 6; i++) {
-//     var id = Math.ceil(Math.random() * 61);
-//     randomString += chars[id];
-//   }
-//   return randomString;
-// };
-
 const SetNewStudyScreen = (props) => {
   const [studyName, setStudyName] = useState();
   const consentForms = useSelector((state) => state.consentForm.consentForm);
   // const questions = DATA.QUESTION1;
   const questions = useSelector((state) => state.questions.questions);
+  // const studies = useSelector((state) => state.studies.studies);
   const dispatch = useDispatch();
 
   // console.log(createTime());
+  const content = () => {
+    return `The study "${studyName}" has set up`;
 
-  submitHandler = () => {
+    // please record the information,
+
+    // you will need them to get the
+
+    // result
+
+    // the study number of it is 003
+
+    // the study password is 123
+
+    // the study establish time is
+
+    // 08/08/2020. 10:00
+    // ';
+  };
+
+  const submitHandler = () => {
     dispatch(studyActions.createStudy(studyName, consentForms, questions));
+    // 用Alert不太行，后面用Modal来做
+    Alert.alert('Save successful', content(), ['OK']);
+    // console.log(studies.length);
   };
 
   return (

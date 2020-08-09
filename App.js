@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   questions: questionReducer,
   preStudyQuesitons: preStudyQuestionReducer,
   consentForm: consentFormReducer,
-  study: studyRecuder,
+  studies: studyRecuder,
 });
 
 const store = createStore(rootReducer);

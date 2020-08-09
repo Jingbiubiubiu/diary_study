@@ -1,9 +1,9 @@
 import * as DATA from '../../data/dummy-questions';
 import { CREATE_STUDY } from '../actions/study';
 import Study from '../../models/study';
-import moment from 'moment';
+import createTimestamp from '../../finctions/createTimestamp';
 
-const initailState = {
+const initialState = {
   studies: DATA.STUDY1,
 };
 
@@ -81,25 +81,7 @@ const createRandom = () => {
   return randomString;
 };
 
-const createTimestamp = () => {
-  var date = new Date();
-  var Y = date.getFullYear() + ' ';
-  var M =
-    (date.getMonth() + 1 < 10
-      ? '0' + (date.getMonth() + 1)
-      : date.getMonth() + 1) + '/';
-  var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '/';
-  var h =
-    (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-  var m =
-    (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
-    ':';
-  var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-  var datastamp = D + M + Y + h + m + s;
-  return datastamp;
-};
-
-export default (state = initailState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_STUDY:
       const newStudy = new Study(
@@ -123,5 +105,6 @@ export default (state = initailState, action) => {
         studies: state.studies.concat(newStudy),
       };
   }
+
   return state;
 };

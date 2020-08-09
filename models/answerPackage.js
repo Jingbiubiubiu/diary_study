@@ -1,11 +1,11 @@
 class AnswerPackage {
-  constructor(studyId, answers, submitTime) {
+  constructor(studyId, answers, preStudyQuestions, submitTime) {
     this.studyId = studyId;
+    // preStudyAnswers is a object，made of answerItems
+    this.preStudyQuestions = preStudyQuestions;
     // answers is a object，made of answerItems
     this.answers = answers;
     this.submitTime = submitTime;
-    // userAge need to be stored and passed?？
-    // this.age = age;
   }
 }
 
