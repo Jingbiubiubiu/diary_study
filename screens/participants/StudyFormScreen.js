@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, Text, TextInput } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import * as DATA from '../../data/dummy-questions';
 import TitleName from '../../components/TitleName';
@@ -8,12 +9,12 @@ import CommonButton from '../../components/CommonButton';
 import AnswerIcon from '../../components/AnswerIcon';
 import SingleChoice from '../../components/SingleChoice';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
+import * as answersActions from '../../store/actions/answers';
 
 const StudyFormScreen = (props) => {
   const questions = DATA.QUESTION1;
 
-  // const [dropdown, setDropdown] = useState('');
-  // const [dropdown1, setDropdown1] = useState('');
+  const dispatch = useDispatch();
 
   const [visibility, setVisibility] = useState(
     // create an array which length equals to the data's length,
@@ -39,7 +40,7 @@ const StudyFormScreen = (props) => {
   };
 
   const updateAnswers = (index, value) => {
-    console.log(index, value);
+    // console.log(index, value);
     let updateAnswers = [...answers];
     console.log('Original: ' + updateAnswers.toString());
     updateAnswers[index] = value;
@@ -150,6 +151,11 @@ const StudyFormScreen = (props) => {
     }
   };
 
+  const saveHandler = () => {
+    console.log('hi');
+    dispatch(answersActions.createAnswers(answers));
+  };
+
   return (
     <View style={styles.screen}>
       <TitleName>Jing Wu</TitleName>
@@ -177,7 +183,7 @@ const StudyFormScreen = (props) => {
       <Text>Answers:{answers.toString()}</Text>
       <Text>states:{visibility.toString()}</Text>
       <View style={styles.buttonContainer}>
-        <CommonButton>Submit</CommonButton>
+        <CommonButton onPress={saveHandler}>Submit</CommonButton>
       </View>
     </View>
   );

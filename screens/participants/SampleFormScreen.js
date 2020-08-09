@@ -3,11 +3,11 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Dimensions,
   FlatList,
-  TextInput,
+  Alert,
 } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
@@ -17,12 +17,14 @@ import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
 import SingleChoice from '../../components/SingleChoice';
+import * as preStudyAnswersActions from '../../store/actions/preStudyAnswers';
 
 const screenWidth = Dimensions.get('window').height;
 
 const SampleFormScreen = (props) => {
   const consentForm1 = DATA.CONSENTFORM1[0];
   const [agree, setAgree] = useState(false);
+  const dispatch = useDispatch();
 
   const [visibility, setVisibility] = useState(
     // create an array which length equals to the data's length,
@@ -111,6 +113,12 @@ const SampleFormScreen = (props) => {
     agree ? setAgree(false) : setAgree(true);
   };
 
+  const submitHandler = () => {
+    dispatch(preStudyAnswersActions.createPreStudyAnswers(answers));
+    Alert.alert('Save successful!', '', ['OK']);
+    props.navigation.navigate('StudyForm');
+  };
+
   return (
     <View style={styles.screen}>
       <TitleName style={styles.titleName}>Jing Wu</TitleName>
@@ -159,9 +167,7 @@ const SampleFormScreen = (props) => {
       <Text>states:{visibility.toString()}</Text>
 
       <View style={styles.buttonContainer}>
-        <CommonButton onPress={() => props.navigation.navigate('StudyForm')}>
-          Submit
-        </CommonButton>
+        <CommonButton onPress={submitHandler}>Submit</CommonButton>
       </View>
     </View>
   );

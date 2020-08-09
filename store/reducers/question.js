@@ -1,4 +1,3 @@
-import * as DATA from '../../data/dummy-questions';
 import { CREATE_QUESTION } from '../actions/question';
 import Question from '../../models/question';
 
