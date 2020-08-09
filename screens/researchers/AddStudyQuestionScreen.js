@@ -59,11 +59,11 @@ const AddStudyQuestionScreen = (props) => {
     },
     {
       label: 'Image from Gallery',
-      value: 'gallery',
+      value: 'imageFormGallery',
     },
     {
       label: 'Type answer',
-      value: 'Type answer',
+      value: 'typeAnswer',
     },
     {
       label: 'Take video',

@@ -3,8 +3,8 @@ import { CREATE_CONSENTFORM } from '../actions/consentForm';
 import ConsentForm from '../../models/consentForm';
 
 const initialState = {
-  consentForm: DATA.CONSENTFORM1,
-  // consentForm: {},
+  // consentForm: DATA.CONSENTFORM1,
+  consentForm: [],
 };
 
 export default (state = initialState, action) => {
@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
         action.formData.preQuetions,
         action.formData.agreement
       );
-      console.log('hi');
+      // console.log('hi');
 
       // console.log(newConsentForm);
       // console.log(state.consentForm);

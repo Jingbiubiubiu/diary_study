@@ -39,7 +39,7 @@ const SetConsentFormScreen = (props) => {
     dispatch(
       consentFormActions.createConsentForm(description, preQuestions, agreement)
     );
-    console.log(DATA.CONSENTFORM1.length);
+    // console.log(DATA.CONSENTFORM1.length);
     props.navigation.goBack();
   };
 

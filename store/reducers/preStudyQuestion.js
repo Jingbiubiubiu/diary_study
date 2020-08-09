@@ -3,7 +3,8 @@ import { CREATE_PREQUESTION } from '../actions/preStudyQuestion';
 import PreStudyQuestion from '../../models/preStudyQuestion';
 
 const initialState = {
-  preStudyQuesitons: DATA.PreSTUDYQUESTIONS,
+  // preStudyQuesitons: DATA.PreSTUDYQUESTIONS,
+  preStudyQuesitons: [],
 };
 
 export default (state = initialState, action) => {
@@ -18,8 +19,8 @@ export default (state = initialState, action) => {
         action.questionData.option3,
         action.questionData.option4
       );
-      console.log(newQuestion);
-      console.log(state.preStudyQuesitons);
+      // console.log(newQuestion);
+      // console.log(state.preStudyQuesitons);
       return {
         ...state,
         preStudyQuesitons: state.preStudyQuesitons.concat(newQuestion),

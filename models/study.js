@@ -1,5 +1,6 @@
 class Study {
   constructor(
+    // creatorId,
     studyId,
     studyName,
     studyNumber,
@@ -10,6 +11,7 @@ class Study {
     isOpen,
     endTime
   ) {
+    // this.creatorId = creatorId;
     this.studyId = studyId;
     this.studyName = studyName;
     this.studyNumber = studyNumber;

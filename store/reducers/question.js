@@ -3,7 +3,8 @@ import { CREATE_QUESTION } from '../actions/question';
 import Question from '../../models/question';
 
 const initialState = {
-  questions: DATA.QUESTION1,
+  // questions: DATA.QUESTION1,
+  questions: [],
 };
 
 export default (state = initialState, action) => {
@@ -20,8 +21,8 @@ export default (state = initialState, action) => {
         action.questionData.option5,
         action.questionData.option6
       );
-      console.log(newQuestion);
-      console.log(state.questions);
+      // console.log(newQuestion);
+      // console.log(state.questions);
       return {
         ...state,
         questions: state.questions.concat(newQuestion),
