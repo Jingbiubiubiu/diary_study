@@ -42,38 +42,11 @@ export const PreSTUDYQUESTIONS = [
   ),
 ];
 
-export const CONSENTFORM1 = [
-  new ConsentForm(
-    'Description of the study and of consent etc. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo',
-    PreSTUDYQUESTIONS,
-    'asdfasohfoaisgoasuoawjsfoajoaiugdoufnavduo afoasfianodfuoafaosfiaog'
-  ),
-];
-
-export const STUDY1 = [
-  new Study(
-    's1',
-    'Personal Info',
-    'ABC456',
-    'ABC123',
-    CONSENTFORM1,
-    QUESTION1,
-    null,
-    true,
-    null
-  ),
-  new Study(
-    's2',
-    'Favorite color',
-    '123ABC',
-    '123ABC',
-    CONSENTFORM1,
-    QUESTION1,
-    null,
-    false,
-    null
-  ),
-];
+export const CONSENTFORM1 = new ConsentForm(
+  'Description of the study and of consent etc. Lorem ipsum dolor sitamet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo',
+  PreSTUDYQUESTIONS,
+  'asdfasohfoaisgoasuoawjsfoajoaiugdoufnavduo afoasfianodfuoafaosfiaog'
+);
 
 export const QUESTION1 = [
   new Question(
@@ -151,6 +124,31 @@ export const QUESTION1 = [
     null,
     null,
     null,
+    null
+  ),
+];
+
+export const STUDY1 = [
+  new Study(
+    's1',
+    'Personal Info',
+    '123qwe',
+    '123qwe',
+    CONSENTFORM1,
+    QUESTION1,
+    null,
+    true,
+    null
+  ),
+  new Study(
+    's2',
+    'Favorite color',
+    'qwe123',
+    'qwe123',
+    CONSENTFORM1,
+    QUESTION1,
+    null,
+    true,
     null
   ),
 ];

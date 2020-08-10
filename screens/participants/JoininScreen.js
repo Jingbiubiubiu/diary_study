@@ -1,14 +1,48 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
+import * as DATA from '../../data/dummy-questions';
+import { useSelector, useDispatch } from 'react-redux';
+import study from '../../store/reducers/study';
 
 const JoininScreen = (props) => {
   const [studyNumber, setStudyNumber] = useState();
   const [studyPassword, setStudyPassword] = useState();
+  const [feedback, setFeedback] = useState();
+
+  const studies = useSelector((state) => state.studies.studies);
+  // const studies = DATA.STUDY1;
+  // console.log(studies);
+
+  const joinHandler = (studyNumber, studyPassword) => {
+    let correctNumber = false;
+    let correctPassword = false;
+    let index;
+    for (let i = 0; i < studies.length; i++) {
+      // console.log(studies[i].studyNumber);
+      if (studies[i].studyNumber === studyNumber) {
+        correctNumber = true;
+        if (studies[i].studyPassword === studyPassword) {
+          correctPassword = true;
+          index = i;
+        }
+      }
+    }
+    if (correctNumber && correctPassword) {
+      // setFeedback('correct');
+      props.navigation.navigate('SampleForm', { sId: studies[index].studyId });
+    }
+    if (correctNumber && !correctPassword) {
+      setFeedback('Wrong study password');
+    }
+    if (!correctNumber) {
+      setFeedback('Wrong study number');
+    }
+  };
 
   return (
     <View style={styles.screen}>
@@ -27,9 +61,11 @@ const JoininScreen = (props) => {
           value={studyPassword}
           onChangeText={(newText) => setStudyPassword(newText)}
         />
+        <Text style={styles.hintText}>{feedback}</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <CommonButton onPress={() => props.navigation.navigate('SampleForm')}>
+        <CommonButton onPress={() => joinHandler(studyNumber, studyPassword)}>
+          {/* <CommonButton onPress={() => props.navigation.navigate('SampleForm')}> */}
           Join
         </CommonButton>
       </View>
@@ -59,6 +95,10 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     marginBottom: 20,
+  },
+  hintText: {
+    color: 'red',
+    fontSize: 18,
   },
   buttonContainer: {
     marginTop: 20,

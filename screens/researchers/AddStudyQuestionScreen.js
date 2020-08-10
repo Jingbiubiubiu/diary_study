@@ -77,6 +77,8 @@ const AddStudyQuestionScreen = (props) => {
     setOption2();
     setOption3();
     setOption4();
+    setOption5();
+    setOption6();
     if (value === 'singleChoice') {
       setIsSingleChoice(true);
     }

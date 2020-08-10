@@ -4,7 +4,7 @@ import ConsentForm from '../../models/consentForm';
 
 const initialState = {
   // consentForm: DATA.CONSENTFORM1,
-  consentForm: [],
+  consentForm: null,
 };
 
 export default (state = initialState, action) => {
@@ -12,16 +12,18 @@ export default (state = initialState, action) => {
     case CREATE_CONSENTFORM:
       const newConsentForm = new ConsentForm(
         action.formData.description,
-        action.formData.preQuetions,
+        action.formData.preQuestions,
         action.formData.agreement
       );
+      // return newConsentForm;
+
       // console.log('hi');
 
-      // console.log(newConsentForm);
+      console.log(newConsentForm);
       // console.log(state.consentForm);
       return {
         ...state,
-        consentForm: state.consentForm.concat(newConsentForm),
+        consentForm: newConsentForm,
       };
   }
   return state;

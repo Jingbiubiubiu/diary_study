@@ -1,4 +1,5 @@
 export const CREATE_STUDY = 'CREATE_STUDY';
+export const END_STUDY = 'END_STUDY';
 
 export const createStudy = (
   // studyId,
@@ -19,5 +20,12 @@ export const createStudy = (
       questions,
       // establishTime,
     },
+  };
+};
+
+export const endStudy = (id) => {
+  return {
+    type: END_STUDY,
+    sId: id,
   };
 };

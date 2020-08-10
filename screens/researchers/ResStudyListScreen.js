@@ -1,26 +1,35 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
 import Colors from '../../constants/Colors';
 import LogoutButton from '../../components/LogoutButton';
 import StudyItem from '../../components/StudyItem';
-
-const onEndHandler = () => {
-  Alert.alert(
-    '',
-    'Are you sure you want to end this study? You cannot undo this operation',
-    [
-      { text: 'Yes', onPress: () => console.log('Yes') },
-      { text: 'No', style: 'cancel' },
-    ]
-  );
-};
+import createTimestamp from '../../finctions/createTimestamp';
+import * as studyActions from '../../store/actions/study';
 
 const ResStudyListScreen = (props) => {
   // const studies = DATA.STUDY1;
   const studies = useSelector((state) => state.studies.studies);
+  const dispatch = useDispatch();
+
+  const onEndHandler = (id) => {
+    Alert.alert(
+      '',
+      'Are you sure you want to end this study? You cannot undo this operation',
+      [
+        { text: 'Yes', onPress: () => endHandler(id) },
+        { text: 'No', style: 'cancel' },
+      ]
+    );
+  };
+
+  const endHandler = (id) => {
+    // console.log(id);
+    dispatch(studyActions.endStudy(id));
+    // console.log(studies);
+  };
 
   return (
     <View style={styles.screen}>
@@ -42,7 +51,7 @@ const ResStudyListScreen = (props) => {
             studyName={itemData.item.studyName}
             isOpen={itemData.item.isOpen}
             buttonText='End'
-            onPress={onEndHandler}
+            onPress={() => onEndHandler(itemData.item.studyId)}
           />
         )}
       />

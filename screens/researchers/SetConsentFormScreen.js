@@ -22,7 +22,7 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 const SetConsentFormScreen = (props) => {
-  // const preQuestions = DATA.CONSENTFORM1[0].preQuetions;
+  // const preQuestions = DATA.CONSENTFORM1[0].preQuestions;
 
   const preQuestions = useSelector(
     (state) => state.preStudyQuesitons.preStudyQuesitons

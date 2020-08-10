@@ -22,18 +22,26 @@ import * as preStudyAnswersActions from '../../store/actions/preStudyAnswers';
 const screenWidth = Dimensions.get('window').height;
 
 const SampleFormScreen = (props) => {
-  const consentForm1 = DATA.CONSENTFORM1[0];
+  const studyId = props.navigation.getParam('sId');
+  // const studyId = 's1';
+  // const consentForm1 = DATA.CONSENTFORM1[0];
+  const study = useSelector((state) =>
+    state.studies.studies.find((sd) => sd.studyId === studyId)
+  );
+  const consentForm1 = study.consentForm;
+  console.log(consentForm1);
+
   const [agree, setAgree] = useState(false);
   const dispatch = useDispatch();
 
   const [visibility, setVisibility] = useState(
     // create an array which length equals to the data's length,
     // and every element in the array is false
-    Array(consentForm1.preQuetions.length).fill(false)
+    Array(consentForm1.preQuestions.length).fill(false)
   );
 
   const [answers, setAnswers] = useState(
-    Array(consentForm1.preQuetions.length).fill(null)
+    Array(consentForm1.preQuestions.length).fill(null)
   );
 
   const updateAnswers = (index, value) => {
@@ -133,7 +141,7 @@ const SampleFormScreen = (props) => {
         <Text>{consentForm1.description}</Text>
       </View>
       <FlatList
-        data={consentForm1.preQuetions}
+        data={consentForm1.preQuestions}
         keyExtractor={(item) => item.questionId}
         renderItem={(itemData) => (
           <View>
@@ -162,9 +170,9 @@ const SampleFormScreen = (props) => {
         </Icons.CommonCheckbox>
       </View>
       {/* </ScrollView> */}
-      <Text>Answers:{answers.toString()}</Text>
-      {/* <Text>dropdown:{dropdown}</Text> */}
-      <Text>states:{visibility.toString()}</Text>
+      {/* <Text>Answers:{answers.toString()}</Text> */}
+      <Text>{studyId}</Text>
+      {/* <Text>states:{visibility.toString()}</Text> */}
 
       <View style={styles.buttonContainer}>
         <CommonButton onPress={submitHandler}>Submit</CommonButton>

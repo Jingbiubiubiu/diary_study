@@ -1,7 +1,7 @@
 class ConsentForm {
-  constructor(description, preQuetions, agreement) {
+  constructor(description, preQuestions, agreement) {
     this.description = description;
-    this.preQuetions = preQuetions;
+    this.preQuestions = preQuestions;
     this.agreement = agreement;
   }
 }

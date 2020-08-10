@@ -10,9 +10,11 @@ import AnswerIcon from '../../components/AnswerIcon';
 import SingleChoice from '../../components/SingleChoice';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
 import * as answersActions from '../../store/actions/answers';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const StudyFormScreen = (props) => {
   const questions = DATA.QUESTION1;
+  // const [values, setValues] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -42,10 +44,10 @@ const StudyFormScreen = (props) => {
   const updateAnswers = (index, value) => {
     // console.log(index, value);
     let updateAnswers = [...answers];
-    console.log('Original: ' + updateAnswers.toString());
+    console.log('Original: ', updateAnswers);
     updateAnswers[index] = value;
     setAnswers(updateAnswers);
-    console.log('Update: ' + updateAnswers.toString());
+    console.log('Update: ', updateAnswers);
   };
 
   const createComponent = (answerType, index, itemData) => {
@@ -105,6 +107,7 @@ const StudyFormScreen = (props) => {
         );
         break;
       case 'multipleChoice':
+        // let values = [];
         return (
           visibility[index] && (
             <View>
@@ -136,13 +139,23 @@ const StudyFormScreen = (props) => {
                   },
                 ]}
                 defaultValue={answers[itemData.index]}
+                // defaultValue={values}
                 placeholder='Select the answer'
+                multiple={true}
+                multipleText='%d items have been selected.'
+                min={0}
+                max={10}
                 itemStyle={{
                   justifyContent: 'flex-start',
                 }}
-                onChangeItem={(item) =>
-                  updateAnswers(itemData.index, item.value)
-                }
+                // onChangeItem={(item) =>
+                //   updateAnswers(itemData.index, item.value)
+                // }
+                onChangeItem={(item) => {
+                  // setValues(item);
+                  updateAnswers(itemData.index, item);
+                  console.log(item);
+                }}
               />
             </View>
           )
@@ -180,8 +193,25 @@ const StudyFormScreen = (props) => {
           </View>
         )}
       />
+      {/* <DropDownPicker
+        items={[
+          { label: 'UK', value: 'uk' },
+          { label: 'France', value: 'france' },
+        ]}
+        multiple={true}
+        multipleText='%d items have been selected.'
+        min={0}
+        max={10}
+        defaultValue={values}
+        containerStyle={{ height: 40, width: 300 }}
+        itemStyle={{
+          justifyContent: 'flex-start',
+        }}
+        onChangeItem={(item) => setValues(item)}
+      /> */}
       <Text>Answers:{answers.toString()}</Text>
       <Text>states:{visibility.toString()}</Text>
+      <Text>{values.toString()}</Text>
       <View style={styles.buttonContainer}>
         <CommonButton onPress={saveHandler}>Submit</CommonButton>
       </View>

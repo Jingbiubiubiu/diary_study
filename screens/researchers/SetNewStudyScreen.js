@@ -10,6 +10,7 @@ import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
 import * as studyActions from '../../store/actions/study';
+import { cos } from 'react-native-reanimated';
 
 const SetNewStudyScreen = (props) => {
   const [studyName, setStudyName] = useState();
@@ -41,6 +42,7 @@ const SetNewStudyScreen = (props) => {
 
   const submitHandler = () => {
     dispatch(studyActions.createStudy(studyName, consentForms, questions));
+    console.log(consentForms);
     // 用Alert不太行，后面用Modal来做
     Alert.alert('Save successful', content(), ['OK']);
     // console.log(studies.length);

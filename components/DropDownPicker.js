@@ -26,6 +26,7 @@ export const DisplayOptionsDropdownPicker = (props) => {
         onChangeItem={props.onChangeItem}
         dropDownStyle={styles.dropDownStyle}
         style={{ backgroundColor: '#ffffff' }}
+        multiple={props.multiple}
       />
 
       <FlatList
