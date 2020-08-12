@@ -9,6 +9,7 @@ import consentFormReducer from './store/reducers/consentForm';
 import studyRecuder from './store/reducers/study';
 import preStudyAnswersReducer from './store/reducers/preStudyAnswers';
 import answersReducer from './store/reducers/answers';
+import answerPackageReducer from './store/reducers/answerPackage';
 
 const rootReducer = combineReducers({
   questions: questionReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   studies: studyRecuder,
   preStudyAnswers: preStudyAnswersReducer,
   answers: answersReducer,
+  answerPackage: answerPackageReducer,
 });
 
 const store = createStore(rootReducer);

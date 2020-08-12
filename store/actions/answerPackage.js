@@ -1,13 +1,13 @@
-export const CREATE_ANSWERPACKAGE = 'CREATE_QUESTION';
+export const CREATE_ANSWERPACKAGE = 'CREATE_ANSWERPACKAGE';
 
-export const createQuestion = (
+export const createAnswerPackage = (
   studyId,
   preStudyAnswers,
   answers
   // submitTime
 ) => {
   return {
-    type: CREATE_QUESTION,
+    type: CREATE_ANSWERPACKAGE,
     answerData: {
       studyId,
       preStudyAnswers,

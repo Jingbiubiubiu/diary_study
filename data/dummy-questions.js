@@ -148,7 +148,7 @@ export const STUDY1 = [
     CONSENTFORM1,
     QUESTION1,
     null,
-    true,
+    false,
     null
   ),
 ];

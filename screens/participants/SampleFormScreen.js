@@ -8,7 +8,9 @@ import {
   Alert,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import CheckBox from '@react-native-community/checkbox';
 
+import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
@@ -24,12 +26,12 @@ const screenWidth = Dimensions.get('window').height;
 const SampleFormScreen = (props) => {
   const studyId = props.navigation.getParam('sId');
   // const studyId = 's1';
-  // const consentForm1 = DATA.CONSENTFORM1[0];
+  // const consentForm = DATA.consentForm[0];
   const study = useSelector((state) =>
     state.studies.studies.find((sd) => sd.studyId === studyId)
   );
-  const consentForm1 = study.consentForm;
-  console.log(consentForm1);
+  const consentForm = study.consentForm;
+  // console.log(consentForm);
 
   const [agree, setAgree] = useState(false);
   const dispatch = useDispatch();
@@ -37,20 +39,20 @@ const SampleFormScreen = (props) => {
   const [visibility, setVisibility] = useState(
     // create an array which length equals to the data's length,
     // and every element in the array is false
-    Array(consentForm1.preQuestions.length).fill(false)
+    Array(consentForm.preQuestions.length).fill(false)
   );
 
   const [answers, setAnswers] = useState(
-    Array(consentForm1.preQuestions.length).fill(null)
+    Array(consentForm.preQuestions.length).fill(null)
   );
 
   const updateAnswers = (index, value) => {
-    console.log(index, value);
+    // console.log(index, value);
     let updateAnswers = [...answers];
-    console.log('Original: ' + updateAnswers.toString());
+    // console.log('Original: ' + updateAnswers.toString());
     updateAnswers[index] = value;
     setAnswers(updateAnswers);
-    console.log('Update: ' + updateAnswers.toString());
+    // console.log('Update: ' + updateAnswers.toString());
   };
 
   const updateVisibility = (index) => {
@@ -117,14 +119,16 @@ const SampleFormScreen = (props) => {
     }
   };
 
-  const agreeHandler = () => {
-    agree ? setAgree(false) : setAgree(true);
-  };
-
   const submitHandler = () => {
-    dispatch(preStudyAnswersActions.createPreStudyAnswers(answers));
-    Alert.alert('Save successful!', '', ['OK']);
-    props.navigation.navigate('StudyForm');
+    if (agree) {
+      dispatch(preStudyAnswersActions.createPreStudyAnswers(answers));
+      Alert.alert('Save successful!', '', ['OK']);
+      props.navigation.navigate('StudyForm', { sId: studyId });
+    } else {
+      Alert.alert('Insufficient Consent', 'Please agreen the consent form', [
+        'OK',
+      ]);
+    }
   };
 
   return (
@@ -138,10 +142,10 @@ const SampleFormScreen = (props) => {
       </View>
       {/* <ScrollView contentContainerStyle={styles.scrollView}> */}
       <View style={styles.description}>
-        <Text>{consentForm1.description}</Text>
+        <Text>{consentForm.description}</Text>
       </View>
       <FlatList
-        data={consentForm1.preQuestions}
+        data={consentForm.preQuestions}
         keyExtractor={(item) => item.questionId}
         renderItem={(itemData) => (
           <View>
@@ -161,17 +165,25 @@ const SampleFormScreen = (props) => {
       />
 
       <View style={styles.agreementContainer}>
-        <Icons.CommonCheckbox
+        {/* <Icons.CommonCheckbox
           value={agree}
           onChangeText={agreeHandler}
           onPress={agreeHandler}
         >
-          {consentForm1.agreement}
-        </Icons.CommonCheckbox>
+          {consentForm.agreement}
+        </Icons.CommonCheckbox> */}
+        <CheckBox
+          value={agree}
+          onValueChange={() => {
+            agree ? setAgree(false) : setAgree(true);
+          }}
+          tintColors={{ true: Colors.primary }}
+        />
+        <Text>{consentForm.agreement} </Text>
       </View>
       {/* </ScrollView> */}
       {/* <Text>Answers:{answers.toString()}</Text> */}
-      <Text>{studyId}</Text>
+      <Text>{agree}</Text>
       {/* <Text>states:{visibility.toString()}</Text> */}
 
       <View style={styles.buttonContainer}>
@@ -223,6 +235,7 @@ const styles = StyleSheet.create({
   },
   agreementContainer: {
     width: '83%',
+    flexDirection: 'row',
 
     alignItems: 'center',
     // borderColor: 'blue',

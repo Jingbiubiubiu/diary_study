@@ -58,7 +58,7 @@ const ResearchersNavigator = createStackNavigator(
 );
 
 const MainNavigator = createSwitchNavigator({
-  // Auth: AuthNavigator,
+  Auth: AuthNavigator,
   Role: RoleNavigator,
   Par: ParticipantsNavigator,
   Res: ResearchersNavigator,

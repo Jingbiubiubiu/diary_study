@@ -105,7 +105,7 @@ export default (state = initialState, action) => {
         studies: state.studies.concat(newStudy),
       };
     case END_STUDY:
-      console.log(action.sId);
+      // console.log(action.sId);
       const studyIndex = state.studies.findIndex(
         (study) => study.studyId === action.sId
       );
@@ -124,7 +124,6 @@ export default (state = initialState, action) => {
       );
       const updatedStudies = [...state.studies];
       updatedStudies[studyIndex] = updatedStudy;
-      console.log(updatedStudy);
 
       return {
         ...state,

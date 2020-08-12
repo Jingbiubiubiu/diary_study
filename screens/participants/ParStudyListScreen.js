@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
 import Colors from '../../constants/Colors';
@@ -8,7 +9,7 @@ import * as DATA from '../../data/dummy-questions';
 import StudyItem from '../../components/StudyItem';
 
 const ParStudyListScreen = (props) => {
-  const study = DATA.STUDY1;
+  const study = useSelector((state) => state.studies.studies);
 
   return (
     <View style={styles.screen}>
@@ -28,7 +29,11 @@ const ParStudyListScreen = (props) => {
             studyName={itemData.item.studyName}
             isOpen={itemData.item.isOpen}
             buttonText='Start'
-            onPress={() => props.navigation.navigate('SampleForm')}
+            onPress={() =>
+              props.navigation.navigate('SampleForm', {
+                sId: itemData.item.studyId,
+              })
+            }
           />
         )}
       />

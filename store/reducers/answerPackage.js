@@ -1,4 +1,4 @@
-import { CREATE_ANSWERPACKAGE } from '../actions/question';
+import { CREATE_ANSWERPACKAGE } from '../actions/answerPackage';
 import AnswerPackage from '../../models/answerPackage';
 import createTimestamp from '../../finctions/createTimestamp';
 
@@ -10,11 +10,13 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_ANSWERPACKAGE:
+      console.log('creating anwerpackage');
       const newAnswerPackage = new AnswerPackage(
         action.answerData.studyId,
         action.answerData.preStudyAnswers,
         action.answerData.answers,
-        createTimestamp()
+        createTimestamp(),
+        'u1'
       );
       console.log(newAnswerPackage);
       return {

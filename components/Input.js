@@ -4,7 +4,9 @@ import { View, Text, StyleSheet, TextInput, Dimensions } from 'react-native';
 const Input = (props) => {
   return (
     <View style={{ ...styles.inputContainer, ...props.style }}>
-      <View style={props.inputLabelContainer}>
+      <View
+        style={{ ...styles.inputLabelContainer, ...props.inputLabelContainer }}
+      >
         <Text style={{ ...styles.label, ...props.inputLabel }}>
           {props.label}
         </Text>
@@ -31,10 +33,18 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // marginBottom: 30,
   },
+  inputLabelContainer: {
+    width: '100%',
+    // borderColor: 'green',
+    // borderWidth: 1,
+  },
   label: {
+    width: '100%',
     marginVertical: 8,
     fontSize: 18,
     fontWeight: 'bold',
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
   input: {
     width: '100%',

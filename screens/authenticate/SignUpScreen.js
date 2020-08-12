@@ -1,40 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
 import CheckBox from '@react-native-community/checkbox';
 import Colors from '../../constants/Colors';
-
-// const DOBIcon = (show, birthday, setBirthday) => {
-//   // const onPressHandler = () => {};
-
-//   return (
-//     <View style={styles.DOBContainer}>
-//       <Text>DOB</Text>
-//       <View style={{ marginRight: 80 }}>
-//         <Feather
-//           name='calendar'
-//           size={30}
-//           onPress={show ? setShow(false) : setShow(true)}
-//         />
-//         {show && (
-//           <DateTimePicker
-//             testID='datePicker'
-//             value={birthday}
-//             mode='date'
-//             onChange={() => {
-//               setBirthday(birthday);
-//             }}
-//           />
-//         )}
-//       </View>
-//     </View>
-//   );
-// };
 
 const TermsIcon = () => {
   const showTerms = () => {
@@ -54,36 +25,30 @@ const TermsIcon = () => {
   );
 };
 
-const SignupHandler = (agree, navigation) => {
-  if (agree) {
-    navigation.navigate('Role');
-  } else {
-    Alert.alert(
-      'Insufficient Agree',
-      'Please tick to agree the terms and conditons',
-      [{ text: 'OK' }]
-    );
-  }
-};
-
 const SignUpScreen = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmedPassword, setConfirmedPassword] = useState();
-  const [firstName, setFirstName] = useState();
-  const [surname, setSurName] = useState();
   const [agree, setAgree] = useState(false);
-  const [birthday, setBirthday] = useState(new Date(1960, 0, 1));
-  const [show, setShow] = useState(false);
+  const [isPasswordDifferent, setIsPasswordDifferent] = useState(false);
 
-  const onDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || birthday;
-    setShow(false);
-    setBirthday(currentDate);
-
-    // console.log(birthday);
+  const SignupHandler = () => {
+    if (password !== confirmedPassword) {
+      isPasswordDifferent
+        ? setIsPasswordDifferent(false)
+        : setIsPasswordDifferent(true);
+      return;
+    }
+    if (agree) {
+      props.navigation.navigate('Role');
+    } else {
+      Alert.alert(
+        'Insufficient Agree',
+        'Please tick to agree the terms and conditons',
+        [{ text: 'OK' }]
+      );
+    }
   };
-
   return (
     <View style={styles.screen}>
       <View style={styles.titleContainer}>
@@ -106,38 +71,10 @@ const SignUpScreen = (props) => {
         label='Confirm Password'
         value={confirmedPassword}
         onChangeText={(newText) => setConfirmedPassword(newText)}
-        inputLabelContainer={{ width: '30%' }}
       />
-      {/* <View style={styles.DOBContainer}>
-        <Text>DOB</Text>
-        <View style={{ marginRight: 80 }}>
-          <Feather
-            name='calendar'
-            size={30}
-            onPress={() => (show ? setShow(false) : setShow(true))}
-          />
-          {show && (
-            <DateTimePicker
-              testID='datePicker'
-              value={birthday}
-              mode='date'
-              onChange={onDateChange}
-            />
-          )}
-        </View>
-      </View>
-      <Input
-        style={styles.inputBox}
-        label='Firstname'
-        value={firstName}
-        onChangeText={(newText) => setFirstName(newText)}
-      />
-      <Input
-        style={styles.inputBox}
-        label='Surname'
-        value={surname}
-        onChangeText={(newText) => setSurName(newText)}
-      /> */}
+      {isPasswordDifferent && (
+        <Text style={styles.hintText}>Passwords are different</Text>
+      )}
 
       <View style={styles.agreeContainer}>
         <CheckBox
@@ -152,7 +89,8 @@ const SignUpScreen = (props) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <CommonButton onPress={() => SignupHandler(agree, props.navigation)}>
+        <CommonButton onPress={() => SignupHandler()}>
+          {/* <CommonButton onPress={SignupHandler}> */}
           Sign Up
         </CommonButton>
       </View>
@@ -176,7 +114,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     marginTop: 25,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     // justifyContent: 'center',
     // borderWidth: 1,
     // borderColor: 'blue',
@@ -189,6 +127,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 15,
+  },
+  hintText: {
+    color: 'red',
+    fontSize: 18,
   },
   buttonContainer: {
     marginTop: 30,
