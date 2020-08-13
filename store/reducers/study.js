@@ -16,13 +16,13 @@ export default (state = initialState, action) => {
         new Date().toString(),
         action.studyData.studyName,
         action.studyData.studyNumber,
-        // action.studyData.studyPassword,
+        action.studyData.studyPassword,
         // createRandom(),
-        createRandom(),
+        // createRandom(),
         action.studyData.consentForm,
         action.studyData.questions,
-        // action.studyData.establishTime,
-        createTimestamp(),
+        action.studyData.establishTime,
+        // createTimestamp(),
         true,
         null
       );
@@ -48,9 +48,9 @@ export default (state = initialState, action) => {
         state.studies[studyIndex].questions,
         state.studies[studyIndex].establishTime,
         false,
-        // action.eTime
+        action.eTime
 
-        createTimestamp()
+        // createTimestamp()
       );
       const updatedStudies = [...state.studies];
       updatedStudies[studyIndex] = updatedStudy;

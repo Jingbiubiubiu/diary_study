@@ -11,7 +11,6 @@ import SingleChoice from '../../components/SingleChoice';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
 import * as answersActions from '../../store/actions/answers';
 import * as answerPackageActions from '../../store/actions/answerPackage';
-import createRandom from '../../finctions/createRandom';
 import createTimestamp from '../../finctions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
 
@@ -29,7 +28,7 @@ const StudyFormScreen = (props) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [endTime, setEndTime] = useState(false);
+  const [submitTime, setSubmitTime] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -189,13 +188,15 @@ const StudyFormScreen = (props) => {
   };
 
   const submitHandler = () => {
-    console.log('hi');
+    const submitTime = createTimestamp();
+    setSubmitTime(submitTime);
 
     dispatch(
       answerPackageActions.createAnswerPackage(
         studyId,
         preStudyAnswers,
-        answers
+        answers,
+        submitTime
       )
     );
     setModalVisible(true);
@@ -235,7 +236,7 @@ const StudyFormScreen = (props) => {
       <ShowInfo.ShowShortInfo
         content='Thank you for your submission.'
         dateContent='Submission date and time:'
-        time={endTime}
+        time={submitTime}
         visible={modalVisible}
         onPress={() => {
           setModalVisible(!modalVisible);

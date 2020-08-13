@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  FlatList,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, StyleSheet, Dimensions, FlatList, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import TitleName from '../../components/TitleName';
@@ -35,12 +29,26 @@ const SetConsentFormScreen = (props) => {
   const dispatch = useDispatch();
 
   const saveHandler = () => {
-    // console.log('hello');
-    dispatch(
-      consentFormActions.createConsentForm(description, preQuestions, agreement)
-    );
-    // console.log(DATA.CONSENTFORM1.length);
-    props.navigation.goBack();
+    console.log(description);
+    if (description === undefined) {
+      Alert.alert('Error', 'There is no description. Please set.');
+    }
+    if (agreement === undefined) {
+      Alert.alert('Error', 'There is no consent agreement. Please set.');
+    }
+
+    if (description !== undefined && agreement !== undefined) {
+      // console.log('hello');
+      dispatch(
+        consentFormActions.createConsentForm(
+          description,
+          preQuestions,
+          agreement
+        )
+      );
+      // console.log(DATA.CONSENTFORM1.length);
+      props.navigation.goBack();
+    }
   };
 
   return (
@@ -52,7 +60,6 @@ const SetConsentFormScreen = (props) => {
     <View style={styles.screen}>
       <TitleName>Jing Wu</TitleName>
       <MainTitle style={styles.mainTitle}>Setup Consent Form</MainTitle>
-      {/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
       <View style={styles.scrollContainer}>
         <SubtitleInput
           numberOfLines={4}
@@ -60,6 +67,14 @@ const SetConsentFormScreen = (props) => {
           onChangeText={(newText) => setDescription(newText)}
         >
           Input the description of the study
+        </SubtitleInput>
+        <SubtitleInput
+          numberOfLines={4}
+          placeholder='Input what you would like to say as consent agreement. For example:By clicking "Submit", I consent to all the above and confirm that they are corrent to the best of my knowledge'
+          value={agreement}
+          onChangeText={(newText) => setAgreement(newText)}
+        >
+          Set up consent agreement
         </SubtitleInput>
         <View style={{ alignItem: 'flex-start' }}>
           <SubTitle>Set up pre-study questions</SubTitle>
@@ -83,21 +98,11 @@ const SetConsentFormScreen = (props) => {
             />
           )}
         />
-
-        <SubtitleInput
-          numberOfLines={4}
-          placeholder='Input what you would like to say as consent agreement. For example:By clicking "Submit", I consent to all the above and confirm that they are corrent to the best of my knowledge'
-          value={agreement}
-          onChangeText={(newText) => setAgreement(newText)}
-        >
-          Set up consent agreement
-        </SubtitleInput>
       </View>
-      {/* </ScrollView> */}
       <View style={styles.buttonContainer}>
         <CommonButton
           buttonContainer={{ width: screenWidth * 0.25 }}
-          onPress={saveHandler}
+          onPress={() => saveHandler()}
         >
           Save
         </CommonButton>

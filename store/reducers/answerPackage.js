@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
         action.answerData.studyId,
         action.answerData.preStudyAnswers,
         action.answerData.answers,
-        createTimestamp(),
+        action.answerData.submitTime,
         'u1'
       );
       console.log(newAnswerPackage);

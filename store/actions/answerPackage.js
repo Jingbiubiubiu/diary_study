@@ -3,8 +3,8 @@ export const CREATE_ANSWERPACKAGE = 'CREATE_ANSWERPACKAGE';
 export const createAnswerPackage = (
   studyId,
   preStudyAnswers,
-  answers
-  // submitTime
+  answers,
+  submitTime
 ) => {
   return {
     type: CREATE_ANSWERPACKAGE,
@@ -12,6 +12,7 @@ export const createAnswerPackage = (
       studyId,
       preStudyAnswers,
       answers,
+      submitTime,
     },
   };
 };

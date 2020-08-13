@@ -122,8 +122,13 @@ const SampleFormScreen = (props) => {
   const submitHandler = () => {
     if (agree) {
       dispatch(preStudyAnswersActions.createPreStudyAnswers(answers));
-      Alert.alert('Save successful!', '', ['OK']);
-      props.navigation.navigate('StudyForm', { sId: studyId });
+      Alert.alert('Save successful!', '', [
+        {
+          text: 'OK',
+          onPress: () =>
+            props.navigation.navigate('StudyForm', { sId: studyId }),
+        },
+      ]);
     } else {
       Alert.alert('Insufficient Consent', 'Please agreen the consent form', [
         'OK',

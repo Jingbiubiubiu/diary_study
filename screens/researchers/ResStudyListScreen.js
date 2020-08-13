@@ -30,10 +30,10 @@ const ResStudyListScreen = (props) => {
   };
 
   const endHandler = (id) => {
-    // setEndTime(createTimestamp());
-    dispatch(studyActions.endStudy(id));
+    const endTime = createTimestamp();
+    setEndTime(endTime);
+    dispatch(studyActions.endStudy(id, endTime));
     setModalVisible(true);
-    // console.log(studies);
   };
 
   return (

@@ -17,45 +17,43 @@ import * as ShowInfo from '../../components/ShowInfo';
 const SetNewStudyScreen = (props) => {
   const [studyName, setStudyName] = useState();
   const consentForms = useSelector((state) => state.consentForm.consentForm);
-  // const questions = DATA.QUESTION1;
   const questions = useSelector((state) => state.questions.questions);
-  // const studies = useSelector((state) => state.studies.studies);
   const [studyNumber, setStudyNumber] = useState();
   const [studyPassword, setStudyPassword] = useState();
   const [establishTime, setEstablishTime] = useState();
   const [modalVisible, setModalVisible] = useState(false);
-  const [test, setTest] = useState();
 
   const dispatch = useDispatch();
 
   const submitHandler = () => {
-    // let ttest = createRandom();
-    // setTest(ttest);
-    // console.log(test);
+    if (consentForms === null) {
+      Alert.alert('Error', 'Consent Form is empty. Please set.');
+    }
+    if (questions.length === 0) {
+      Alert.alert('Error', 'There is no question. Please set.');
+    }
+    if (consentForms !== null && questions.length !== 0) {
+      const studyNumber = createRandom();
+      setStudyNumber(studyNumber);
 
-    setStudyNumber(createRandom());
-    console.log(studyNumber);
-    // setStudyPassword(createRandom());
-    // console.log(studyPassword);
+      const studyPassword = createRandom();
+      setStudyPassword(studyPassword);
 
-    // setEstablishTime(createTimestamp());
-    // console.log(establishTime);
+      const establishTime = createTimestamp();
+      setEstablishTime(establishTime);
 
-    dispatch(
-      studyActions.createStudy(
-        studyName,
-        studyNumber,
-        // studyPassword,
-        consentForms,
-        questions
-        // establishTime
-      )
-    );
-    setModalVisible(true);
-    // showInfo(studyName, studyNumber, studyPassword);
-
-    // props.navigation.navigate('ResStudyList');
-    // console.log(studies.length);
+      dispatch(
+        studyActions.createStudy(
+          studyName,
+          studyNumber,
+          studyPassword,
+          consentForms,
+          questions,
+          establishTime
+        )
+      );
+      setModalVisible(true);
+    }
   };
 
   return (

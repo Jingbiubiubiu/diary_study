@@ -5,28 +5,28 @@ export const createStudy = (
   // studyId,
   studyName,
   studyNumber,
-  // studyPassword,
+  studyPassword,
   consentForm,
-  questions
-  // establishTime
+  questions,
+  establishTime
 ) => {
   return {
     type: CREATE_STUDY,
     studyData: {
       studyName,
       studyNumber,
-      // studyPassword,
+      studyPassword,
       consentForm,
       questions,
-      // establishTime,
+      establishTime,
     },
   };
 };
 
-export const endStudy = (id) => {
+export const endStudy = (id, endTime) => {
   return {
     type: END_STUDY,
     sId: id,
-    // eTime: endTime,
+    eTime: endTime,
   };
 };
