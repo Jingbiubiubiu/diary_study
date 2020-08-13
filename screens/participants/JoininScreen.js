@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
@@ -7,7 +7,6 @@ import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import { useSelector, useDispatch } from 'react-redux';
-import study from '../../store/reducers/study';
 
 const JoininScreen = (props) => {
   const [studyNumber, setStudyNumber] = useState();
@@ -34,7 +33,12 @@ const JoininScreen = (props) => {
     }
     if (correctNumber && correctPassword) {
       // setFeedback('correct');
-      props.navigation.navigate('SampleForm', { sId: studies[index].studyId });
+      Alert.alert('', 'Join successful', [
+        {
+          text: 'OK',
+          onPress: () => props.navigation.navigate('ParStudyList'),
+        },
+      ]);
     }
     if (correctNumber && !correctPassword) {
       setFeedback('Wrong study password');

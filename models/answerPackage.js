@@ -1,5 +1,5 @@
 class AnswerPackage {
-  constructor(studyId, answers, preStudyQuestions, submitTime, participantId) {
+  constructor(studyId, preStudyQuestions, answers, submitTime, participantId) {
     this.studyId = studyId;
     // preStudyAnswers is a object，made of answerItems
     this.preStudyQuestions = preStudyQuestions;

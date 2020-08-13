@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, Text, TextInput } from 'react-native';
+import { View, StyleSheet, FlatList, Text, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as DATA from '../../data/dummy-questions';
@@ -11,6 +11,9 @@ import SingleChoice from '../../components/SingleChoice';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
 import * as answersActions from '../../store/actions/answers';
 import * as answerPackageActions from '../../store/actions/answerPackage';
+import createRandom from '../../finctions/createRandom';
+import createTimestamp from '../../finctions/createTimestamp';
+import * as ShowInfo from '../../components/ShowInfo';
 
 const StudyFormScreen = (props) => {
   const studyId = props.navigation.getParam('sId');
@@ -21,8 +24,12 @@ const StudyFormScreen = (props) => {
     (state) => state.preStudyAnswers.preStudyAnswers
   );
 
-  console.log('preAnswe:', preStudyAnswers);
+  // console.log('preAnswe:', preStudyAnswers);
   const questions = study.questions;
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [endTime, setEndTime] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -170,12 +177,20 @@ const StudyFormScreen = (props) => {
     }
   };
 
+  const onSubmitHandler = () => {
+    Alert.alert(
+      '',
+      'Are you sure you want to submit? You cannot undo this operation',
+      [
+        { text: 'Yes', onPress: () => submitHandler() },
+        { text: 'No', style: 'cancel' },
+      ]
+    );
+  };
+
   const submitHandler = () => {
     console.log('hi');
-    // console.log(studyId);
 
-    // dispatch(answersActions.createAnswers(answers));
-    // const answerArray = useSelector((state) => state.answers.answers);
     dispatch(
       answerPackageActions.createAnswerPackage(
         studyId,
@@ -183,6 +198,7 @@ const StudyFormScreen = (props) => {
         answers
       )
     );
+    setModalVisible(true);
   };
 
   return (
@@ -214,8 +230,18 @@ const StudyFormScreen = (props) => {
       {/* <Text>states:{visibility.toString()}</Text> */}
       {/* <Text>{values.toString()}</Text> */}
       <View style={styles.buttonContainer}>
-        <CommonButton onPress={() => submitHandler()}>Submit</CommonButton>
+        <CommonButton onPress={() => onSubmitHandler()}>Submit</CommonButton>
       </View>
+      <ShowInfo.ShowShortInfo
+        content='Thank you for your submission.'
+        dateContent='Submission date and time:'
+        time={endTime}
+        visible={modalVisible}
+        onPress={() => {
+          setModalVisible(!modalVisible);
+          props.navigation.navigate('ParStudyList');
+        }}
+      />
     </View>
   );
 };

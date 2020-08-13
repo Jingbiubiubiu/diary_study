@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -8,10 +8,14 @@ import LogoutButton from '../../components/LogoutButton';
 import StudyItem from '../../components/StudyItem';
 import createTimestamp from '../../finctions/createTimestamp';
 import * as studyActions from '../../store/actions/study';
+import * as ShowInfo from '../../components/ShowInfo';
 
 const ResStudyListScreen = (props) => {
   // const studies = DATA.STUDY1;
   const studies = useSelector((state) => state.studies.studies);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [endTime, setEndTime] = useState(false);
+
   const dispatch = useDispatch();
 
   const onEndHandler = (id) => {
@@ -26,8 +30,9 @@ const ResStudyListScreen = (props) => {
   };
 
   const endHandler = (id) => {
-    // console.log(id);
+    // setEndTime(createTimestamp());
     dispatch(studyActions.endStudy(id));
+    setModalVisible(true);
     // console.log(studies);
   };
 
@@ -54,6 +59,16 @@ const ResStudyListScreen = (props) => {
             onPress={() => onEndHandler(itemData.item.studyId)}
           />
         )}
+      />
+      <ShowInfo.ShowShortInfo
+        content='This study has been ended.'
+        dateContent='End date and time:'
+        time={endTime}
+        visible={modalVisible}
+        onPress={() => {
+          setModalVisible(!modalVisible);
+          // props.navigation.navigate('ResStudyList');
+        }}
       />
     </View>
   );

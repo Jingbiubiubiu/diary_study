@@ -10,6 +10,9 @@ import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
 import * as studyActions from '../../store/actions/study';
+import createRandom from '../../finctions/createRandom';
+import createTimestamp from '../../finctions/createTimestamp';
+import * as ShowInfo from '../../components/ShowInfo';
 
 const SetNewStudyScreen = (props) => {
   const [studyName, setStudyName] = useState();
@@ -17,16 +20,41 @@ const SetNewStudyScreen = (props) => {
   // const questions = DATA.QUESTION1;
   const questions = useSelector((state) => state.questions.questions);
   // const studies = useSelector((state) => state.studies.studies);
+  const [studyNumber, setStudyNumber] = useState();
+  const [studyPassword, setStudyPassword] = useState();
+  const [establishTime, setEstablishTime] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [test, setTest] = useState();
+
   const dispatch = useDispatch();
 
-  // console.log(createTime());
-
   const submitHandler = () => {
-    dispatch(studyActions.createStudy(studyName, consentForms, questions));
-    // console.log(consentForms);
-    // 用Alert不太行，后面用Modal来做
-    Alert.alert('Save successful', '', ['OK']);
-    props.navigation.navigate('ResStudyList');
+    // let ttest = createRandom();
+    // setTest(ttest);
+    // console.log(test);
+
+    setStudyNumber(createRandom());
+    console.log(studyNumber);
+    // setStudyPassword(createRandom());
+    // console.log(studyPassword);
+
+    // setEstablishTime(createTimestamp());
+    // console.log(establishTime);
+
+    dispatch(
+      studyActions.createStudy(
+        studyName,
+        studyNumber,
+        // studyPassword,
+        consentForms,
+        questions
+        // establishTime
+      )
+    );
+    setModalVisible(true);
+    // showInfo(studyName, studyNumber, studyPassword);
+
+    // props.navigation.navigate('ResStudyList');
     // console.log(studies.length);
   };
 
@@ -43,7 +71,9 @@ const SetNewStudyScreen = (props) => {
       <AddButton
         style={{ marginTop: 20 }}
         navigation={props.navigation}
-        onPress={() => props.navigation.navigate('SetConsentForm')}
+        onPress={() => {
+          props.navigation.navigate('SetConsentForm');
+        }}
       >
         Set Consent Form
       </AddButton>
@@ -69,7 +99,20 @@ const SetNewStudyScreen = (props) => {
         )}
       />
       <View style={styles.submitContainer}>
-        <CommonButton onPress={submitHandler}>Submit</CommonButton>
+        <CommonButton onPress={() => submitHandler()}>
+          {/* <CommonButton onPress={() => setModalVisible(true)}> */}
+          Submit
+        </CommonButton>
+        <ShowInfo.ShowLongInfo
+          studyName={studyName}
+          studyNumber={studyNumber}
+          studyPassword={studyPassword}
+          visible={modalVisible}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+            props.navigation.navigate('ResStudyList');
+          }}
+        />
       </View>
     </View>
   );

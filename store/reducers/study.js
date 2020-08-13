@@ -2,98 +2,26 @@ import * as DATA from '../../data/dummy-questions';
 import { CREATE_STUDY, END_STUDY } from '../actions/study';
 import Study from '../../models/study';
 import createTimestamp from '../../finctions/createTimestamp';
+import createRandom from '../../finctions/createRandom';
 
 const initialState = {
   studies: DATA.STUDY1,
 };
 
-const chars = [
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z',
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z',
-];
-
-const createRandom = () => {
-  var randomString = '';
-  for (let i = 0; i < 6; i++) {
-    var id = Math.ceil(Math.random() * 61);
-    randomString += chars[id];
-  }
-  return randomString;
-};
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_STUDY:
+      // console.log('hello');
       const newStudy = new Study(
         new Date().toString(),
         action.studyData.studyName,
-        // action.studyDdata.studyNumber,
-        // action.studyDdata.studyPassword,
-        createRandom(),
+        action.studyData.studyNumber,
+        // action.studyData.studyPassword,
+        // createRandom(),
         createRandom(),
         action.studyData.consentForm,
         action.studyData.questions,
-        // action.studyDdata.establishTime,
+        // action.studyData.establishTime,
         createTimestamp(),
         true,
         null
@@ -120,6 +48,8 @@ export default (state = initialState, action) => {
         state.studies[studyIndex].questions,
         state.studies[studyIndex].establishTime,
         false,
+        // action.eTime
+
         createTimestamp()
       );
       const updatedStudies = [...state.studies];

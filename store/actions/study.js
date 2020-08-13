@@ -4,7 +4,7 @@ export const END_STUDY = 'END_STUDY';
 export const createStudy = (
   // studyId,
   studyName,
-  // studyNumber,
+  studyNumber,
   // studyPassword,
   consentForm,
   questions
@@ -14,7 +14,7 @@ export const createStudy = (
     type: CREATE_STUDY,
     studyData: {
       studyName,
-      // studyNumber,
+      studyNumber,
       // studyPassword,
       consentForm,
       questions,
@@ -27,5 +27,6 @@ export const endStudy = (id) => {
   return {
     type: END_STUDY,
     sId: id,
+    // eTime: endTime,
   };
 };
