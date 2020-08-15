@@ -4,11 +4,13 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 
 const RoleScreen = (props) => {
+  const email = props.navigation.getParam('id');
+  console.log(props.navigation);
   return (
     <View style={styles.screen}>
       <View style={styles.welcome}>
         <Text style={{ color: Colors.primary }}>
-          Welcome <Text style={styles.highlight}>Jing Wu</Text>
+          Welcome <Text style={styles.highlight}>{props.navigation.getParam('id')}</Text>
         </Text>
       </View>
       <View style={styles.title}>

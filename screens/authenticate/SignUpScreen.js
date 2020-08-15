@@ -40,6 +40,20 @@ const SignUpScreen = (props) => {
       return;
     }
     if (agree) {
+      fetch('http://10.0.2.2:3000/users/signup/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      })
+      .then((response) => {
+        console.log(response.status);
+      })
       props.navigation.navigate('Role');
     } else {
       Alert.alert(
