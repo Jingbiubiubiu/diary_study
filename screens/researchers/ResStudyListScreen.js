@@ -49,14 +49,14 @@ const ResStudyListScreen = (props) => {
       />
       <FlatList
         data={studies}
-        keyExtractor={(item) => item.studyId}
+        keyExtractor={(item) => item.id}
         renderItem={(itemData) => (
           <StudyItem
             studyNumber={itemData.item.studyNumber}
             studyName={itemData.item.studyName}
             isOpen={itemData.item.isOpen}
             buttonText='End'
-            onPress={() => onEndHandler(itemData.item.studyId)}
+            onPress={() => onEndHandler(itemData.item.id)}
           />
         )}
       />

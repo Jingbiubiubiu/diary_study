@@ -1,11 +1,32 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
+import URL from '../constants/URL';
+import * as studyActions from '../store/actions/study';
 
 const RoleScreen = (props) => {
   const userName = useSelector((state) => state.userName.userName);
+
+  const ResearcherButtonHandler = () => {
+    let url = URL.address + 'study?email=' + userName;
+    console.log(url);
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(studyActions.initialize_study(json));
+      props.navigation.navigate('Res');
+    })
+  };
+
+  const dispatch = useDispatch();
   return (
     <View style={styles.screen}>
       <View style={styles.welcome}>
@@ -21,7 +42,7 @@ const RoleScreen = (props) => {
           <Button
             title='Researcher'
             color={Colors.primary}
-            onPress={() => props.navigation.navigate('Res')}
+            onPress={ResearcherButtonHandler}
           />
         </View>
         <View style={styles.buttonContainer}></View>

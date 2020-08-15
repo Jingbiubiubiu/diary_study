@@ -1,15 +1,21 @@
 import * as DATA from '../../data/dummy-questions';
-import { CREATE_STUDY, END_STUDY } from '../actions/study';
+import { INITIALIZE_STUDY, CREATE_STUDY, END_STUDY } from '../actions/study';
 import Study from '../../models/study';
 import createTimestamp from '../../finctions/createTimestamp';
 import createRandom from '../../finctions/createRandom';
 
 const initialState = {
-  studies: DATA.STUDY1,
+  studies: []
+
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case INITIALIZE_STUDY:
+      return {
+        ...state,
+        studies: action.study_list
+      }
     case CREATE_STUDY:
       // console.log('hello');
       const newStudy = new Study(
