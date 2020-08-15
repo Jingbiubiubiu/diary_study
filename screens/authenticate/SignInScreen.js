@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
+import * as userNameActions from '../../store/actions/userName';
 
 const SignInScreen = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  const dispatch = useDispatch();
 
   const SigninHandler = () => {
     fetch('http://10.0.2.2:3000/users/signin/', {
@@ -24,6 +28,7 @@ const SignInScreen = (props) => {
     .then((response) => response.json())
     .then((json) => {
       if (json.success == true) {
+        dispatch(userNameActions.updateUserName(email));
         props.navigation.navigate('Role', { id:  email})
       } else {
         Alert.alert(

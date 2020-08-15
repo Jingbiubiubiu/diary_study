@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
 
 const RoleScreen = (props) => {
-  const email = props.navigation.getParam('id');
-  console.log(props.navigation);
+  const userName = useSelector((state) => state.userName.userName);
   return (
     <View style={styles.screen}>
       <View style={styles.welcome}>
         <Text style={{ color: Colors.primary }}>
-          Welcome <Text style={styles.highlight}>{props.navigation.getParam('id')}</Text>
+          Welcome <Text style={styles.highlight}>{userName}</Text>
         </Text>
       </View>
       <View style={styles.title}>
