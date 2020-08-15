@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
+import * as userNameActions from '../../store/actions/userName';
 
 const SignInScreen = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const dispatch = useDispatch();
   return (
     <View style={styles.screen}>
       <MainTitle style={styles.mainTitle}>Welcome</MainTitle>
@@ -28,7 +31,8 @@ const SignInScreen = (props) => {
         <View style={styles.buttonContainer}>
           <CommonButton
             onPress={() => {
-              props.navigation.navigate('Role');
+              dispatch(userNameActions.updateUserName(email));
+              props.navigation.navigate('Role', { name: email });
             }}
           >
             Sign In

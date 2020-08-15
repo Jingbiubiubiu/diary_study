@@ -10,6 +10,7 @@ import studyRecuder from './store/reducers/study';
 import preStudyAnswersReducer from './store/reducers/preStudyAnswers';
 import answersReducer from './store/reducers/answers';
 import answerPackageReducer from './store/reducers/answerPackage';
+import userNameReducer from './store/reducers/userName';
 
 const rootReducer = combineReducers({
   questions: questionReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   preStudyAnswers: preStudyAnswersReducer,
   answers: answersReducer,
   answerPackage: answerPackageReducer,
+  userName: userNameReducer,
 });
 
 const store = createStore(rootReducer);

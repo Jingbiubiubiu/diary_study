@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
 
 const RoleScreen = (props) => {
+  const name = props.navigation.getParam('name');
+  const userName = useSelector((state) => state.userName.userName);
   return (
     <View style={styles.screen}>
       <View style={styles.welcome}>
@@ -28,6 +31,7 @@ const RoleScreen = (props) => {
           color={Colors.primary}
           onPress={() => props.navigation.navigate('Par')}
         />
+        <Text>name:{userName}</Text>
       </View>
     </View>
   );
