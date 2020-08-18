@@ -9,16 +9,15 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_QUESTION:
+      let questionNumber = state.questions.length + 1;
       const newQuestion = new Question(
-        new Date().toString(),
+        questionNumber,
         action.questionData.content,
         action.questionData.answerType,
         action.questionData.option1,
         action.questionData.option2,
         action.questionData.option3,
-        action.questionData.option4,
-        action.questionData.option5,
-        action.questionData.option6
+        action.questionData.option4
       );
       // console.log(newQuestion);
       // console.log(state.questions);

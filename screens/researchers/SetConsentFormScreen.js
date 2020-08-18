@@ -29,7 +29,6 @@ const SetConsentFormScreen = (props) => {
   const dispatch = useDispatch();
 
   const saveHandler = () => {
-    console.log(description);
     if (description === undefined) {
       Alert.alert('Error', 'There is no description. Please set.');
     }
@@ -89,7 +88,7 @@ const SetConsentFormScreen = (props) => {
         <FlatList
           style={styles.preQuestionsContainer}
           data={preQuestions}
-          keyExtractor={(item) => item.questionId}
+          keyExtractor={(item) => item.questionNumber.toString()}
           renderItem={(itemData) => (
             <AnswerIcon
               index={itemData.index + 1}

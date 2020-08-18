@@ -1,6 +1,6 @@
 import * as DATA from '../../data/dummy-questions';
 import { CREATE_PREQUESTION } from '../actions/preStudyQuestion';
-import PreStudyQuestion from '../../models/preStudyQuestion';
+import Question from '../../models/question';
 
 const initialState = {
   // preStudyQuesitons: DATA.PreSTUDYQUESTIONS,
@@ -10,8 +10,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_PREQUESTION:
-      const newQuestion = new PreStudyQuestion(
-        new Date().toString(),
+      let questionNumber = state.preStudyQuesitons.length + 1;
+      const newQuestion = new Question(
+        questionNumber,
         action.questionData.content,
         action.questionData.answerType,
         action.questionData.option1,

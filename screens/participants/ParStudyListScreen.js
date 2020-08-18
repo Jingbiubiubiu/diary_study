@@ -9,7 +9,7 @@ import * as DATA from '../../data/dummy-questions';
 import StudyItem from '../../components/StudyItem';
 
 const ParStudyListScreen = (props) => {
-  const study = useSelector((state) => state.studies.studies);
+  const study = useSelector((state) => state.studies.participant_studies);
 
   return (
     <View style={styles.screen}>
@@ -22,7 +22,7 @@ const ParStudyListScreen = (props) => {
       />
       <FlatList
         data={study}
-        keyExtractor={(item) => item.studyId}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={(itemData) => (
           <StudyItem
             studyNumber={itemData.item.studyNumber}

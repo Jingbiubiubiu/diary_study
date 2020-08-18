@@ -43,31 +43,31 @@ const AddStudyQuestionScreen = (props) => {
   const dropdownItems = [
     {
       label: 'Single Choice',
-      value: 'singleChoice',
+      value: 'Single',
     },
     {
       label: 'Multiple Choice',
-      value: 'multipleChoice',
+      value: 'Multiple',
     },
     {
       label: 'Audio',
-      value: 'audio',
+      value: 'Audio',
     },
     {
       label: 'Take photo',
-      value: 'camera',
+      value: 'Photo',
     },
     {
       label: 'Image from Gallery',
-      value: 'imageFormGallery',
+      value: 'Gallary',
     },
     {
       label: 'Type answer',
-      value: 'typeAnswer',
+      value: 'Type',
     },
     {
       label: 'Take video',
-      value: 'video',
+      value: 'Video',
     },
   ];
 
@@ -79,16 +79,16 @@ const AddStudyQuestionScreen = (props) => {
     setOption4();
     setOption5();
     setOption6();
-    if (value === 'singleChoice') {
+    if (value === 'Single') {
       setIsSingleChoice(true);
     }
-    if (value !== 'singleChoice') {
+    if (value !== 'Single') {
       setIsSingleChoice(false);
     }
-    if (value === 'multipleChoice') {
+    if (value === 'Multiple') {
       setIsMultipleChoice(true);
     }
-    if (value !== 'multipleChoice') {
+    if (value !== 'Multiple') {
       setIsMultipleChoice(false);
     }
   };

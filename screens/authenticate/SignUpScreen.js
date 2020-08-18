@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
 import CheckBox from '@react-native-community/checkbox';
 import Colors from '../../constants/Colors';
+import URL from '../../constants/URL';
+import * as userNameActions from '../../store/actions/userName';
 
 const TermsIcon = () => {
   const showTerms = () => {
@@ -31,6 +34,7 @@ const SignUpScreen = (props) => {
   const [confirmedPassword, setConfirmedPassword] = useState();
   const [agree, setAgree] = useState(false);
   const [isPasswordDifferent, setIsPasswordDifferent] = useState(false);
+  const dispatch = useDispatch();
 
   const SignupHandler = () => {
     if (password !== confirmedPassword) {
@@ -39,29 +43,32 @@ const SignUpScreen = (props) => {
         : setIsPasswordDifferent(true);
       return;
     }
-    if (agree) {
-      fetch('http://10.0.2.2:3000/users/signup/', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })
+    let url = URL.address + 'users/signup/';
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
       })
-      .then((response) => {
-        console.log(response.status);
-      })
-      props.navigation.navigate('Role');
-    } else {
-      Alert.alert(
-        'Insufficient Agree',
-        'Please tick to agree the terms and conditons',
-        [{ text: 'OK' }]
-      );
-    }
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      if (json.success == true) {
+        dispatch(userNameActions.updateUserName(email));
+        props.navigation.navigate('Role');
+      } else {
+        Alert.alert(
+          'Signup failed',
+          json.detail,
+          [{ text: 'OK' }]
+        );
+      }
+    })
   };
   return (
     <View style={styles.screen}>

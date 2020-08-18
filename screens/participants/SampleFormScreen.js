@@ -28,9 +28,10 @@ const SampleFormScreen = (props) => {
   // const studyId = 's1';
   // const consentForm = DATA.consentForm[0];
   const study = useSelector((state) =>
-    state.studies.studies.find((sd) => sd.studyId === studyId)
+    state.studies.participant_studies.find((sd) => sd.studyId === studyId)
   );
   const consentForm = study.consentForm;
+  console.log(consentForm);
   // console.log(consentForm);
 
   const [agree, setAgree] = useState(false);
@@ -69,8 +70,9 @@ const SampleFormScreen = (props) => {
   };
 
   const createComponent = (answerType, index, itemData) => {
+    console.log(answerType);
     switch (answerType) {
-      case 'typeAnswer':
+      case 'Type':
         return (
           visibility[index] && (
             <InputWithoutLabel
@@ -80,7 +82,7 @@ const SampleFormScreen = (props) => {
           )
         );
         break;
-      case 'singleChoice':
+      case 'Single':
         return (
           visibility[index] && (
             <View>
@@ -151,7 +153,7 @@ const SampleFormScreen = (props) => {
       </View>
       <FlatList
         data={consentForm.preQuestions}
-        keyExtractor={(item) => item.questionId}
+        keyExtractor={(item) => item.questionNumber.toString()}
         renderItem={(itemData) => (
           <View>
             <AnswerIcon

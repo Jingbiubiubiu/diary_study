@@ -1,9 +1,10 @@
 export const CREATE_STUDY = 'CREATE_STUDY';
 export const END_STUDY = 'END_STUDY';
-export const INITIALIZE_STUDY = 'INITIALIZE_STUDY'
+export const INITIALIZE_RESEARCHER_STUDIES = 'INITIALIZE_RESEARCHER_STUDIES'
+export const INITIALIZE_PARTICIPANT_STUDIES = 'INITIALIZE_PARTICIPANT_STUDIES'
 
 export const createStudy = (
-  // studyId,
+  userName,
   studyName,
   studyNumber,
   studyPassword,
@@ -14,6 +15,7 @@ export const createStudy = (
   return {
     type: CREATE_STUDY,
     studyData: {
+      userName,
       studyName,
       studyNumber,
       studyPassword,
@@ -32,9 +34,16 @@ export const endStudy = (id, endTime) => {
   };
 };
 
-export const initialize_study = (studies) => {
+export const initialize_researcher_studies = (studies) => {
   return {
-    type: INITIALIZE_STUDY,
+    type: INITIALIZE_RESEARCHER_STUDIES,
+    study_list: studies
+  };
+};
+
+export const initialize_participant_studies = (studies) => {
+  return {
+    type: INITIALIZE_PARTICIPANT_STUDIES,
     study_list: studies
   };
 };

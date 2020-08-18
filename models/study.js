@@ -1,7 +1,7 @@
 class Study {
   constructor(
     // creatorId,
-    studyId,
+    creatorEmail,
     studyName,
     studyNumber,
     studyPassword,
@@ -12,7 +12,7 @@ class Study {
     endTime
   ) {
     // this.creatorId = creatorId;
-    this.studyId = studyId;
+    this.creatorEmail = creatorEmail;
     this.studyName = studyName;
     this.studyNumber = studyNumber;
     this.studyPassword = studyPassword;

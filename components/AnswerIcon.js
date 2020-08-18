@@ -5,19 +5,19 @@ import * as Icons from '../components/Icons';
 
 const chooseIcon = (props) => {
   switch (props.answerType) {
-    case 'audio':
+    case 'Audio':
       return <Icons.AudioIcon {...props} />;
-    case 'video':
+    case 'Video':
       return <Icons.VideoIcon {...props} />;
-    case 'camera':
+    case 'Photo':
       return <Icons.CameraIcon {...props} />;
-    case 'imageFormGallery':
+    case 'Gallary':
       return <Icons.TextIcon {...props}>Image from Gallery</Icons.TextIcon>;
-    case 'typeAnswer':
+    case 'Type':
       return <Icons.TextIcon {...props}>Type Answer</Icons.TextIcon>;
-    case 'multipleChoice':
+    case 'Multiple':
       return <Icons.TextIcon {...props}>Multiple Choice</Icons.TextIcon>;
-    case 'singleChoice':
+    case 'Single':
       return <Icons.TextIcon {...props}>Single Choice</Icons.TextIcon>;
     default:
       return;

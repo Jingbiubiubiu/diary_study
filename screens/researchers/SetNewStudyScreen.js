@@ -18,6 +18,7 @@ const SetNewStudyScreen = (props) => {
   const [studyName, setStudyName] = useState();
   const consentForms = useSelector((state) => state.consentForm.consentForm);
   const questions = useSelector((state) => state.questions.questions);
+  const userName = useSelector((state) => state.userName.userName);
   const [studyNumber, setStudyNumber] = useState();
   const [studyPassword, setStudyPassword] = useState();
   const [establishTime, setEstablishTime] = useState();
@@ -44,6 +45,7 @@ const SetNewStudyScreen = (props) => {
 
       dispatch(
         studyActions.createStudy(
+          userName,
           studyName,
           studyNumber,
           studyPassword,
@@ -87,7 +89,7 @@ const SetNewStudyScreen = (props) => {
       </AddButton>
       <FlatList
         data={questions}
-        keyExtractor={(item) => item.questionId}
+        keyExtractor={(item) => item.questionNumber.toString()}
         renderItem={(itemData) => (
           <AnswerIcon
             index={itemData.index + 1}
@@ -108,7 +110,7 @@ const SetNewStudyScreen = (props) => {
           visible={modalVisible}
           onPress={() => {
             setModalVisible(!modalVisible);
-            props.navigation.navigate('ResStudyList');
+            props.navigation.navigate('Role');
           }}
         />
       </View>

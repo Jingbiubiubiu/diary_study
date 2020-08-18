@@ -17,11 +17,13 @@ import * as ShowInfo from '../../components/ShowInfo';
 const StudyFormScreen = (props) => {
   const studyId = props.navigation.getParam('sId');
   const study = useSelector((state) =>
-    state.studies.studies.find((sd) => sd.studyId === studyId)
+    state.studies.participant_studies.find((sd) => sd.studyId === studyId)
   );
   const preStudyAnswers = useSelector(
     (state) => state.preStudyAnswers.preStudyAnswers
   );
+
+
 
   // console.log('preAnswe:', preStudyAnswers);
   const questions = study.questions;
@@ -64,15 +66,15 @@ const StudyFormScreen = (props) => {
 
   const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
-      case 'audio':
+      case 'Audio':
         break;
-      case 'video':
+      case 'Video':
         break;
-      case 'camera':
+      case 'Photo':
         break;
-      case 'imageFormGallery':
+      case 'Gallary':
         break;
-      case 'typeAnswer':
+      case 'Type':
         return (
           visibility[index] && (
             <InputWithoutLabel
@@ -82,7 +84,7 @@ const StudyFormScreen = (props) => {
           )
         );
         break;
-      case 'singleChoice':
+      case 'Single':
         return (
           visibility[index] && (
             <View>
@@ -118,7 +120,7 @@ const StudyFormScreen = (props) => {
           )
         );
         break;
-      case 'multipleChoice':
+      case 'Multiple':
         // let values = [];
         return (
           visibility[index] && (
@@ -209,7 +211,7 @@ const StudyFormScreen = (props) => {
       <FlatList
         data={questions}
         // listKey={(item) => item.questionId}
-        keyExtractor={(item) => item.questionId}
+        keyExtractor={(item) => item.questionNumber.toString()}
         renderItem={(itemData) => (
           <View>
             <AnswerIcon

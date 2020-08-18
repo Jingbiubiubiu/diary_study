@@ -12,7 +12,7 @@ import * as ShowInfo from '../../components/ShowInfo';
 
 const ResStudyListScreen = (props) => {
   // const studies = DATA.STUDY1;
-  const studies = useSelector((state) => state.studies.studies);
+  const studies = useSelector((state) => state.studies.researcher_studies);
   const [modalVisible, setModalVisible] = useState(false);
   const [endTime, setEndTime] = useState(false);
 
@@ -49,7 +49,7 @@ const ResStudyListScreen = (props) => {
       />
       <FlatList
         data={studies}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={(itemData) => (
           <StudyItem
             studyNumber={itemData.item.studyNumber}

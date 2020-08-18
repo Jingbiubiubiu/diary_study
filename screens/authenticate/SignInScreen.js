@@ -6,6 +6,7 @@ import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
 import * as userNameActions from '../../store/actions/userName';
+import URL from '../../constants/URL';
 
 const SignInScreen = (props) => {
   const [email, setEmail] = useState();
@@ -14,7 +15,8 @@ const SignInScreen = (props) => {
   const dispatch = useDispatch();
 
   const SigninHandler = () => {
-    fetch('http://10.0.2.2:3000/users/signin/', {
+    let url = URL.address + 'users/signin/';
+    fetch(url, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -29,10 +31,10 @@ const SignInScreen = (props) => {
     .then((json) => {
       if (json.success == true) {
         dispatch(userNameActions.updateUserName(email));
-        props.navigation.navigate('Role', { id:  email})
+        props.navigation.navigate('Role');
       } else {
         Alert.alert(
-          'Login failed',
+          'Signin failed',
           json.detail,
           [{ text: 'OK' }]
         );

@@ -7,45 +7,40 @@ import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import { useSelector, useDispatch } from 'react-redux';
+import URL from '../../constants/URL';
 
 const JoininScreen = (props) => {
   const [studyNumber, setStudyNumber] = useState();
   const [studyPassword, setStudyPassword] = useState();
   const [feedback, setFeedback] = useState();
+  const userName = useSelector((state) => state.userName.userName);
 
-  const studies = useSelector((state) => state.studies.studies);
+  const studies = useSelector((state) => state.studies.participant_studies);
   // const studies = DATA.STUDY1;
   // console.log(studies);
 
   const joinHandler = (studyNumber, studyPassword) => {
-    let correctNumber = false;
-    let correctPassword = false;
-    let index;
-    for (let i = 0; i < studies.length; i++) {
-      // console.log(studies[i].studyNumber);
-      if (studies[i].studyNumber === studyNumber) {
-        correctNumber = true;
-        if (studies[i].studyPassword === studyPassword) {
-          correctPassword = true;
-          index = i;
-        }
+    let url = URL.address + 'study/join/';
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        studyNumber: studyNumber,
+        studyPassword: studyPassword,
+        userName: userName
+      })
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      if (json.success == true) {
+        props.navigation.navigate('Role')
+      } else {
+        setFeedback(json.detail);
       }
-    }
-    if (correctNumber && correctPassword) {
-      // setFeedback('correct');
-      Alert.alert('', 'Join successful', [
-        {
-          text: 'OK',
-          onPress: () => props.navigation.navigate('ParStudyList'),
-        },
-      ]);
-    }
-    if (correctNumber && !correctPassword) {
-      setFeedback('Wrong study password');
-    }
-    if (!correctNumber) {
-      setFeedback('Wrong study number');
-    }
+    })
   };
 
   return (

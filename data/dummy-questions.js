@@ -4,7 +4,7 @@ import ConsentForm from '../models/consentForm';
 import PreStudyQuestion from '../models/preStudyQuestion';
 
 export const PreSTUDYQUESTIONS = [
-  new PreStudyQuestion(
+  new Question(
     '1',
     'How old are you?',
     'typeAnswer',
@@ -13,7 +13,7 @@ export const PreSTUDYQUESTIONS = [
     null,
     null
   ),
-  new PreStudyQuestion(
+  new Question(
     '2',
     'which is your favorite color?',
     'singleChoice',
@@ -22,7 +22,7 @@ export const PreSTUDYQUESTIONS = [
     'green',
     'blue'
   ),
-  new PreStudyQuestion(
+  new Question(
     '3',
     'which is your favorite color?',
     'singleChoice',
@@ -31,7 +31,7 @@ export const PreSTUDYQUESTIONS = [
     'green',
     'blue'
   ),
-  new PreStudyQuestion(
+  new Question(
     '4',
     'which is your favorite color?',
     'singleChoice',

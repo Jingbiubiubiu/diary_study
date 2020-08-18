@@ -10,7 +10,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_ANSWERPACKAGE:
-      console.log('creating anwerpackage');
       const newAnswerPackage = new AnswerPackage(
         action.answerData.studyId,
         action.answerData.preStudyAnswers,
@@ -18,7 +17,6 @@ export default (state = initialState, action) => {
         action.answerData.submitTime,
         'u1'
       );
-      console.log(newAnswerPackage);
       return {
         ...state,
         answerPackage: state.answerPackage.concat(newAnswerPackage),
