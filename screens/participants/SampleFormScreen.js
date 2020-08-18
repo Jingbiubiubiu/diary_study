@@ -24,14 +24,15 @@ import * as preStudyAnswersActions from '../../store/actions/preStudyAnswers';
 const screenWidth = Dimensions.get('window').height;
 
 const SampleFormScreen = (props) => {
-  const studyId = props.navigation.getParam('sId');
+  const studyNumber = props.navigation.getParam('studyNumber');
   // const studyId = 's1';
   // const consentForm = DATA.consentForm[0];
   const study = useSelector((state) =>
-    state.studies.participant_studies.find((sd) => sd.studyId === studyId)
+    state.studies.participant_studies.find((sd) => sd.studyNumber === studyNumber)
   );
+  console.log(studyNumber);
   const consentForm = study.consentForm;
-  console.log(consentForm);
+  
   // console.log(consentForm);
 
   const [agree, setAgree] = useState(false);
@@ -128,7 +129,7 @@ const SampleFormScreen = (props) => {
         {
           text: 'OK',
           onPress: () =>
-            props.navigation.navigate('StudyForm', { sId: studyId }),
+            props.navigation.navigate('StudyForm', { studyNumber: studyNumber }),
         },
       ]);
     } else {

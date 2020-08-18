@@ -25,9 +25,9 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 const StudyFormScreen = (props) => {
-  const studyId = props.navigation.getParam('sId');
+  const studyNumber = props.navigation.getParam('studyNumber');
   const study = useSelector((state) =>
-    state.studies.participant_studies.find((sd) => sd.studyId === studyId)
+    state.studies.participant_studies.find((sd) => sd.studyNumber === studyNumber)
   );
   const preStudyAnswers = useSelector(
     (state) => state.preStudyAnswers.preStudyAnswers
@@ -244,7 +244,7 @@ const StudyFormScreen = (props) => {
 
     dispatch(
       answerPackageActions.createAnswerPackage(
-        studyId,
+        studyNumber,
         preStudyAnswers,
         answers,
         submitTime

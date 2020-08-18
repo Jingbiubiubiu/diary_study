@@ -31,7 +31,7 @@ const ParStudyListScreen = (props) => {
             buttonText='Start'
             onPress={() =>
               props.navigation.navigate('SampleForm', {
-                sId: itemData.item.studyId,
+                studyNumber: itemData.item.studyNumber,
               })
             }
           />
