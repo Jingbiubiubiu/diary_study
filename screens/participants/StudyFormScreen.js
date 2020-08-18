@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, Text, Alert } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  Alert,
+  Image,
+  Dimensions,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as DATA from '../../data/dummy-questions';
@@ -11,8 +19,10 @@ import SingleChoice from '../../components/SingleChoice';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
 import * as answersActions from '../../store/actions/answers';
 import * as answerPackageActions from '../../store/actions/answerPackage';
-import createTimestamp from '../../finctions/createTimestamp';
+import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
 const StudyFormScreen = (props) => {
   const studyId = props.navigation.getParam('sId');
@@ -22,8 +32,6 @@ const StudyFormScreen = (props) => {
   const preStudyAnswers = useSelector(
     (state) => state.preStudyAnswers.preStudyAnswers
   );
-
-
 
   // console.log('preAnswe:', preStudyAnswers);
   const questions = study.questions;
@@ -64,6 +72,41 @@ const StudyFormScreen = (props) => {
     // console.log('Update: ', updateAnswers);
   };
 
+  const verifyPermissions = async () => {
+    const result = await Permissions.askAsync(
+      Permissions.CAMERA,
+      Permissions.CAMERA_ROLL
+    );
+    if (result.status !== 'granted') {
+      Alert.alert(
+        'Insufficient permissions!',
+        'You need to grant camera permission to use this app.',
+        [{ text: 'Okay' }]
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const takeImageHandler = async (index) => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+      return;
+    }
+    const image = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [16, 9],
+      // quality between 0-1, 1 is highest
+      quality: 0.5,
+    });
+
+    // setPickedImage(image.uri);
+    updateAnswers(index, image.uri);
+    console.log(pickedImage);
+
+    // props.onImageTaken(image.uri);
+  };
+
   const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
       case 'Audio':
@@ -71,6 +114,12 @@ const StudyFormScreen = (props) => {
       case 'Video':
         break;
       case 'Photo':
+        return (
+          visibility[index] &&
+          takeImageHandler(itemData.index) && (
+            <Image style={styles.image} source={{ uri: answers[index] }} />
+          )
+        );
         break;
       case 'Gallary':
         break;
@@ -259,6 +308,12 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
+  },
+  image: {
+    // height: '100%',
+    // width: '100%',
+    width: Dimensions.get('window').width * 0.85,
+    height: 200,
   },
 
   buttonContainer: {

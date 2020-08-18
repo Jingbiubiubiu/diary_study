@@ -45,8 +45,8 @@ ParStudyListScreen.navigationOptions = (navData) => {
   return {
     headerTitle: 'Participant Study List',
     headerRight: () => (
-      // <LogoutButton onPress={() => navData.navigation.navigate('Signin')} />
-      <LogoutButton onPress={() => navData.navigation.navigate('Role')} />
+      <LogoutButton onPress={() => navData.navigation.navigate('Signin')} />
+      // <LogoutButton onPress={() => navData.navigation.navigate('Auth')} />
     ),
   };
 };

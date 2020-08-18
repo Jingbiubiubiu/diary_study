@@ -1,13 +1,18 @@
 import * as DATA from '../../data/dummy-questions';
-import { INITIALIZE_RESEARCHER_STUDIES, INITIALIZE_PARTICIPANT_STUDIES,  CREATE_STUDY, END_STUDY } from '../actions/study';
+import {
+  INITIALIZE_RESEARCHER_STUDIES,
+  INITIALIZE_PARTICIPANT_STUDIES,
+  CREATE_STUDY,
+  END_STUDY,
+} from '../actions/study';
 import Study from '../../models/study';
-import createTimestamp from '../../finctions/createTimestamp';
-import createRandom from '../../finctions/createRandom';
+import createTimestamp from '../../functions/createTimestamp';
+import createRandom from '../../functions/createRandom';
 import URL from '../../constants/URL';
 
 const initialState = {
   researcher_studies: [],
-  participant_studies: []
+  participant_studies: [],
 };
 
 export default (state = initialState, action) => {
@@ -15,13 +20,13 @@ export default (state = initialState, action) => {
     case INITIALIZE_RESEARCHER_STUDIES:
       return {
         ...state,
-        researcher_studies: action.study_list
-      }
-    case INITIALIZE_PARTICIPANT_STUDIES: 
+        researcher_studies: action.study_list,
+      };
+    case INITIALIZE_PARTICIPANT_STUDIES:
       return {
         ...state,
-        participant_studies: action.study_list
-      }
+        participant_studies: action.study_list,
+      };
     case CREATE_STUDY:
       // console.log('hello');
       const newStudy = new Study(
@@ -40,21 +45,20 @@ export default (state = initialState, action) => {
       );
       console.log(newStudy);
 
-      let url = URL.address + 'study/createstudy/?email=' + action.studyData.userName;
+      let url =
+        URL.address + 'study/createstudy/?email=' + action.studyData.userName;
       fetch(url, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newStudy)
+        body: JSON.stringify(newStudy),
       })
-      .then((response) => response.json())
-      .then((json) => {
-
-      })
+        .then((response) => response.json())
+        .then((json) => {});
       return {
-        ...state
+        ...state,
       };
     case END_STUDY:
       // console.log(action.sId);

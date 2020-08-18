@@ -1,6 +1,6 @@
 import { CREATE_ANSWERPACKAGE } from '../actions/answerPackage';
 import AnswerPackage from '../../models/answerPackage';
-import createTimestamp from '../../finctions/createTimestamp';
+import createTimestamp from '../../functions/createTimestamp';
 
 const initialState = {
   // questions: DATA.QUESTION1,

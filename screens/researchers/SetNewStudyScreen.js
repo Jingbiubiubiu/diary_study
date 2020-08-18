@@ -10,8 +10,8 @@ import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
 import * as studyActions from '../../store/actions/study';
-import createRandom from '../../finctions/createRandom';
-import createTimestamp from '../../finctions/createTimestamp';
+import createRandom from '../../functions/createRandom';
+import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
 
 const SetNewStudyScreen = (props) => {

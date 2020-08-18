@@ -6,7 +6,7 @@ import StudyList from '../../components/StudyList';
 import Colors from '../../constants/Colors';
 import LogoutButton from '../../components/LogoutButton';
 import StudyItem from '../../components/StudyItem';
-import createTimestamp from '../../finctions/createTimestamp';
+import createTimestamp from '../../functions/createTimestamp';
 import * as studyActions from '../../store/actions/study';
 import * as ShowInfo from '../../components/ShowInfo';
 
@@ -78,8 +78,8 @@ ResStudyListScreen.navigationOptions = (navData) => {
   return {
     headerTitle: 'Researcher Study List',
     headerRight: () => (
-      // <LogoutButton onPress={() => navData.navigation.navigate('Signin')} />
-      <LogoutButton onPress={() => navData.navigation.navigate('Role')} />
+      <LogoutButton onPress={() => navData.navigation.navigate('Signin')} />
+      // <LogoutButton onPress={() => navData.navigation.navigate('Role')} />
     ),
   };
 };
