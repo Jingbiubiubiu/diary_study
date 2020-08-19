@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, TextInput } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import MainTitle from '../../components/MainTitle';
@@ -20,26 +20,22 @@ const SignInScreen = (props) => {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: email,
-        password: password
-      })
+        password: password,
+      }),
     })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json.success == true) {
-        dispatch(userNameActions.updateUserName(email));
-        props.navigation.navigate('Role');
-      } else {
-        Alert.alert(
-          'Signin failed',
-          json.detail,
-          [{ text: 'OK' }]
-        );
-      }
-    })
+      .then((response) => response.json())
+      .then((json) => {
+        if (json.success == true) {
+          dispatch(userNameActions.updateUserName(email));
+          props.navigation.navigate('Role');
+        } else {
+          Alert.alert('Signin failed', json.detail, [{ text: 'OK' }]);
+        }
+      });
   };
 
   return (
@@ -55,15 +51,17 @@ const SignInScreen = (props) => {
         style={styles.inputBox}
         label='Password'
         value={password}
+        // multiline={false}
+        secureTextEntry={true}
         onChangeText={(newText) => setPassword(newText)}
       />
+      {/* <TextInput
+        style={{ borderColor: 'red', borderWidth: 1 }}
+        secureTextEntry={true}
+      /> */}
       <View style={styles.buttonTotalContainer}>
         <View style={styles.buttonContainer}>
-          <CommonButton
-            onPress={SigninHandler}
-          >
-            Sign In
-          </CommonButton>
+          <CommonButton onPress={SigninHandler}>Sign In</CommonButton>
         </View>
         <View style={styles.buttonContainer}>
           <CommonButton
@@ -77,6 +75,12 @@ const SignInScreen = (props) => {
       </View>
     </View>
   );
+};
+
+SignInScreen.navigationOptions = () => {
+  return {
+    headerTitle: 'Sign In',
+  };
 };
 
 const styles = StyleSheet.create({

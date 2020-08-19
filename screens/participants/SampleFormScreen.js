@@ -28,11 +28,15 @@ const SampleFormScreen = (props) => {
   // const studyId = 's1';
   // const consentForm = DATA.consentForm[0];
   const study = useSelector((state) =>
-    state.studies.participant_studies.find((sd) => sd.studyNumber === studyNumber)
+    state.studies.participant_studies.find(
+      (sd) => sd.studyNumber === studyNumber
+    )
   );
-  console.log(studyNumber);
+  const userName = useSelector((state) => state.userName.userName);
+
+  // console.log(studyNumber);
   const consentForm = study.consentForm;
-  
+
   // console.log(consentForm);
 
   const [agree, setAgree] = useState(false);
@@ -129,7 +133,9 @@ const SampleFormScreen = (props) => {
         {
           text: 'OK',
           onPress: () =>
-            props.navigation.navigate('StudyForm', { studyNumber: studyNumber }),
+            props.navigation.navigate('StudyForm', {
+              studyNumber: studyNumber,
+            }),
         },
       ]);
     } else {
@@ -141,7 +147,7 @@ const SampleFormScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <TitleName style={styles.titleName}>Jing Wu</TitleName>
+      <TitleName style={styles.titleName}>{userName}</TitleName>
       <MainTitle style={styles.mainName}>Sample study</MainTitle>
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle} numberOfLines={2}>

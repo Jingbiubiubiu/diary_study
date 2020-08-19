@@ -25,27 +25,27 @@ const JoininScreen = (props) => {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         studyNumber: studyNumber,
         studyPassword: studyPassword,
-        userName: userName
-      })
+        userName: userName,
+      }),
     })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json.success == true) {
-        props.navigation.navigate('Role')
-      } else {
-        setFeedback(json.detail);
-      }
-    })
+      .then((response) => response.json())
+      .then((json) => {
+        if (json.success == true) {
+          props.navigation.navigate('Role');
+        } else {
+          setFeedback(json.detail);
+        }
+      });
   };
 
   return (
     <View style={styles.screen}>
-      <TitleName style={styles.titleName}>Jing Wu</TitleName>
+      <TitleName style={styles.titleName}>{userName}</TitleName>
       <MainTitle style={styles.mainName}>Participent Menu</MainTitle>
       <View style={styles.inputContainer}>
         <Input

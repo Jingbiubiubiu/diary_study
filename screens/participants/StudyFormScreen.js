@@ -26,8 +26,12 @@ import * as Permissions from 'expo-permissions';
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
+  const userName = useSelector((state) => state.userName.userName);
+
   const study = useSelector((state) =>
-    state.studies.participant_studies.find((sd) => sd.studyNumber === studyNumber)
+    state.studies.participant_studies.find(
+      (sd) => sd.studyNumber === studyNumber
+    )
   );
   const preStudyAnswers = useSelector(
     (state) => state.preStudyAnswers.preStudyAnswers
@@ -102,10 +106,45 @@ const StudyFormScreen = (props) => {
 
     // setPickedImage(image.uri);
     updateAnswers(index, image.uri);
-    console.log(pickedImage);
+    console.log(answers[index]);
+    // updateVisibility(index);
 
     // props.onImageTaken(image.uri);
   };
+
+  const getImageHandler = async (index) => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+      return;
+    }
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.5,
+      });
+      if (!result.cancelled) {
+        // setImage(result.uri);
+        updateAnswers(index, result.uri);
+      }
+      // console.log(image);
+
+      // console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
+  // const photoHandler = (index) => {
+  //   if (visibility[index]) {
+  //     takeImageHandler(index);
+  //   }
+  //   if (answers[index] !== null) {
+  //     updateVisibility(index);
+  //     <Image style={styles.image} source={{ uri: answers[index] }} />;
+  //   }
+  // };
 
   const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
@@ -115,13 +154,55 @@ const StudyFormScreen = (props) => {
         break;
       case 'Photo':
         return (
-          visibility[index] &&
-          takeImageHandler(itemData.index) && (
-            <Image style={styles.image} source={{ uri: answers[index] }} />
+          visibility[index] && (
+            <View style={styles.imagePicker}>
+              <View style={styles.imageButtonContainer}>
+                <CommonButton
+                  text={styles.imageButtonText}
+                  onPress={() => takeImageHandler(index)}
+                >
+                  Take Image
+                </CommonButton>
+              </View>
+              <View style={styles.imagePreview}>
+                {answers[index] === null ? (
+                  <Text>No image taken yet.</Text>
+                ) : (
+                  <Image
+                    style={styles.image}
+                    source={{ uri: answers[index] }}
+                  />
+                )}
+              </View>
+            </View>
           )
         );
         break;
       case 'Gallary':
+        return (
+          visibility[index] && (
+            <View style={styles.imagePicker}>
+              <View style={styles.imageButtonContainer}>
+                <CommonButton
+                  text={styles.imageButtonText}
+                  onPress={() => getImageHandler(index)}
+                >
+                  Select Image
+                </CommonButton>
+              </View>
+              <View style={styles.imagePreview}>
+                {answers[index] === null ? (
+                  <Text>No image picked yet.</Text>
+                ) : (
+                  <Image
+                    style={styles.image}
+                    source={{ uri: answers[index] }}
+                  />
+                )}
+              </View>
+            </View>
+          )
+        );
         break;
       case 'Type':
         return (
@@ -215,9 +296,7 @@ const StudyFormScreen = (props) => {
                 //   updateAnswers(itemData.index, item.value)
                 // }
                 onChangeItem={(item) => {
-                  // setValues(item);
                   updateAnswers(itemData.index, item);
-                  // console.log(item);
                 }}
               />
             </View>
@@ -255,7 +334,7 @@ const StudyFormScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <TitleName>Jing Wu</TitleName>
+      <TitleName>{userName}</TitleName>
       <MainTitle>{study.studyName}</MainTitle>
       <FlatList
         data={questions}
@@ -278,7 +357,7 @@ const StudyFormScreen = (props) => {
         )}
       />
 
-      <Text>Answers:{answers.toString()}</Text>
+      {/* <Text>Answers:{answers.toString()}</Text> */}
       {/* <Text>states:{visibility.toString()}</Text> */}
       {/* <Text>{values.toString()}</Text> */}
       <View style={styles.buttonContainer}>
@@ -309,11 +388,35 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  image: {
-    // height: '100%',
-    // width: '100%',
-    width: Dimensions.get('window').width * 0.85,
+  // image: {
+  //   // height: '100%',
+  //   // width: '100%',
+  //   width: Dimensions.get('window').width * 0.85,
+  //   height: 200,
+  // },
+  imagePicker: {
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+  imagePreview: {
+    width: '100%',
     height: 200,
+    marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  image: {
+    height: '100%',
+    width: '100%',
+  },
+  imageButtonContainer: {
+    marginBottom: 8,
+  },
+  imageButtonText: {
+    fontSize: 12,
   },
 
   buttonContainer: {

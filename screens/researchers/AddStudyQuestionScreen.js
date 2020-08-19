@@ -23,6 +23,8 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 const AddStudyQuestionScreen = (props) => {
+  const userName = useSelector((state) => state.userName.userName);
+
   const [questionContent, setQuetionContent] = useState();
 
   const studyName = props.navigation.getParam('sdName');
@@ -111,7 +113,7 @@ const AddStudyQuestionScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <TitleName>Jing Wu</TitleName>
+      <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Study name : {studyName}</MainTitle>
       <ScrollView
         contentContainerStyle={{
@@ -206,7 +208,7 @@ const AddStudyQuestionScreen = (props) => {
 
 AddStudyQuestionScreen.navigationOptions = (navData) => {
   return {
-    headerTitle: 'Add Study question',
+    headerTitle: 'Add Study Question',
     // headerRight: () => <SaveButton onPress={() => {}} />,
   };
 };

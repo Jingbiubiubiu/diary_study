@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Dimensions,
+} from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import MainTitle from '../../components/MainTitle';
@@ -48,27 +55,23 @@ const SignUpScreen = (props) => {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: email,
-        password: password
-      })
+        password: password,
+      }),
     })
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      if (json.success == true) {
-        dispatch(userNameActions.updateUserName(email));
-        props.navigation.navigate('Role');
-      } else {
-        Alert.alert(
-          'Signup failed',
-          json.detail,
-          [{ text: 'OK' }]
-        );
-      }
-    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        if (json.success == true) {
+          dispatch(userNameActions.updateUserName(email));
+          props.navigation.navigate('Role');
+        } else {
+          Alert.alert('Signup failed', json.detail, [{ text: 'OK' }]);
+        }
+      });
   };
   return (
     <View style={styles.screen}>
@@ -85,17 +88,27 @@ const SignUpScreen = (props) => {
         style={styles.inputBox}
         label='Password'
         value={password}
+        secureTextEntry={true}
         onChangeText={(newText) => setPassword(newText)}
       />
       <Input
         style={styles.inputBox}
         label='Confirm Password'
         value={confirmedPassword}
+        secureTextEntry={true}
         onChangeText={(newText) => setConfirmedPassword(newText)}
       />
-      {isPasswordDifferent && (
-        <Text style={styles.hintText}>Passwords are different</Text>
-      )}
+
+      <View
+        style={{
+          width: Dimensions.get('window').width * 0.8,
+          marginTop: 3,
+        }}
+      >
+        {isPasswordDifferent && (
+          <Text style={styles.hintText}>Passwords are different</Text>
+        )}
+      </View>
 
       <View style={styles.agreeContainer}>
         <CheckBox
@@ -125,6 +138,12 @@ const SignUpScreen = (props) => {
   );
 };
 
+SignUpScreen.navigationOptions = () => {
+  return {
+    headerTitle: 'Sign Up',
+  };
+};
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -152,6 +171,7 @@ const styles = StyleSheet.create({
   hintText: {
     color: 'red',
     fontSize: 18,
+    alignContent: 'flex-start',
   },
   buttonContainer: {
     marginTop: 30,

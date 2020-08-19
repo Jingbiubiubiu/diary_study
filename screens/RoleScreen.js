@@ -8,6 +8,9 @@ import * as studyActions from '../store/actions/study';
 
 const RoleScreen = (props) => {
   const userName = useSelector((state) => state.userName.userName);
+  // const unArray = uN.split('@');
+  // const userName = unArray[0];
+  // console.log(userName);
 
   const ResearcherButtonHandler = () => {
     let url = URL.address + 'study/researcher/?email=' + userName;
@@ -15,14 +18,14 @@ const RoleScreen = (props) => {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch(studyActions.initialize_researcher_studies(json));
-      props.navigation.navigate('Res');
-    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(studyActions.initialize_researcher_studies(json));
+        props.navigation.navigate('Res');
+      });
   };
 
   const ParticipantButtonHandler = () => {
@@ -31,17 +34,15 @@ const RoleScreen = (props) => {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch(studyActions.initialize_participant_studies(json));
-      props.navigation.navigate('Par');
-    })
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(studyActions.initialize_participant_studies(json));
+        props.navigation.navigate('Par');
+      });
   };
-
-
 
   const dispatch = useDispatch();
   return (

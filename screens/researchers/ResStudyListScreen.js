@@ -12,6 +12,7 @@ import * as ShowInfo from '../../components/ShowInfo';
 
 const ResStudyListScreen = (props) => {
   // const studies = DATA.STUDY1;
+  const userName = useSelector((state) => state.userName.userName);
   const studies = useSelector((state) => state.studies.researcher_studies);
   const [modalVisible, setModalVisible] = useState(false);
   const [endTime, setEndTime] = useState(false);
@@ -39,7 +40,7 @@ const ResStudyListScreen = (props) => {
   return (
     <View style={styles.screen}>
       <StudyList
-        userName='Jing Wu'
+        userName={userName}
         mainTitle='Researcher Study List'
         setupContent='Set up a study'
         navigation={props.navigation}

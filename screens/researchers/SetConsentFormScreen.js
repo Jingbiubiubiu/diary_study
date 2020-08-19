@@ -17,6 +17,7 @@ const screenHeight = Dimensions.get('window').height;
 
 const SetConsentFormScreen = (props) => {
   // const preQuestions = DATA.CONSENTFORM1[0].preQuestions;
+  const userName = useSelector((state) => state.userName.userName);
 
   const preQuestions = useSelector(
     (state) => state.preStudyQuesitons.preStudyQuesitons
@@ -57,7 +58,7 @@ const SetConsentFormScreen = (props) => {
     //   keyboardVerticalOffset={80}
     // >
     <View style={styles.screen}>
-      <TitleName>Jing Wu</TitleName>
+      <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Setup Consent Form</MainTitle>
       <View style={styles.scrollContainer}>
         <SubtitleInput
@@ -109,6 +110,13 @@ const SetConsentFormScreen = (props) => {
     </View>
     /* </KeyboardAvoidingView> */
   );
+};
+
+SetConsentFormScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: 'Set Consent Form',
+    // headerRight: () => <SaveButton onPress={() => {}} />,
+  };
 };
 
 const styles = StyleSheet.create({

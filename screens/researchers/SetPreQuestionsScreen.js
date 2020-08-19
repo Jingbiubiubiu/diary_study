@@ -16,6 +16,7 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 const SetPreQuestionsScreen = (props) => {
+  const userName = useSelector((state) => state.userName.userName);
   const [questionContent, setQuetionContent] = useState();
   const [answerType, setAnswerType] = useState();
   const [option1, setOption1] = useState(null);
@@ -64,7 +65,7 @@ const SetPreQuestionsScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <TitleName>Jing Wu</TitleName>
+      <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Setup Pre-study Questions</MainTitle>
 
       <ScrollView contentContainerStyle={{ height: screenHeight * 0.85 }}>
@@ -124,6 +125,12 @@ const SetPreQuestionsScreen = (props) => {
       </View>
     </View>
   );
+};
+
+SetPreQuestionsScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: 'Set Pre-Study Question',
+  };
 };
 
 const styles = StyleSheet.create({

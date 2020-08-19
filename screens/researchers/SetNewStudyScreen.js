@@ -16,9 +16,9 @@ import * as ShowInfo from '../../components/ShowInfo';
 
 const SetNewStudyScreen = (props) => {
   const [studyName, setStudyName] = useState();
+  const userName = useSelector((state) => state.userName.userName);
   const consentForms = useSelector((state) => state.consentForm.consentForm);
   const questions = useSelector((state) => state.questions.questions);
-  const userName = useSelector((state) => state.userName.userName);
   const [studyNumber, setStudyNumber] = useState();
   const [studyPassword, setStudyPassword] = useState();
   const [establishTime, setEstablishTime] = useState();
@@ -60,7 +60,7 @@ const SetNewStudyScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <TitleName>Jing Wu</TitleName>
+      <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Setup New Study</MainTitle>
       <Input
         label='Study name'

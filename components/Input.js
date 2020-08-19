@@ -13,10 +13,11 @@ const Input = (props) => {
       </View>
       <TextInput
         {...props}
-        multiline={true}
+        multiline={false}
         numberOfLines={props.numberOfLines}
         style={{ ...styles.input, ...props.inputBox }}
         value={props.value}
+        secureTextEntry={props.secureTextEntry}
         onChangeText={props.onChangeText}
       />
     </View>

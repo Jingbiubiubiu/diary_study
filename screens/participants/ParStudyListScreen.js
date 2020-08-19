@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
 import Colors from '../../constants/Colors';
@@ -10,11 +10,12 @@ import StudyItem from '../../components/StudyItem';
 
 const ParStudyListScreen = (props) => {
   const study = useSelector((state) => state.studies.participant_studies);
+  const userName = useSelector((state) => state.userName.userName);
 
   return (
     <View style={styles.screen}>
       <StudyList
-        userName='Jing Wu'
+        userName={userName}
         mainTitle='Participant Study List'
         setupContent='Join a study'
         navigation={props.navigation}
