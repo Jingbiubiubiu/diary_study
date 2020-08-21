@@ -30,21 +30,21 @@ const SetPreQuestionsScreen = (props) => {
 
   const dropdownItems = [
     {
-      label: 'Type answer',
-      value: 'typeAnswer',
+      label: 'Type Answer',
+      value: 'Type',
     },
     {
       label: 'Single Choice',
-      value: 'singleChoice',
+      value: 'Single',
     },
   ];
 
   const dropdownHandler = (value) => {
     setAnswerType(value);
-    if (value === 'singleChoice') {
+    if (value === 'Single') {
       setIsSingleChoice(true);
     }
-    if (value !== 'singleChoice') {
+    if (value !== 'Single') {
       setIsSingleChoice(false);
     }
   };

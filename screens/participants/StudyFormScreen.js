@@ -103,10 +103,11 @@ const StudyFormScreen = (props) => {
       aspect: [16, 9],
       // quality between 0-1, 1 is highest
       quality: 0.5,
+      base64: true,
     });
 
     // setPickedImage(image.uri);
-    updateAnswers(index, image.uri);
+    updateAnswers(index, {uri: image.uri, base64: image.base64});
     // console.log(answers[index]);
     // updateVisibility(index);
 
@@ -119,15 +120,16 @@ const StudyFormScreen = (props) => {
       return;
     }
     try {
-      let result = await ImagePicker.launchImageLibraryAsync({
+      let image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
         aspect: [16, 9],
         quality: 0.5,
+        base64: true
       });
-      if (!result.cancelled) {
+      if (!image.cancelled) {
         // setImage(result.uri);
-        updateAnswers(index, result.uri);
+        updateAnswers(index, {uri: image.uri, base64: image.base64});
       }
       // console.log(image);
 
@@ -171,7 +173,7 @@ const StudyFormScreen = (props) => {
                 ) : (
                   <Image
                     style={styles.image}
-                    source={{ uri: answers[index] }}
+                    source={{ uri: answers[index].uri }}
                   />
                 )}
               </View>
@@ -197,7 +199,7 @@ const StudyFormScreen = (props) => {
                 ) : (
                   <Image
                     style={styles.image}
-                    source={{ uri: answers[index] }}
+                    source={{ uri: answers[index].uri }}
                   />
                 )}
               </View>
@@ -329,10 +331,8 @@ const StudyFormScreen = (props) => {
       })
     }
 
-    // let body = new FormData();
-    // body.append("studyNumber", studyNumber);
-    // body.append("preAnswers", preStudyAnswers);
-    // body.append("participantEmail", userName);
+    // console.log(answerwithtype);
+
 
     let url = URL.address + 'study/submitanswer/';
     fetch(url, {
