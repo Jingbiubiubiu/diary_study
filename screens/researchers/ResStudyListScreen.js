@@ -50,7 +50,7 @@ const ResStudyListScreen = (props) => {
       />
       <FlatList
         data={studies}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.studyNumber}
         renderItem={(itemData) => (
           <StudyItem
             studyNumber={itemData.item.studyNumber}

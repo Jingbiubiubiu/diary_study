@@ -23,6 +23,7 @@ import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import URL from '../../constants/URL';
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -106,7 +107,7 @@ const StudyFormScreen = (props) => {
 
     // setPickedImage(image.uri);
     updateAnswers(index, image.uri);
-    console.log(answers[index]);
+    // console.log(answers[index]);
     // updateVisibility(index);
 
     // props.onImageTaken(image.uri);
@@ -320,16 +321,39 @@ const StudyFormScreen = (props) => {
   const submitHandler = () => {
     const submitTime = createTimestamp();
     setSubmitTime(submitTime);
+    let answerwithtype = [];
+    for (i = 0; i < answers.length; i++) {
+      answerwithtype.push({
+        questionType: questions[i].answerType,
+        result: answers[i]
+      })
+    }
 
-    dispatch(
-      answerPackageActions.createAnswerPackage(
-        studyNumber,
-        preStudyAnswers,
-        answers,
-        submitTime
-      )
-    );
-    setModalVisible(true);
+    // let body = new FormData();
+    // body.append("studyNumber", studyNumber);
+    // body.append("preAnswers", preStudyAnswers);
+    // body.append("participantEmail", userName);
+
+    let url = URL.address + 'study/submitanswer/';
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        studyNumber: studyNumber,
+        preAnswers: preStudyAnswers,
+        answers: answerwithtype,
+        participantEmail: userName,
+      }),
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      if (json.success == true) {
+        setModalVisible(true);
+      }
+    });   
   };
 
   return (
@@ -370,7 +394,7 @@ const StudyFormScreen = (props) => {
         visible={modalVisible}
         onPress={() => {
           setModalVisible(!modalVisible);
-          props.navigation.navigate('ParStudyList');
+          props.navigation.navigate('Role');
         }}
       />
     </View>

@@ -75,7 +75,6 @@ const SampleFormScreen = (props) => {
   };
 
   const createComponent = (answerType, index, itemData) => {
-    console.log(answerType);
     switch (answerType) {
       case 'Type':
         return (
@@ -128,7 +127,14 @@ const SampleFormScreen = (props) => {
 
   const submitHandler = () => {
     if (agree) {
-      dispatch(preStudyAnswersActions.createPreStudyAnswers(answers));
+      let answerwithtype = [];
+      for (i = 0; i < answers.length; i++) {
+        answerwithtype.push({
+          questionType: consentForm.preQuestions[i].answerType,
+          result: answers[i]
+        })
+      }
+      dispatch(preStudyAnswersActions.createPreStudyAnswers(answerwithtype));
       Alert.alert('Save successful!', '', [
         {
           text: 'OK',

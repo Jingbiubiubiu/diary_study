@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
       // console.log(state.questions);
       return {
         ...state,
-        preStudyAnswers: state.preStudyAnswers.concat(newAnswers),
+        preStudyAnswers: newAnswers,
       };
   }
   return state;

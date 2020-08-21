@@ -23,12 +23,12 @@ const ParStudyListScreen = (props) => {
       />
       <FlatList
         data={study}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.studyNumber}
         renderItem={(itemData) => (
           <StudyItem
             studyNumber={itemData.item.studyNumber}
             studyName={itemData.item.studyName}
-            isOpen={itemData.item.isOpen}
+            isOpen={!(itemData.item.submitted)}
             buttonText='Start'
             onPress={() =>
               props.navigation.navigate('SampleForm', {

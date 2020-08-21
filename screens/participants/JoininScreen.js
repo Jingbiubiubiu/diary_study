@@ -35,6 +35,7 @@ const JoininScreen = (props) => {
     })
       .then((response) => response.json())
       .then((json) => {
+        console.log(json);
         if (json.success == true) {
           props.navigation.navigate('Role');
         } else {

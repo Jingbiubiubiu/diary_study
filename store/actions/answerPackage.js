@@ -1,18 +1,18 @@
 export const CREATE_ANSWERPACKAGE = 'CREATE_ANSWERPACKAGE';
 
 export const createAnswerPackage = (
-  studyId,
+  studyNumber,
   preStudyAnswers,
   answers,
-  submitTime
+  userName
 ) => {
   return {
     type: CREATE_ANSWERPACKAGE,
     answerData: {
-      studyId,
+      studyNumber,
       preStudyAnswers,
       answers,
-      submitTime,
+      userName,
     },
   };
 };
