@@ -7,6 +7,7 @@ import {
   Alert,
   Image,
   Dimensions,
+  TouchableOpacity
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -25,6 +26,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import URL from '../../constants/URL';
 import * as FileSystem from 'expo-file-system';
+import { Audio } from 'expo-av';
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -77,6 +79,60 @@ const StudyFormScreen = (props) => {
     setAnswers(updateAnswers);
     // console.log('Update: ', updateAnswers);
   };
+
+  const recordingOptions = {
+    // android not currently in use, but parameters are required
+    android: {
+        extension: '.m4a',
+        outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
+        audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+        sampleRate: 44100,
+        numberOfChannels: 2,
+        bitRate: 128000,
+    },
+    ios: {
+        extension: '.wav',
+        audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH,
+        sampleRate: 44100,
+        numberOfChannels: 1,
+        bitRate: 128000,
+        linearPCMBitDepth: 16,
+        linearPCMIsBigEndian: false,
+        linearPCMIsFloat: false,
+    },
+};
+
+  const startRecording = async (index) => {
+    const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    if (status !== 'granted') return;
+  
+    // some of these are not applicable, but are required
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: true,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      playThroughEarpieceAndroid: true,
+  
+    });
+    const recording = new Audio.Recording();
+    try {
+      await recording.prepareToRecordAsync(recordingOptions);
+      await recording.startAsync();
+    } catch (error) {
+      console.log(error);
+      await recording.stopAndUnloadAsync();
+    }
+    updateAnswers(index, recording);
+  }
+
+  const stopRecording = async (index) => {
+    await answers[index].stopAndUnloadAsync();
+    const base64 = await FileSystem.readAsStringAsync(answers[index].getURI(),
+      { encoding: FileSystem.EncodingType.Base64 });
+    updateAnswers(index, {uri: answers[index].getURI(), base64: base64})
+  }
 
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(
@@ -173,6 +229,18 @@ const StudyFormScreen = (props) => {
   const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
       case 'Audio':
+        return (
+          visibility[index] && (
+            <View style={styles.imagePicker}>
+              <TouchableOpacity 
+                onPressIn={() => startRecording(index)}
+                onPressOut={() => stopRecording(index)}
+                >
+                <Text>Hold to record</Text>
+              </TouchableOpacity>
+            </View>
+          )
+        );
         break;
       case 'Video':
         return (
@@ -199,7 +267,6 @@ const StudyFormScreen = (props) => {
             </View>
           )
         );
-        break;
         break;
       case 'Photo':
         return (
