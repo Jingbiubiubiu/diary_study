@@ -24,6 +24,7 @@ import * as ShowInfo from '../../components/ShowInfo';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import URL from '../../constants/URL';
+import * as FileSystem from 'expo-file-system';
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -93,6 +94,26 @@ const StudyFormScreen = (props) => {
     return true;
   };
 
+  const takeVideoHandler = async (index) => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+      return;
+    }
+    const video = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos
+    });
+
+    const base64 = await FileSystem.readAsStringAsync(video.uri,
+      { encoding: FileSystem.EncodingType.Base64 });
+
+    // setPickedImage(image.uri);
+    updateAnswers(index, {uri: video.uri, base64: base64});
+    // console.log(answers[index]);
+    // updateVisibility(index);
+
+    // props.onImageTaken(image.uri);
+  };
+
   const takeImageHandler = async (index) => {
     const hasPermission = await verifyPermissions();
     if (!hasPermission) {
@@ -154,6 +175,31 @@ const StudyFormScreen = (props) => {
       case 'Audio':
         break;
       case 'Video':
+        return (
+          visibility[index] && (
+            <View style={styles.imagePicker}>
+              <View style={styles.imageButtonContainer}>
+                <CommonButton
+                  text={styles.imageButtonText}
+                  onPress={() => takeVideoHandler(index)}
+                >
+                  Take Video
+                </CommonButton>
+              </View>
+              <View style={styles.imagePreview}>
+                {answers[index] === null ? (
+                  <Text>No video taken yet.</Text>
+                ) : (
+                  <Image
+                    style={styles.image}
+                    source={{ uri: answers[index].uri }}
+                  />
+                )}
+              </View>
+            </View>
+          )
+        );
+        break;
         break;
       case 'Photo':
         return (
