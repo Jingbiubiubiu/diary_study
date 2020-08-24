@@ -75,20 +75,6 @@ export const MultipleChoice = (props) => {
         value={props.option4}
         onChangeText={props.setOption4}
       />
-      <Input
-        label='Fifth Option:'
-        style={styles.inputContainer}
-        inputBox={styles.inputBox}
-        value={props.option5}
-        onChangeText={props.setOption5}
-      />
-      <Input
-        label='Sixth Option:'
-        style={styles.inputContainer}
-        inputBox={styles.inputBox}
-        value={props.option6}
-        onChangeText={props.setOption6}
-      />
     </View>
   );
 };

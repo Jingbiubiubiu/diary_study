@@ -275,15 +275,7 @@ const StudyFormScreen = (props) => {
                   {
                     label: itemData.item.option4,
                     value: itemData.item.option4,
-                  },
-                  {
-                    label: itemData.item.option5,
-                    value: itemData.item.option5,
-                  },
-                  {
-                    label: itemData.item.option6,
-                    value: itemData.item.option6,
-                  },
+                  }
                 ]}
                 defaultValue={answers[itemData.index]}
                 // defaultValue={values}
@@ -325,10 +317,17 @@ const StudyFormScreen = (props) => {
     setSubmitTime(submitTime);
     let answerwithtype = [];
     for (i = 0; i < answers.length; i++) {
-      answerwithtype.push({
-        questionType: questions[i].answerType,
-        result: answers[i]
-      })
+      if (questions[i].answerType == 'Multiple') {
+        answerwithtype.push({
+          questionType: questions[i].answerType,
+          result: answers[i].toString()
+        }) 
+      } else {
+        answerwithtype.push({
+          questionType: questions[i].answerType,
+          result: answers[i]
+        }) 
+      }
     }
 
     // console.log(answerwithtype);

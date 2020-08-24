@@ -39,8 +39,6 @@ const AddStudyQuestionScreen = (props) => {
   const [option2, setOption2] = useState(null);
   const [option3, setOption3] = useState(null);
   const [option4, setOption4] = useState(null);
-  const [option5, setOption5] = useState(null);
-  const [option6, setOption6] = useState(null);
 
   const dropdownItems = [
     {
@@ -79,8 +77,6 @@ const AddStudyQuestionScreen = (props) => {
     setOption2();
     setOption3();
     setOption4();
-    setOption5();
-    setOption6();
     if (value === 'Single') {
       setIsSingleChoice(true);
     }
@@ -103,9 +99,7 @@ const AddStudyQuestionScreen = (props) => {
         option1,
         option2,
         option3,
-        option4,
-        option5,
-        option6
+        option4
       )
     );
     props.navigation.goBack();
@@ -179,10 +173,6 @@ const AddStudyQuestionScreen = (props) => {
                 setOption3={(newText) => setOption3(newText)}
                 option4={option4}
                 setOption4={(newText) => setOption4(newText)}
-                option5={option5}
-                setOption5={(newText) => setOption5(newText)}
-                option6={option6}
-                setOption6={(newText) => setOption6(newText)}
               >
                 Set the <Text style={styles.hightlightText}>multiple</Text>{' '}
                 choice's options

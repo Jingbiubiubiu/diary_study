@@ -7,9 +7,7 @@ export const createQuestion = (
   option1,
   option2,
   option3,
-  option4,
-  option5,
-  option6
+  option4
 ) => {
   return {
     type: CREATE_QUESTION,
@@ -19,9 +17,7 @@ export const createQuestion = (
       option1,
       option2,
       option3,
-      option4,
-      option5,
-      option6,
+      option4
     },
   };
 };
