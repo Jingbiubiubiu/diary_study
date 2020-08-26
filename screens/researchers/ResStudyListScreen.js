@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,6 +9,7 @@ import StudyItem from '../../components/StudyItem';
 import createTimestamp from '../../functions/createTimestamp';
 import * as studyActions from '../../store/actions/study';
 import * as ShowInfo from '../../components/ShowInfo';
+import URL from '../../constants/URL';
 
 const ResStudyListScreen = (props) => {
   // const studies = DATA.STUDY1;
@@ -16,6 +17,25 @@ const ResStudyListScreen = (props) => {
   const studies = useSelector((state) => state.studies.researcher_studies);
   const [modalVisible, setModalVisible] = useState(false);
   const [endTime, setEndTime] = useState(false);
+
+  const ResearcherListRetrieval = () => {
+    let url = URL.address + 'study/researcher/?email=' + userName;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(studyActions.initialize_researcher_studies(json));
+    });
+  };
+
+  useEffect(() => {
+    ResearcherListRetrieval();
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -30,11 +50,23 @@ const ResStudyListScreen = (props) => {
     );
   };
 
-  const endHandler = (id) => {
+
+  const endHandler = (studyNumber) => {
     const endTime = createTimestamp();
     setEndTime(endTime);
-    dispatch(studyActions.endStudy(id, endTime));
-    setModalVisible(true);
+    let url = URL.address + 'study/endstudy/?studyNumber=' + studyNumber;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      ResearcherListRetrieval();
+      setModalVisible(true);
+    });
   };
 
   return (
@@ -57,7 +89,7 @@ const ResStudyListScreen = (props) => {
             studyName={itemData.item.studyName}
             isOpen={itemData.item.isOpen}
             buttonText='End'
-            onPress={() => onEndHandler(itemData.item.id)}
+            onPress={() => onEndHandler(itemData.item.studyNumber)}
           />
         )}
       />

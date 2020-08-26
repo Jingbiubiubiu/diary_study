@@ -12,21 +12,21 @@ const RoleScreen = (props) => {
   // const userName = unArray[0];
   // console.log(userName);
 
-  const ResearcherButtonHandler = () => {
-    let url = URL.address + 'study/researcher/?email=' + userName;
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch(studyActions.initialize_researcher_studies(json));
-        props.navigation.navigate('Res');
-      });
-  };
+  // const ResearcherButtonHandler = () => {
+  //   let url = URL.address + 'study/researcher/?email=' + userName;
+  //   fetch(url, {
+  //     method: 'GET',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //   .then((response) => response.json())
+  //   .then((json) => {
+  //     dispatch(studyActions.initialize_researcher_studies(json));
+  //     props.navigation.navigate('Res');
+  //   });
+  // };
 
   const ParticipantButtonHandler = () => {
     let url = URL.address + 'study/participant/?email=' + userName;
@@ -60,7 +60,7 @@ const RoleScreen = (props) => {
           <Button
             title='Researcher'
             color={Colors.primary}
-            onPress={ResearcherButtonHandler}
+            onPress={() => props.navigation.navigate('Res')}
           />
         </View>
         <View style={styles.buttonContainer}></View>

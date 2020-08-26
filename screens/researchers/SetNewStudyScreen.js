@@ -13,6 +13,7 @@ import * as studyActions from '../../store/actions/study';
 import createRandom from '../../functions/createRandom';
 import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
+import URL from '../../constants/URL';
 
 const SetNewStudyScreen = (props) => {
   const [studyName, setStudyName] = useState();
@@ -25,6 +26,22 @@ const SetNewStudyScreen = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const dispatch = useDispatch();
+
+  const ResearcherListRetrieval = () => {
+    let url = URL.address + 'study/researcher/?email=' + userName;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(studyActions.initialize_researcher_studies(json));
+      props.navigation.navigate('ResStudyList');
+    });
+  };
 
   const submitHandler = () => {
     if (consentForms === null) {
@@ -110,7 +127,7 @@ const SetNewStudyScreen = (props) => {
           visible={modalVisible}
           onPress={() => {
             setModalVisible(!modalVisible);
-            props.navigation.navigate('Role');
+            ResearcherListRetrieval();
           }}
         />
       </View>
