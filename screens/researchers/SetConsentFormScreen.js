@@ -19,6 +19,9 @@ const SetConsentFormScreen = (props) => {
   // const preQuestions = DATA.CONSENTFORM1[0].preQuestions;
   const userName = useSelector((state) => state.userName.userName);
 
+  const consentForm = useSelector((state) => state.consentForm.consentForm);
+  console.log(consentForm);
+
   const preQuestions = useSelector(
     (state) => state.preStudyQuesitons.preStudyQuesitons
   );

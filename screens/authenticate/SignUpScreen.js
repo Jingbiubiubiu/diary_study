@@ -17,24 +17,6 @@ import Colors from '../../constants/Colors';
 import URL from '../../constants/URL';
 import * as userNameActions from '../../store/actions/userName';
 
-const TermsIcon = () => {
-  const showTerms = () => {
-    Alert.alert(
-      'Terms and conditions',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra ',
-      [{ text: 'OK' }]
-    );
-  };
-
-  return (
-    <TouchableOpacity onPress={showTerms}>
-      <View>
-        <Text style={{ color: 'blue' }}>terms and conditions</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
 const SignUpScreen = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -42,6 +24,32 @@ const SignUpScreen = (props) => {
   const [agree, setAgree] = useState(false);
   const [isPasswordDifferent, setIsPasswordDifferent] = useState(false);
   const dispatch = useDispatch();
+
+  // const TermsIcon = () => {
+  //   const showTerms = () => {
+  //     Alert.alert(
+  //       'Terms and conditions',
+  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra ',
+  //       [{ text: 'OK' }]
+  //     );
+  //   };
+
+  //   return (
+  //     <View style={{ borderWidth: 1, borderColor: 'red' }}>
+  //       <TouchableOpacity onPress={showTerms}>
+  //         <Text style={{ color: 'blue' }}>terms and conditions</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
+  // };
+
+  const showTerms = () => {
+    Alert.alert(
+      'Terms and conditions',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra ',
+      [{ text: 'OK' }]
+    );
+  };
 
   const SignupHandler = () => {
     if (password !== confirmedPassword) {
@@ -111,15 +119,23 @@ const SignUpScreen = (props) => {
       </View>
 
       <View style={styles.agreeContainer}>
-        <CheckBox
-          value={agree}
-          onValueChange={() => {
-            agree ? setAgree(false) : setAgree(true);
-          }}
-          tintColors={{ true: Colors.primary }}
-        />
-        <Text>I have read and agree to </Text>
-        <TermsIcon />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <CheckBox
+            value={agree}
+            onValueChange={() => {
+              agree ? setAgree(false) : setAgree(true);
+            }}
+            tintColors={{ true: Colors.primary }}
+          />
+          <Text>I have read and agree to </Text>
+        </View>
+        {/* <TermsIcon /> */}
+        <View>
+          <TouchableOpacity onPress={() => showTerms()}>
+            <Text style={{ color: 'blue' }}>terms and conditions</Text>
+            {/* <Text style={{ color: 'blue' }}>conditions</Text> */}
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.buttonContainer}>
@@ -177,9 +193,12 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   agreeContainer: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     marginTop: 20,
     alignItems: 'center',
+    width: Dimensions.get('window').width * 0.8,
+    // borderWidth: 1,
+    // borderColor: 'blue',
   },
   buttonContainer: {
     marginTop: 30,

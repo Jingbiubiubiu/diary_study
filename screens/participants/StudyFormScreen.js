@@ -7,11 +7,13 @@ import {
   Alert,
   Image,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import * as DATA from '../../data/dummy-questions';
+
+import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
 import CommonButton from '../../components/CommonButton';
@@ -27,6 +29,7 @@ import * as Permissions from 'expo-permissions';
 import URL from '../../constants/URL';
 import * as FileSystem from 'expo-file-system';
 import { Audio } from 'expo-av';
+import { AntDesign } from '@expo/vector-icons';
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -83,29 +86,29 @@ const StudyFormScreen = (props) => {
   const recordingOptions = {
     // android not currently in use, but parameters are required
     android: {
-        extension: '.m4a',
-        outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
-        audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
-        sampleRate: 44100,
-        numberOfChannels: 2,
-        bitRate: 128000,
+      extension: '.m4a',
+      outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
+      audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+      sampleRate: 44100,
+      numberOfChannels: 2,
+      bitRate: 128000,
     },
     ios: {
-        extension: '.wav',
-        audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH,
-        sampleRate: 44100,
-        numberOfChannels: 1,
-        bitRate: 128000,
-        linearPCMBitDepth: 16,
-        linearPCMIsBigEndian: false,
-        linearPCMIsFloat: false,
+      extension: '.wav',
+      audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH,
+      sampleRate: 44100,
+      numberOfChannels: 1,
+      bitRate: 128000,
+      linearPCMBitDepth: 16,
+      linearPCMIsBigEndian: false,
+      linearPCMIsFloat: false,
     },
-};
+  };
 
   const startRecording = async (index) => {
     const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
     if (status !== 'granted') return;
-  
+
     // some of these are not applicable, but are required
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: true,
@@ -114,7 +117,6 @@ const StudyFormScreen = (props) => {
       shouldDuckAndroid: true,
       interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
       playThroughEarpieceAndroid: true,
-  
     });
     const recording = new Audio.Recording();
     try {
@@ -125,14 +127,15 @@ const StudyFormScreen = (props) => {
       await recording.stopAndUnloadAsync();
     }
     updateAnswers(index, recording);
-  }
+  };
 
   const stopRecording = async (index) => {
     await answers[index].stopAndUnloadAsync();
-    const base64 = await FileSystem.readAsStringAsync(answers[index].getURI(),
-      { encoding: FileSystem.EncodingType.Base64 });
-    updateAnswers(index, {uri: answers[index].getURI(), base64: base64})
-  }
+    const base64 = await FileSystem.readAsStringAsync(answers[index].getURI(), {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+    updateAnswers(index, { uri: answers[index].getURI(), base64: base64 });
+  };
 
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(
@@ -156,14 +159,15 @@ const StudyFormScreen = (props) => {
       return;
     }
     const video = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Videos
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
     });
 
-    const base64 = await FileSystem.readAsStringAsync(video.uri,
-      { encoding: FileSystem.EncodingType.Base64 });
+    const base64 = await FileSystem.readAsStringAsync(video.uri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
 
     // setPickedImage(image.uri);
-    updateAnswers(index, {uri: video.uri, base64: base64});
+    updateAnswers(index, { uri: video.uri, base64: base64 });
     // console.log(answers[index]);
     // updateVisibility(index);
 
@@ -184,7 +188,7 @@ const StudyFormScreen = (props) => {
     });
 
     // setPickedImage(image.uri);
-    updateAnswers(index, {uri: image.uri, base64: image.base64});
+    updateAnswers(index, { uri: image.uri, base64: image.base64 });
     // console.log(answers[index]);
     // updateVisibility(index);
 
@@ -202,11 +206,11 @@ const StudyFormScreen = (props) => {
         allowsEditing: true,
         aspect: [16, 9],
         quality: 0.5,
-        base64: true
+        base64: true,
       });
       if (!image.cancelled) {
         // setImage(result.uri);
-        updateAnswers(index, {uri: image.uri, base64: image.base64});
+        updateAnswers(index, { uri: image.uri, base64: image.base64 });
       }
       // console.log(image);
 
@@ -216,28 +220,29 @@ const StudyFormScreen = (props) => {
     }
   };
 
-  // const photoHandler = (index) => {
-  //   if (visibility[index]) {
-  //     takeImageHandler(index);
-  //   }
-  //   if (answers[index] !== null) {
-  //     updateVisibility(index);
-  //     <Image style={styles.image} source={{ uri: answers[index] }} />;
-  //   }
-  // };
-
   const createComponent = (answerType, index, itemData) => {
     switch (answerType) {
       case 'Audio':
         return (
           visibility[index] && (
-            <View style={styles.imagePicker}>
-              <TouchableOpacity 
+            <View style={{ alignItems: 'center' }}>
+              <TouchableOpacity
                 onPressIn={() => startRecording(index)}
                 onPressOut={() => stopRecording(index)}
-                >
-                <Text>Hold to record</Text>
+              >
+                <View style={styles.audioButtonContainer}>
+                  <Text style={styles.text}>Hold to record</Text>
+                </View>
               </TouchableOpacity>
+              {/* <View>
+                {answers[index] && (
+                  <AntDesign
+                    name='checkcircleo'
+                    size={24}
+                    color={Colors.primary}
+                  />
+                )}
+              </View> */}
             </View>
           )
         );
@@ -388,7 +393,7 @@ const StudyFormScreen = (props) => {
                   {
                     label: itemData.item.option4,
                     value: itemData.item.option4,
-                  }
+                  },
                 ]}
                 defaultValue={answers[itemData.index]}
                 // defaultValue={values}
@@ -433,25 +438,24 @@ const StudyFormScreen = (props) => {
       if (questions[i].answerType == 'Multiple') {
         answerwithtype.push({
           questionType: questions[i].answerType,
-          result: answers[i].toString()
-        }) 
+          result: answers[i].toString(),
+        });
       } else {
         answerwithtype.push({
           questionType: questions[i].answerType,
-          result: answers[i]
-        }) 
+          result: answers[i],
+        });
       }
     }
 
     // console.log(answerwithtype);
-
 
     let url = URL.address + 'study/submitanswer/';
     fetch(url, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         studyNumber: studyNumber,
@@ -460,12 +464,12 @@ const StudyFormScreen = (props) => {
         participantEmail: userName,
       }),
     })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json.success == true) {
-        setModalVisible(true);
-      }
-    });   
+      .then((response) => response.json())
+      .then((json) => {
+        if (json.success == true) {
+          setModalVisible(true);
+        }
+      });
   };
 
   return (
@@ -530,6 +534,27 @@ const styles = StyleSheet.create({
   //   width: Dimensions.get('window').width * 0.85,
   //   height: 200,
   // },
+  audioButtonContainer: {
+    backgroundColor: Colors.primary,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+    width: Dimensions.get('window').width * 0.5,
+    alignItems: 'center',
+    // borderWidth: 1,
+    // borderColor: 'red',
+  },
+  text: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    // borderWidth: 1,
+    // borderColor: 'red',
+  },
   imagePicker: {
     alignItems: 'center',
     marginVertical: 5,

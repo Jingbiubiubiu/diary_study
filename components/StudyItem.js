@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#ccc',
-    width: '60%',
+    width: '55%',
     paddingVertical: 3,
     // marginLeft: Dimensions.get('window').width / 30,
   },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
-    width: '20%',
+    width: '25%',
     paddingVertical: 3,
   },
 });

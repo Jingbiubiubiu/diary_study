@@ -32,7 +32,7 @@ const StudyList = (props) => {
         </View>
         <View
           style={{
-            width: '60%',
+            width: '55%',
             alignItems: 'center',
             // borderColor: 'green',
             // borderWidth: 1,
@@ -42,7 +42,7 @@ const StudyList = (props) => {
         </View>
         <View
           style={{
-            width: '20%',
+            width: '25%',
             alignItems: 'center',
             // borderColor: 'green',
             // borderWidth: 1,
