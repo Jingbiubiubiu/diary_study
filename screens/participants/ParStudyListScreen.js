@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
 import Colors from '../../constants/Colors';
 import LogoutButton from '../../components/LogoutButton';
 import * as DATA from '../../data/dummy-questions';
 import StudyItem from '../../components/StudyItem';
+import * as studyActions from '../../store/actions/study';
+import URL from '../../constants/URL';
 
 const ParStudyListScreen = (props) => {
   const study = useSelector((state) => state.studies.participant_studies);
   const userName = useSelector((state) => state.userName.userName);
+
+  const dispatch = useDispatch();
+
+  const ParticipantListRetrieval = () => {
+    let url = URL.address + 'study/participant/?email=' + userName;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(studyActions.initialize_participant_studies(json));
+    });
+  };
+
+  useEffect(() => {
+    ParticipantListRetrieval();
+  }, []);
 
   return (
     <View style={styles.screen}>
@@ -28,7 +51,8 @@ const ParStudyListScreen = (props) => {
           <StudyItem
             studyNumber={itemData.item.studyNumber}
             studyName={itemData.item.studyName}
-            isOpen={!(itemData.item.submitted)}
+            isOpen={itemData.item.isOpen}
+            isSubmitted={itemData.item.submitted}
             buttonText='Start'
             onPress={() =>
               props.navigation.navigate('SampleForm', {

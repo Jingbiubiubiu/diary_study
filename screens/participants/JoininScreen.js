@@ -7,6 +7,7 @@ import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import { useSelector, useDispatch } from 'react-redux';
+import * as studyActions from '../../store/actions/study';
 import URL from '../../constants/URL';
 
 const JoininScreen = (props) => {
@@ -18,6 +19,8 @@ const JoininScreen = (props) => {
   const studies = useSelector((state) => state.studies.participant_studies);
   // const studies = DATA.STUDY1;
   // console.log(studies);
+
+  const dispatch = useDispatch();
 
   const joinHandler = (studyNumber, studyPassword) => {
     let url = URL.address + 'study/join/';
@@ -37,11 +40,27 @@ const JoininScreen = (props) => {
       .then((json) => {
         console.log(json);
         if (json.success == true) {
-          props.navigation.navigate('Role');
+          ParticipantListRetrieval();
+          props.navigation.navigate('ParStudyList');
         } else {
           setFeedback(json.detail);
         }
       });
+  };
+
+  const ParticipantListRetrieval = () => {
+    let url = URL.address + 'study/participant/?email=' + userName;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(studyActions.initialize_participant_studies(json));
+    });
   };
 
   return (

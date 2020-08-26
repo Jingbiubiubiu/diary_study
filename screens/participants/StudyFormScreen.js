@@ -21,6 +21,7 @@ import AnswerIcon from '../../components/AnswerIcon';
 import SingleChoice from '../../components/SingleChoice';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
 import * as answersActions from '../../store/actions/answers';
+import * as studyActions from '../../store/actions/study';
 import * as answerPackageActions from '../../store/actions/answerPackage';
 import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
@@ -60,6 +61,21 @@ const StudyFormScreen = (props) => {
   );
 
   const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+
+  const ParticipantListRetrieval = () => {
+    let url = URL.address + 'study/participant/?email=' + userName;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(studyActions.initialize_participant_studies(json));
+    });
+  };
 
   const updateVisibility = (index) => {
     const previous = visibility[index];
@@ -467,6 +483,7 @@ const StudyFormScreen = (props) => {
       .then((response) => response.json())
       .then((json) => {
         if (json.success == true) {
+          ParticipantListRetrieval();
           setModalVisible(true);
         }
       });
@@ -510,7 +527,7 @@ const StudyFormScreen = (props) => {
         visible={modalVisible}
         onPress={() => {
           setModalVisible(!modalVisible);
-          props.navigation.navigate('Role');
+          props.navigation.navigate('ParStudyList');
         }}
       />
     </View>

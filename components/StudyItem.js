@@ -4,8 +4,15 @@ import { View, Text, StyleSheet, Dimensions, FlatList } from 'react-native';
 import CommonButton from '../components/CommonButton';
 
 const StudyItem = (props) => {
-  const stateIdentifier = (isOpen, onPress, text) => {
-    if (isOpen) {
+  const stateIdentifier = (isOpen, isSubmitted, onPress, text) => {
+    if (isSubmitted) {
+      return (
+        <View>
+          <Text>Finished</Text>
+        </View>
+      );
+
+    } else if (isOpen) {
       return (
         <View>
           <CommonButton
@@ -19,7 +26,7 @@ const StudyItem = (props) => {
     } else {
       return (
         <View>
-          <Text>Finished</Text>
+          <Text>Closed</Text>
         </View>
       );
     }
@@ -34,7 +41,7 @@ const StudyItem = (props) => {
         <Text>{props.studyName}</Text>
       </View>
       <View style={styles.status}>
-        {stateIdentifier(props.isOpen, props.onPress, props.buttonText)}
+        {stateIdentifier(props.isOpen, props.isSubmitted, props.onPress, props.buttonText)}
       </View>
     </View>
   );

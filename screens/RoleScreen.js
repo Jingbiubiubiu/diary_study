@@ -10,39 +10,6 @@ const RoleScreen = (props) => {
   const userName = useSelector((state) => state.userName.userName);
   // const unArray = uN.split('@');
   // const userName = unArray[0];
-  // console.log(userName);
-
-  // const ResearcherButtonHandler = () => {
-  //   let url = URL.address + 'study/researcher/?email=' + userName;
-  //   fetch(url, {
-  //     method: 'GET',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //   .then((response) => response.json())
-  //   .then((json) => {
-  //     dispatch(studyActions.initialize_researcher_studies(json));
-  //     props.navigation.navigate('Res');
-  //   });
-  // };
-
-  const ParticipantButtonHandler = () => {
-    let url = URL.address + 'study/participant/?email=' + userName;
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        dispatch(studyActions.initialize_participant_studies(json));
-        props.navigation.navigate('Par');
-      });
-  };
 
   const dispatch = useDispatch();
   return (
@@ -67,7 +34,7 @@ const RoleScreen = (props) => {
         <Button
           title='Participant'
           color={Colors.primary}
-          onPress={ParticipantButtonHandler}
+          onPress={() => props.navigation.navigate('Par')}
         />
       </View>
     </View>

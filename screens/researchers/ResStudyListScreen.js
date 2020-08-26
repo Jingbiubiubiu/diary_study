@@ -18,6 +18,8 @@ const ResStudyListScreen = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [endTime, setEndTime] = useState(false);
 
+  const dispatch = useDispatch();
+
   const ResearcherListRetrieval = () => {
     let url = URL.address + 'study/researcher/?email=' + userName;
     fetch(url, {
@@ -37,7 +39,7 @@ const ResStudyListScreen = (props) => {
     ResearcherListRetrieval();
   }, []);
 
-  const dispatch = useDispatch();
+
 
   const onEndHandler = (id) => {
     Alert.alert(
