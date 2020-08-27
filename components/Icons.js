@@ -56,42 +56,6 @@ export const TextIcon = (props) => {
   );
 };
 
-// export const SingleChoiceIcon = (props) => {
-//   const [isSelected, setIsSelected] = useState(false);
-
-//   const onPressHandler = () => {
-//     isSelected ? setIsSelected(false) : setIsSelected(true);
-//   };
-
-//   return (
-//     <View style={{ borderColor: 'blue', borderWidth: 1 }}>
-//       <View>
-//         <TouchableOpacity onPress={onPressHandler}>
-//           <View style={styles.checkboxTextContainer}>
-//             <Text
-//               style={{ ...styles.checkboxText, ...props.textStyle }}
-//               numberOfLines={2}
-//             >
-//               Single Choice
-//             </Text>
-//           </View>
-//         </TouchableOpacity>
-//       </View>
-//       <View style={{}}>{isSelected && <Text>single</Text>}</View>
-//     </View>
-//   );
-// };
-
-// export const MultipleChoiceIcon = (props) => {
-//   return (
-//     <View style={{ flexDirection: 'row' }}>
-//       <Feather name='check-square' color='black' size={26} />
-//       <Feather name='check-square' color='black' size={26} />
-//       <Feather name='check-square' color='black' size={26} />
-//     </View>
-//   );
-// };
-
 export const CommonCheckbox = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress}>
@@ -185,21 +149,6 @@ export const TypeAnswerCheckbox = (props) => {
     </TouchableOpacity>
   );
 };
-
-// export const ScreenRecordingCheckbox = (props) => {
-//   return (
-//     <TouchableOpacity onPress={props.onPress}>
-//       <View style={{ ...styles.checkboxWithTextContainer, ...props.style }}>
-//         <CheckBox
-//           value={props.value}
-//           onValueChange={props.onValueChange}
-//           tintColors={{ true: Colors.primary }}
-//         />
-//         <TextIcon textStyle={props.textStyle}>Screen Recording</TextIcon>
-//       </View>
-//     </TouchableOpacity>
-//   );
-// };
 
 export const SingleChoiceCheckbox = (props) => {
   return (

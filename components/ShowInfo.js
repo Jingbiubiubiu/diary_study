@@ -71,6 +71,15 @@ export const ShowShortInfo = (props) => {
               {props.time}
             </Text>
           </View>
+          <View>
+            <Text style={styles.emphasis}>
+              Please write down or record the link below to get the answers:
+            </Text>
+            <View style={{ marginTop: 5 }}>
+              <Text style={styles.linkText}>{props.link}</Text>
+            </View>
+          </View>
+
           <View style={styles.buttonContainer}>
             <CommonButton onPress={props.onPress}>OK</CommonButton>
           </View>
@@ -111,7 +120,7 @@ const styles = StyleSheet.create({
   },
   modalViewShort: {
     width: '80%',
-    height: '30%',
+    height: '50%',
   },
   studyNameContainer: {
     // justifyContent: 'flex-start',
@@ -128,6 +137,11 @@ const styles = StyleSheet.create({
   },
   commonText: {
     fontSize: 18,
+  },
+  linkText: {
+    fontSize: 18,
+    color: Colors.primary,
+    fontWeight: 'bold',
   },
   buttonContainer: {
     width: '100%',

@@ -8,6 +8,9 @@ import LogoutButton from '../../components/LogoutButton';
 import StudyItem from '../../components/StudyItem';
 import createTimestamp from '../../functions/createTimestamp';
 import * as studyActions from '../../store/actions/study';
+import * as consentFormActions from '../../store/actions/consentForm';
+import * as questionActions from '../../store/actions/question';
+import * as preStudyQuestionActions from '../../store/actions/preStudyQuestion';
 import * as ShowInfo from '../../components/ShowInfo';
 import URL from '../../constants/URL';
 
@@ -17,6 +20,7 @@ const ResStudyListScreen = (props) => {
   const studies = useSelector((state) => state.studies.researcher_studies);
   const [modalVisible, setModalVisible] = useState(false);
   const [endTime, setEndTime] = useState(false);
+  const [answerLink, setAnswerLink] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -29,17 +33,15 @@ const ResStudyListScreen = (props) => {
         'Content-Type': 'application/json',
       },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch(studyActions.initialize_researcher_studies(json));
-    });
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(studyActions.initialize_researcher_studies(json));
+      });
   };
 
   useEffect(() => {
     ResearcherListRetrieval();
   }, []);
-
-
 
   const onEndHandler = (id) => {
     Alert.alert(
@@ -52,8 +54,8 @@ const ResStudyListScreen = (props) => {
     );
   };
 
-
   const endHandler = (studyNumber) => {
+    setAnswerLink(URL.address + 'study/result/?studyNumber=' + studyNumber);
     const endTime = createTimestamp();
     setEndTime(endTime);
     let url = URL.address + 'study/endstudy/?studyNumber=' + studyNumber;
@@ -64,11 +66,18 @@ const ResStudyListScreen = (props) => {
         'Content-Type': 'application/json',
       },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      ResearcherListRetrieval();
-      setModalVisible(true);
-    });
+      .then((response) => response.json())
+      .then((json) => {
+        ResearcherListRetrieval();
+        setModalVisible(true);
+      });
+  };
+
+  const setupHandler = () => {
+    dispatch(consentFormActions.clearConsentForm());
+    dispatch(questionActions.clearQuestion());
+    dispatch(preStudyQuestionActions.clearPreStudyQuestion());
+    props.navigation.navigate('SetNewStudy');
   };
 
   return (
@@ -79,7 +88,8 @@ const ResStudyListScreen = (props) => {
         setupContent='Set up a study'
         navigation={props.navigation}
         onAddButton={() => {
-          props.navigation.navigate('SetNewStudy');
+          // props.navigation.navigate('SetNewStudy');
+          setupHandler();
         }}
       />
       <FlatList
@@ -99,6 +109,7 @@ const ResStudyListScreen = (props) => {
         content='This study has been ended.'
         dateContent='End date and time:'
         time={endTime}
+        link={answerLink}
         visible={modalVisible}
         onPress={() => {
           setModalVisible(!modalVisible);
@@ -110,11 +121,26 @@ const ResStudyListScreen = (props) => {
 };
 
 ResStudyListScreen.navigationOptions = (navData) => {
+  // const logOutHandler = () => {
+  //   const dispatch = useDispatch();
+  //   dispatch(consentFormActions.clearConsentForm());
+  //   dispatch(questionActions.clearQuestion());
+  //   dispatch(preStudyQuestionActions.clearPreStudyQuestion());
+  //   navData.navigation.navigate('Signin');
+  // };
+
   return {
     headerTitle: 'Researcher Study List',
     headerRight: () => (
-      <LogoutButton onPress={() => navData.navigation.navigate('Signin')} />
-      // <LogoutButton onPress={() => navData.navigation.navigate('Role')} />
+      // <LogoutButton onPress={() => navData.navigation.navigate('Signin')} />
+      <LogoutButton
+        onPress={() => {
+          // useDispatch(consentFormActions.clearConsentForm());
+          // useDispatch(questionActions.clearQuestion());
+          // useDispatch(preStudyQuestionActions.clearPreStudyQuestion());
+          navData.navigation.navigate('Signin');
+        }}
+      />
     ),
   };
 };

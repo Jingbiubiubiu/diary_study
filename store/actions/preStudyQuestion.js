@@ -1,4 +1,5 @@
 export const CREATE_PREQUESTION = 'CREATE_PREQUESTION';
+export const CLEAR_PREQUESTION = 'CLEAR_PREQUESTION';
 
 export const createPreStudyQuestion = (
   // questionId,
@@ -19,5 +20,11 @@ export const createPreStudyQuestion = (
       option3,
       option4,
     },
+  };
+};
+
+export const clearPreStudyQuestion = () => {
+  return {
+    type: CLEAR_PREQUESTION,
   };
 };

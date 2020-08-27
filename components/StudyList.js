@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
 import TitleName from '../components/TitleName';
 import MainTitle from '../components/MainTitle';
 import AddButton from '../components/AddButton';
-import LogoutButton from '../components/LogoutButton';
-import Colors from '../constants/Colors';
 
 const StudyList = (props) => {
   return (
@@ -23,9 +21,6 @@ const StudyList = (props) => {
           style={{
             width: '20%',
             justifyContent: 'center',
-            // alignItems: 'center',
-            // borderColor: 'green',
-            // borderWidth: 1,
           }}
         >
           <TitleName>Study Number</TitleName>
@@ -34,8 +29,6 @@ const StudyList = (props) => {
           style={{
             width: '55%',
             alignItems: 'center',
-            // borderColor: 'green',
-            // borderWidth: 1,
           }}
         >
           <TitleName>Study Name</TitleName>
@@ -44,8 +37,6 @@ const StudyList = (props) => {
           style={{
             width: '25%',
             alignItems: 'center',
-            // borderColor: 'green',
-            // borderWidth: 1,
           }}
         >
           <TitleName>Status </TitleName>
@@ -67,15 +58,12 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    // color: Colors.primary,
   },
   listTitleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: Dimensions.get('window').width * 0.85,
     alignItems: 'center',
-    // borderColor: 'blue',
-    // borderWidth: 1,
   },
 });
 

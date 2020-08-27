@@ -20,28 +20,13 @@ import * as userNameActions from '../../store/actions/userName';
 const SignUpScreen = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [shortPassword, setShortPassword] = useState(false);
+  const [emptyEmail, setEmptyEmail] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
   const [confirmedPassword, setConfirmedPassword] = useState();
   const [agree, setAgree] = useState(false);
   const [isPasswordDifferent, setIsPasswordDifferent] = useState(false);
   const dispatch = useDispatch();
-
-  // const TermsIcon = () => {
-  //   const showTerms = () => {
-  //     Alert.alert(
-  //       'Terms and conditions',
-  //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra ',
-  //       [{ text: 'OK' }]
-  //     );
-  //   };
-
-  //   return (
-  //     <View style={{ borderWidth: 1, borderColor: 'red' }}>
-  //       <TouchableOpacity onPress={showTerms}>
-  //         <Text style={{ color: 'blue' }}>terms and conditions</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // };
 
   const showTerms = () => {
     Alert.alert(
@@ -52,34 +37,61 @@ const SignUpScreen = (props) => {
   };
 
   const SignupHandler = () => {
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (email === undefined) {
+      emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
+      return;
+    }
+    if (!emailRegex.test(email.toLowerCase())) {
+      emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
+      invalidEmail ? setInvalidEmail(false) : setInvalidEmail(true);
+      return;
+    }
+
+    if (password === undefined || password.length < 5) {
+      shortPassword ? setShortPassword(false) : setShortPassword(true);
+      return;
+    }
     if (password !== confirmedPassword) {
       isPasswordDifferent
         ? setIsPasswordDifferent(false)
         : setIsPasswordDifferent(true);
       return;
     }
-    let url = URL.address + 'users/signup/';
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        if (json.success == true) {
-          dispatch(userNameActions.updateUserName(email));
-          props.navigation.navigate('Role');
-        } else {
-          Alert.alert('Signup failed', json.detail, [{ text: 'OK' }]);
-        }
-      });
+    if (isPasswordDifferent) {
+      setIsPasswordDifferent(false);
+    }
+
+    if (agree) {
+      let url = URL.address + 'users/signup/';
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+          if (json.success == true) {
+            dispatch(userNameActions.updateUserName(email));
+            props.navigation.navigate('Role');
+          } else {
+            Alert.alert('Signup failed', json.detail, [{ text: 'OK' }]);
+          }
+        });
+    } else {
+      Alert.alert(
+        'Insufficient Consent',
+        'Please agreen the terms and conditions',
+        ['OK']
+      );
+    }
   };
   return (
     <View style={styles.screen}>
@@ -92,6 +104,19 @@ const SignUpScreen = (props) => {
         value={email}
         onChangeText={(newText) => setEmail(newText)}
       />
+      <View
+        style={{
+          width: Dimensions.get('window').width * 0.8,
+          marginTop: 3,
+        }}
+      >
+        {emptyEmail && (
+          <Text style={styles.hintText}>Please input your Email</Text>
+        )}
+        {invalidEmail && (
+          <Text style={styles.hintText}>Please input a valid Email</Text>
+        )}
+      </View>
       <Input
         style={styles.inputBox}
         label='Password'
@@ -99,6 +124,9 @@ const SignUpScreen = (props) => {
         secureTextEntry={true}
         onChangeText={(newText) => setPassword(newText)}
       />
+      <View style={styles.passwordPrompt}>
+        <Text style={styles.passwordPromptText}>At least 5 characters</Text>
+      </View>
       <Input
         style={styles.inputBox}
         label='Confirm Password'
@@ -116,6 +144,9 @@ const SignUpScreen = (props) => {
         {isPasswordDifferent && (
           <Text style={styles.hintText}>Passwords are different</Text>
         )}
+        {shortPassword && (
+          <Text style={styles.hintText}>The password is too short</Text>
+        )}
       </View>
 
       <View style={styles.agreeContainer}>
@@ -132,7 +163,7 @@ const SignUpScreen = (props) => {
         {/* <TermsIcon /> */}
         <View>
           <TouchableOpacity onPress={() => showTerms()}>
-            <Text style={{ color: 'blue' }}>terms and conditions</Text>
+            <Text style={{ color: Colors.primary }}>terms and conditions</Text>
             {/* <Text style={{ color: 'blue' }}>conditions</Text> */}
           </TouchableOpacity>
         </View>
@@ -175,15 +206,24 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: 'blue',
   },
-  DOBContainer: {
-    // borderColor: 'blue',
-    // borderWidth: 1,
-    width: '80%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 15,
+  passwordPrompt: {
+    width: Dimensions.get('window').width * 0.8,
+    marginTop: 3,
   },
+  passwordPromptText: {
+    color: Colors.primary,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  // DOBContainer: {
+  //   // borderColor: 'blue',
+  //   // borderWidth: 1,
+  //   width: '80%',
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'center',
+  //   marginTop: 15,
+  // },
   hintText: {
     color: 'red',
     fontSize: 18,

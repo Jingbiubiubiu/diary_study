@@ -8,6 +8,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -51,6 +52,7 @@ const StudyFormScreen = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [submitTime, setSubmitTime] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -71,10 +73,10 @@ const StudyFormScreen = (props) => {
         'Content-Type': 'application/json',
       },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch(studyActions.initialize_participant_studies(json));
-    });
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(studyActions.initialize_participant_studies(json));
+      });
   };
 
   const updateVisibility = (index) => {
@@ -447,6 +449,8 @@ const StudyFormScreen = (props) => {
   };
 
   const submitHandler = () => {
+    setIsLoading(true);
+    console.log(isLoading);
     const submitTime = createTimestamp();
     setSubmitTime(submitTime);
     let answerwithtype = [];
@@ -487,7 +491,16 @@ const StudyFormScreen = (props) => {
           setModalVisible(true);
         }
       });
+    setIsLoading(false);
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingScreen}>
+        <ActivityIndicator size='large' color={Colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.screen}>
@@ -544,6 +557,11 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
+  },
+  loadingScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   // image: {
   //   // height: '100%',

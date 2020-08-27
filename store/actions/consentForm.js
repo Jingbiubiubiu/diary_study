@@ -1,4 +1,5 @@
 export const CREATE_CONSENTFORM = 'CREATE_CONSENTFORM';
+export const CLEAR_CONSENTFORM = 'CLEAR_CONSENTFORM';
 
 export const createConsentForm = (
   // questionId,
@@ -13,5 +14,11 @@ export const createConsentForm = (
       preQuestions,
       agreement,
     },
+  };
+};
+
+export const clearConsentForm = () => {
+  return {
+    type: CLEAR_CONSENTFORM,
   };
 };

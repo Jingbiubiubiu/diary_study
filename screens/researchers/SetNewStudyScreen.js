@@ -10,6 +10,9 @@ import CommonButton from '../../components/CommonButton';
 import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
 import * as studyActions from '../../store/actions/study';
+import * as consentFormActions from '../../store/actions/consentForm';
+import * as questionActions from '../../store/actions/question';
+import * as preStudyQuestionActions from '../../store/actions/preStudyQuestion';
 import createRandom from '../../functions/createRandom';
 import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
@@ -36,11 +39,11 @@ const SetNewStudyScreen = (props) => {
         'Content-Type': 'application/json',
       },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch(studyActions.initialize_researcher_studies(json));
-      props.navigation.navigate('ResStudyList');
-    });
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(studyActions.initialize_researcher_studies(json));
+        props.navigation.navigate('ResStudyList');
+      });
   };
 
   const submitHandler = () => {
@@ -72,6 +75,9 @@ const SetNewStudyScreen = (props) => {
         )
       );
       setModalVisible(true);
+      dispatch(consentFormActions.clearConsentForm());
+      dispatch(questionActions.clearQuestion());
+      dispatch(preStudyQuestionActions.clearPreStudyQuestion());
     }
   };
 

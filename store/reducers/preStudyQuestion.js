@@ -1,5 +1,8 @@
 import * as DATA from '../../data/dummy-questions';
-import { CREATE_PREQUESTION } from '../actions/preStudyQuestion';
+import {
+  CREATE_PREQUESTION,
+  CLEAR_PREQUESTION,
+} from '../actions/preStudyQuestion';
 import Question from '../../models/question';
 
 const initialState = {
@@ -25,6 +28,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         preStudyQuesitons: state.preStudyQuesitons.concat(newQuestion),
+      };
+    case CLEAR_PREQUESTION:
+      return {
+        ...state,
+        preStudyQuesitons: [],
       };
   }
   return state;

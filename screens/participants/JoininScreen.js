@@ -57,10 +57,10 @@ const JoininScreen = (props) => {
         'Content-Type': 'application/json',
       },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch(studyActions.initialize_participant_studies(json));
-    });
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(studyActions.initialize_participant_studies(json));
+      });
   };
 
   return (
@@ -84,7 +84,6 @@ const JoininScreen = (props) => {
       </View>
       <View style={styles.buttonContainer}>
         <CommonButton onPress={() => joinHandler(studyNumber, studyPassword)}>
-          {/* <CommonButton onPress={() => props.navigation.navigate('SampleForm')}> */}
           Join
         </CommonButton>
       </View>

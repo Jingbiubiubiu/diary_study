@@ -1,4 +1,4 @@
-import { CREATE_QUESTION } from '../actions/question';
+import { CREATE_QUESTION, CLEAR_QUESTION } from '../actions/question';
 import Question from '../../models/question';
 
 const initialState = {
@@ -24,6 +24,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         questions: state.questions.concat(newQuestion),
+      };
+    case CLEAR_QUESTION:
+      return {
+        ...state,
+        questions: [],
       };
   }
   return state;

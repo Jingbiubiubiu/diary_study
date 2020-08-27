@@ -6,8 +6,6 @@ import {
   END_STUDY,
 } from '../actions/study';
 import Study from '../../models/study';
-import createTimestamp from '../../functions/createTimestamp';
-import createRandom from '../../functions/createRandom';
 import URL from '../../constants/URL';
 
 const initialState = {
@@ -28,18 +26,14 @@ export default (state = initialState, action) => {
         participant_studies: action.study_list,
       };
     case CREATE_STUDY:
-      // console.log('hello');
       const newStudy = new Study(
         action.studyData.userName,
         action.studyData.studyName,
         action.studyData.studyNumber,
         action.studyData.studyPassword,
-        // createRandom(),
-        // createRandom(),
         action.studyData.consentForm,
         action.studyData.questions,
         action.studyData.establishTime,
-        // createTimestamp(),
         true,
         null
       );

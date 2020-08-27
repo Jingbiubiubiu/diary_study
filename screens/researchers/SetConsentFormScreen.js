@@ -20,15 +20,17 @@ const SetConsentFormScreen = (props) => {
   const userName = useSelector((state) => state.userName.userName);
 
   const consentForm = useSelector((state) => state.consentForm.consentForm);
-  console.log(consentForm);
+  // console.log(consentForm);
 
   const preQuestions = useSelector(
     (state) => state.preStudyQuesitons.preStudyQuesitons
   );
-  // console.log(preQuestions);
+  // const [description, setDescription] = useState();
+  const [description, setDescription] =
+    consentForm === null ? useState() : useState(consentForm.description);
 
-  const [description, setDescription] = useState();
-  const [agreement, setAgreement] = useState();
+  const [agreement, setAgreement] =
+    consentForm === null ? useState() : useState(consentForm.agreement);
 
   const dispatch = useDispatch();
 
@@ -49,7 +51,6 @@ const SetConsentFormScreen = (props) => {
           agreement
         )
       );
-      // console.log(DATA.CONSENTFORM1.length);
       props.navigation.goBack();
     }
   };

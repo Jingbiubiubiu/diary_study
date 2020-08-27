@@ -1,5 +1,5 @@
 import * as DATA from '../../data/dummy-questions';
-import { CREATE_CONSENTFORM } from '../actions/consentForm';
+import { CREATE_CONSENTFORM, CLEAR_CONSENTFORM } from '../actions/consentForm';
 import ConsentForm from '../../models/consentForm';
 
 const initialState = {
@@ -15,15 +15,14 @@ export default (state = initialState, action) => {
         action.formData.preQuestions,
         action.formData.agreement
       );
-      // return newConsentForm;
-
-      // console.log('hi');
-
-      // console.log(newConsentForm);
-      // console.log(state.consentForm);
       return {
         ...state,
         consentForm: newConsentForm,
+      };
+    case CLEAR_CONSENTFORM:
+      return {
+        ...state,
+        consentForm: null,
       };
   }
   return state;
