@@ -119,6 +119,7 @@ const AddStudyQuestionScreen = (props) => {
         <Input
           style={styles.inputBox}
           label='Type Question'
+          numberOfLines={4}
           inputLabel={styles.inputLabel}
           value={questionContent}
           onChangeText={(newText) => setQuetionContent(newText)}

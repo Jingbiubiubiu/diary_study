@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
@@ -86,7 +86,10 @@ const ResStudyListScreen = (props) => {
         userName={userName}
         mainTitle='Researcher Study List'
         setupContent='Set up a study'
+        guide={true}
+        guideContent='Guide to get answer'
         navigation={props.navigation}
+        onPress={() => props.navigation.navigate('Guide')}
         onAddButton={() => {
           // props.navigation.navigate('SetNewStudy');
           setupHandler();
@@ -105,6 +108,7 @@ const ResStudyListScreen = (props) => {
           />
         )}
       />
+
       <ShowInfo.ShowShortInfo
         content='This study has been ended.'
         dateContent='End date and time:'
@@ -116,6 +120,9 @@ const ResStudyListScreen = (props) => {
           // props.navigation.navigate('ResStudyList');
         }}
       />
+      {/* <View>
+        <Text>Guide to get answer</Text>
+      </View> */}
     </View>
   );
 };

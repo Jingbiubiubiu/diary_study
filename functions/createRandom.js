@@ -64,7 +64,7 @@ const chars = [
 export default createRandom = () => {
   var randomString = '';
   for (let i = 0; i < 6; i++) {
-    var id = Math.ceil(Math.random() * 61);
+    var id = Math.ceil(Math.random() * 59);
     randomString += chars[id];
   }
   return randomString;

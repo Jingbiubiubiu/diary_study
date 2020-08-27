@@ -14,6 +14,7 @@ import ResStudyListScreen from '../screens/researchers/ResStudyListScreen';
 import SetNewStudyScreen from '../screens/researchers/SetNewStudyScreen';
 import SetConsentFormScreen from '../screens/researchers/SetConsentFormScreen';
 import SetPreQuestionsScreen from '../screens/researchers/SetPreQuestionsScreen';
+import GuideScreen from '../screens/researchers/GuideScreen';
 import SignInScreen from '../screens/authenticate/SignInScreen';
 import SignUpScreen from '../screens/authenticate/SignUpScreen';
 
@@ -53,6 +54,7 @@ const ResearchersNavigator = createStackNavigator(
     AddStudyQuestion: AddStudyQuestionScreen,
     SetConsentForm: SetConsentFormScreen,
     SetPreQuestion: SetPreQuestionsScreen,
+    Guide: GuideScreen,
   },
   { defaultNavigationOptions: defaultNavOptions }
 );

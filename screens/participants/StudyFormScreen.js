@@ -489,9 +489,9 @@ const StudyFormScreen = (props) => {
         if (json.success == true) {
           ParticipantListRetrieval();
           setModalVisible(true);
+          setIsLoading(false);
         }
       });
-    setIsLoading(false);
   };
 
   if (isLoading) {

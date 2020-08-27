@@ -21,9 +21,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputBox: {
-    width: '90%',
+    width: Dimensions.get('window').width * 0.85,
     borderColor: '#ccc',
     borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
   },
 });
 

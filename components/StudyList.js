@@ -1,9 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 
 import TitleName from '../components/TitleName';
 import MainTitle from '../components/MainTitle';
 import AddButton from '../components/AddButton';
+import Colors from '../constants/Colors';
 
 const StudyList = (props) => {
   return (
@@ -15,6 +22,13 @@ const StudyList = (props) => {
       </View>
       <View subTitleContainer>
         <Text style={styles.subTitle}>All studies</Text>
+      </View>
+      <View style={styles.guideContainer}>
+        {props.guide && (
+          <TouchableOpacity onPress={props.onPress}>
+            <Text style={styles.guideContent}>{props.guideContent}</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.listTitleContainer}>
         <View
@@ -57,6 +71,13 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 22,
+    fontWeight: 'bold',
+  },
+  guideContainer: {
+    marginTop: 10,
+  },
+  guideContent: {
+    color: Colors.primary,
     fontWeight: 'bold',
   },
   listTitleContainer: {
