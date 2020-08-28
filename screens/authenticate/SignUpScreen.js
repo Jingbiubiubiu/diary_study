@@ -21,17 +21,16 @@ import * as userNameActions from '../../store/actions/userName';
 const SignUpScreen = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [shortPassword, setShortPassword] = useState(false);
+  const [confirmedPassword, setConfirmedPassword] = useState();
   const [emptyEmail, setEmptyEmail] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
-  const [confirmedPassword, setConfirmedPassword] = useState();
-  const [agree, setAgree] = useState(false);
+  const [shortPassword, setShortPassword] = useState(false);
   const [isPasswordDifferent, setIsPasswordDifferent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [agree, setAgree] = useState(false);
 
   const dispatch = useDispatch();
 
-  // 分割线-----------------------------
   const showTerms = () => {
     Alert.alert(
       'Terms and conditions',
@@ -97,7 +96,6 @@ const SignUpScreen = (props) => {
   const SignupHandler = () => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email === undefined) {
-      // emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
       if (!emptyEmail) {
         setEmptyEmail(true);
       }
@@ -107,8 +105,6 @@ const SignUpScreen = (props) => {
       setEmptyEmail(false);
     }
     if (!emailRegex.test(email.toLowerCase())) {
-      // emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
-      // invalidEmail ? setInvalidEmail(false) : setInvalidEmail(true);
       if (!invalidEmail) {
         setInvalidEmail(true);
       }
@@ -119,7 +115,6 @@ const SignUpScreen = (props) => {
     }
 
     if (password === undefined || password.length < 5) {
-      // shortPassword ? setShortPassword(false) : setShortPassword(true);
       if (!shortPassword) {
         setShortPassword(true);
       }
@@ -130,9 +125,6 @@ const SignUpScreen = (props) => {
     }
 
     if (password !== confirmedPassword) {
-      // isPasswordDifferent
-      //   ? setIsPasswordDifferent(false)
-      //   : setIsPasswordDifferent(true);
       if (!isPasswordDifferent) {
         setIsPasswordDifferent(true);
       }
@@ -198,6 +190,7 @@ const SignUpScreen = (props) => {
         onChangeText={(newText) => setEmail(newText)}
         onBlur={() => emailValidation()}
       />
+
       <View
         style={{
           width: Dimensions.get('window').width * 0.8,
@@ -211,6 +204,7 @@ const SignUpScreen = (props) => {
           <Text style={styles.hintText}>Please input a valid Email</Text>
         )}
       </View>
+
       <Input
         style={styles.inputBox}
         label='Password'
@@ -219,9 +213,11 @@ const SignUpScreen = (props) => {
         onChangeText={(newText) => setPassword(newText)}
         onBlur={() => passwordValidation()}
       />
+
       <View style={styles.passwordPrompt}>
         <Text style={styles.passwordPromptText}>At least 5 characters</Text>
       </View>
+
       <View
         style={{
           width: Dimensions.get('window').width * 0.8,
@@ -232,6 +228,7 @@ const SignUpScreen = (props) => {
           <Text style={styles.hintText}>The password is too short</Text>
         )}
       </View>
+
       <Input
         style={styles.inputBox}
         label='Confirm Password'
@@ -250,9 +247,6 @@ const SignUpScreen = (props) => {
         {isPasswordDifferent && (
           <Text style={styles.hintText}>Passwords are different</Text>
         )}
-        {/* {shortPassword && (
-          <Text style={styles.hintText}>The password is too short</Text>
-        )} */}
       </View>
 
       <View style={styles.agreeContainer}>
@@ -266,7 +260,7 @@ const SignUpScreen = (props) => {
           />
           <Text>I have read and agree to </Text>
         </View>
-        {/* <TermsIcon /> */}
+
         <View>
           <TouchableOpacity onPress={() => showTerms()}>
             <Text style={{ color: Colors.primary }}>terms and conditions</Text>
@@ -281,6 +275,7 @@ const SignUpScreen = (props) => {
           Sign Up
         </CommonButton>
       </View>
+
       <View style={styles.backButtonContainer}>
         <CommonButton onPress={() => props.navigation.navigate('Signin')}>
           Back to Sign in
@@ -313,9 +308,6 @@ const styles = StyleSheet.create({
   inputBox: {
     marginTop: 25,
     alignItems: 'flex-start',
-    // justifyContent: 'center',
-    // borderWidth: 1,
-    // borderColor: 'blue',
   },
   passwordPrompt: {
     width: Dimensions.get('window').width * 0.8,
@@ -326,15 +318,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  // DOBContainer: {
-  //   // borderColor: 'blue',
-  //   // borderWidth: 1,
-  //   width: '80%',
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  //   marginTop: 15,
-  // },
   hintText: {
     color: 'red',
     fontSize: 18,
@@ -344,12 +327,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   agreeContainer: {
-    // flexDirection: 'row',
     marginTop: 20,
     alignItems: 'center',
     width: Dimensions.get('window').width * 0.8,
-    // borderWidth: 1,
-    // borderColor: 'blue',
   },
   buttonContainer: {
     marginTop: 30,

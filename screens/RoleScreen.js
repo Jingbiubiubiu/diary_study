@@ -3,15 +3,10 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
-import URL from '../constants/URL';
-import * as studyActions from '../store/actions/study';
 
 const RoleScreen = (props) => {
   const userName = useSelector((state) => state.userName.userName);
-  // const unArray = uN.split('@');
-  // const userName = unArray[0];
 
-  const dispatch = useDispatch();
   return (
     <View style={styles.screen}>
       <View style={styles.welcome}>
@@ -19,9 +14,11 @@ const RoleScreen = (props) => {
           Welcome <Text style={styles.highlight}>{userName}</Text>
         </Text>
       </View>
+
       <View style={styles.title}>
         <Text style={styles.titleText}>Choose the Role</Text>
       </View>
+
       <View style={styles.buttonContainer}>
         <View style={styles.buttonContainer}>
           <Button
@@ -30,7 +27,9 @@ const RoleScreen = (props) => {
             onPress={() => props.navigation.navigate('Res')}
           />
         </View>
+
         <View style={styles.buttonContainer}></View>
+
         <Button
           title='Participant'
           color={Colors.primary}

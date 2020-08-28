@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  FlatList,
-  Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckBox from '@react-native-community/checkbox';
 
@@ -14,33 +7,21 @@ import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
-import * as Icons from '../../components/Icons';
 import CommonButton from '../../components/CommonButton';
-import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
 import SingleChoice from '../../components/SingleChoice';
 import * as preStudyAnswersActions from '../../store/actions/preStudyAnswers';
 
-const screenWidth = Dimensions.get('window').height;
-
 const SampleFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
-  // const studyId = 's1';
-  // const consentForm = DATA.consentForm[0];
   const study = useSelector((state) =>
     state.studies.participant_studies.find(
       (sd) => sd.studyNumber === studyNumber
     )
   );
   const userName = useSelector((state) => state.userName.userName);
-
-  // console.log(studyNumber);
   const consentForm = study.consentForm;
-
-  // console.log(consentForm);
-
   const [agree, setAgree] = useState(false);
-  const dispatch = useDispatch();
 
   const [visibility, setVisibility] = useState(
     // create an array which length equals to the data's length,
@@ -52,13 +33,12 @@ const SampleFormScreen = (props) => {
     Array(consentForm.preQuestions.length).fill(null)
   );
 
+  const dispatch = useDispatch();
+
   const updateAnswers = (index, value) => {
-    // console.log(index, value);
     let updateAnswers = [...answers];
-    // console.log('Original: ' + updateAnswers.toString());
     updateAnswers[index] = value;
     setAnswers(updateAnswers);
-    // console.log('Update: ' + updateAnswers.toString());
   };
 
   const updateVisibility = (index) => {
@@ -85,7 +65,6 @@ const SampleFormScreen = (props) => {
             />
           )
         );
-        break;
       case 'Single':
         return (
           visibility[index] && (
@@ -121,7 +100,6 @@ const SampleFormScreen = (props) => {
             </View>
           )
         );
-        break;
     }
   };
 
@@ -155,15 +133,17 @@ const SampleFormScreen = (props) => {
     <View style={styles.screen}>
       <TitleName style={styles.titleName}>{userName}</TitleName>
       <MainTitle style={styles.mainName}>Sample study</MainTitle>
+
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle} numberOfLines={2}>
           Consent form, description and pre-study questions
         </Text>
       </View>
-      {/* <ScrollView contentContainerStyle={styles.scrollView}> */}
+
       <View style={styles.description}>
         <Text>{consentForm.description}</Text>
       </View>
+
       <FlatList
         data={consentForm.preQuestions}
         keyExtractor={(item) => item.questionNumber.toString()}
@@ -185,13 +165,6 @@ const SampleFormScreen = (props) => {
       />
 
       <View style={styles.agreementContainer}>
-        {/* <Icons.CommonCheckbox
-          value={agree}
-          onChangeText={agreeHandler}
-          onPress={agreeHandler}
-        >
-          {consentForm.agreement}
-        </Icons.CommonCheckbox> */}
         <CheckBox
           value={agree}
           onValueChange={() => {
@@ -201,10 +174,8 @@ const SampleFormScreen = (props) => {
         />
         <Text>{consentForm.agreement} </Text>
       </View>
-      {/* </ScrollView> */}
-      {/* <Text>Answers:{answers.toString()}</Text> */}
+
       <Text>{agree}</Text>
-      {/* <Text>states:{visibility.toString()}</Text> */}
 
       <View style={styles.buttonContainer}>
         <CommonButton onPress={submitHandler}>Submit</CommonButton>
@@ -223,7 +194,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
-    // width: screenWidth,
   },
   titleName: {
     marginTop: 10,
@@ -241,9 +211,6 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 8,
     width: '85%',
-    // alignItems: 'center',
-    // borderColor: 'green',
-    // borderWidth: 1,
   },
   input: {
     marginVertical: 5,
@@ -256,10 +223,7 @@ const styles = StyleSheet.create({
   agreementContainer: {
     width: '83%',
     flexDirection: 'row',
-
     alignItems: 'center',
-    // borderColor: 'blue',
-    // borderWidth: 1,
   },
   buttonContainer: {
     marginBottom: 20,

@@ -22,6 +22,7 @@ const GuideScreen = (props) => {
           <View style={styles.titleContainer}>
             <MainTitle>Guite to get answers</MainTitle>
           </View>
+
           <View style={styles.contentContainer}>
             <View style={styles.commonTextContainer}>
               <Text>
@@ -30,10 +31,12 @@ const GuideScreen = (props) => {
                 show below.
               </Text>
             </View>
+
             <Image
               style={styles.image}
               source={require('../../assets/popupWindow.png')}
             />
+
             <View style={styles.commonTextContainer}>
               <Text>Please follow the steps:</Text>
               <Text style={{ fontSize: 5 }}></Text>
@@ -62,10 +65,12 @@ const GuideScreen = (props) => {
               </Text>
               <Text style={{ fontSize: 5 }}></Text>
             </View>
+
             <Image
               style={styles.image}
               source={require('../../assets/simpleAnswers.png')}
             />
+
             <View style={styles.commonTextContainer}>
               <Text style={{ fontSize: 5 }}></Text>
 
@@ -77,10 +82,12 @@ const GuideScreen = (props) => {
               </Text>
               <Text style={{ fontSize: 5 }}></Text>
             </View>
+
             <Image
               style={styles.image}
               source={require('../../assets/fileNameAnswers.png')}
             />
+
             <View style={styles.commonTextContainer}>
               <Text style={{ fontSize: 5 }}></Text>
 
@@ -141,16 +148,11 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: 'blue',
-    // justifyContent: 'center',
   },
   textContainer: {
     marginVertical: 10,
     width: screenWidth * 0.85,
     alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: 'blue',
   },
   titleContainer: {
     marginBottom: 5,
@@ -162,8 +164,6 @@ const styles = StyleSheet.create({
   },
   commonTextContainer: {
     width: '100%',
-    // borderWidth: 1,
-    // borderColor: 'green',
   },
   image: {
     width: screenWidth * 0.85,

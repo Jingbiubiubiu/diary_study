@@ -12,8 +12,6 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import * as DATA from '../../data/dummy-questions';
-
 import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
@@ -21,9 +19,7 @@ import CommonButton from '../../components/CommonButton';
 import AnswerIcon from '../../components/AnswerIcon';
 import SingleChoice from '../../components/SingleChoice';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
-import * as answersActions from '../../store/actions/answers';
 import * as studyActions from '../../store/actions/study';
-import * as answerPackageActions from '../../store/actions/answerPackage';
 import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
 import * as ImagePicker from 'expo-image-picker';
@@ -31,7 +27,6 @@ import * as Permissions from 'expo-permissions';
 import URL from '../../constants/URL';
 import * as FileSystem from 'expo-file-system';
 import { Audio } from 'expo-av';
-import { AntDesign } from '@expo/vector-icons';
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -46,11 +41,9 @@ const StudyFormScreen = (props) => {
     (state) => state.preStudyAnswers.preStudyAnswers
   );
 
-  // console.log('preAnswe:', preStudyAnswers);
   const questions = study.questions;
 
   const [modalVisible, setModalVisible] = useState(false);
-
   const [submitTime, setSubmitTime] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -93,12 +86,9 @@ const StudyFormScreen = (props) => {
   };
 
   const updateAnswers = (index, value) => {
-    // console.log(index, value);
     let updateAnswers = [...answers];
-    // console.log('Original: ', updateAnswers);
     updateAnswers[index] = value;
     setAnswers(updateAnswers);
-    // console.log('Update: ', updateAnswers);
   };
 
   const recordingOptions = {
@@ -126,7 +116,6 @@ const StudyFormScreen = (props) => {
   const startRecording = async (index) => {
     const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
     if (status !== 'granted') return;
-
     // some of these are not applicable, but are required
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: true,
@@ -136,6 +125,7 @@ const StudyFormScreen = (props) => {
       interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
       playThroughEarpieceAndroid: true,
     });
+
     const recording = new Audio.Recording();
     try {
       await recording.prepareToRecordAsync(recordingOptions);
@@ -184,12 +174,7 @@ const StudyFormScreen = (props) => {
       encoding: FileSystem.EncodingType.Base64,
     });
 
-    // setPickedImage(image.uri);
     updateAnswers(index, { uri: video.uri, base64: base64 });
-    // console.log(answers[index]);
-    // updateVisibility(index);
-
-    // props.onImageTaken(image.uri);
   };
 
   const takeImageHandler = async (index) => {
@@ -205,12 +190,7 @@ const StudyFormScreen = (props) => {
       base64: true,
     });
 
-    // setPickedImage(image.uri);
     updateAnswers(index, { uri: image.uri, base64: image.base64 });
-    // console.log(answers[index]);
-    // updateVisibility(index);
-
-    // props.onImageTaken(image.uri);
   };
 
   const getImageHandler = async (index) => {
@@ -227,12 +207,8 @@ const StudyFormScreen = (props) => {
         base64: true,
       });
       if (!image.cancelled) {
-        // setImage(result.uri);
         updateAnswers(index, { uri: image.uri, base64: image.base64 });
       }
-      // console.log(image);
-
-      // console.log(result);
     } catch (E) {
       console.log(E);
     }
@@ -252,19 +228,9 @@ const StudyFormScreen = (props) => {
                   <Text style={styles.text}>Hold to record</Text>
                 </View>
               </TouchableOpacity>
-              {/* <View>
-                {answers[index] && (
-                  <AntDesign
-                    name='checkcircleo'
-                    size={24}
-                    color={Colors.primary}
-                  />
-                )}
-              </View> */}
             </View>
           )
         );
-        break;
       case 'Video':
         return (
           visibility[index] && (
@@ -290,7 +256,6 @@ const StudyFormScreen = (props) => {
             </View>
           )
         );
-        break;
       case 'Photo':
         return (
           visibility[index] && (
@@ -316,7 +281,6 @@ const StudyFormScreen = (props) => {
             </View>
           )
         );
-        break;
       case 'Gallary':
         return (
           visibility[index] && (
@@ -342,7 +306,6 @@ const StudyFormScreen = (props) => {
             </View>
           )
         );
-        break;
       case 'Type':
         return (
           visibility[index] && (
@@ -352,7 +315,6 @@ const StudyFormScreen = (props) => {
             />
           )
         );
-        break;
       case 'Single':
         return (
           visibility[index] && (
@@ -388,9 +350,7 @@ const StudyFormScreen = (props) => {
             </View>
           )
         );
-        break;
       case 'Multiple':
-        // let values = [];
         return (
           visibility[index] && (
             <View>
@@ -414,7 +374,6 @@ const StudyFormScreen = (props) => {
                   },
                 ]}
                 defaultValue={answers[itemData.index]}
-                // defaultValue={values}
                 placeholder='Select the answer'
                 multiple={true}
                 multipleText='%d items have been selected.'
@@ -423,9 +382,6 @@ const StudyFormScreen = (props) => {
                 itemStyle={{
                   justifyContent: 'flex-start',
                 }}
-                // onChangeItem={(item) =>
-                //   updateAnswers(itemData.index, item.value)
-                // }
                 onChangeItem={(item) => {
                   updateAnswers(itemData.index, item);
                 }}
@@ -433,7 +389,6 @@ const StudyFormScreen = (props) => {
             </View>
           )
         );
-        break;
     }
   };
 
@@ -450,7 +405,6 @@ const StudyFormScreen = (props) => {
 
   const submitHandler = () => {
     setIsLoading(true);
-    // console.log(isLoading);
     const submitTime = createTimestamp();
     setSubmitTime(submitTime);
     let answerwithtype = [];
@@ -474,8 +428,6 @@ const StudyFormScreen = (props) => {
         });
       }
     }
-
-    // console.log(answerwithtype);
 
     let url = URL.address + 'study/submitanswer/';
     fetch(url, {
@@ -517,9 +469,9 @@ const StudyFormScreen = (props) => {
     <View style={styles.screen}>
       <TitleName>{userName}</TitleName>
       <MainTitle>{study.studyName}</MainTitle>
+
       <FlatList
         data={questions}
-        // listKey={(item) => item.questionId}
         keyExtractor={(item) => item.questionNumber.toString()}
         renderItem={(itemData) => (
           <View>
@@ -538,12 +490,10 @@ const StudyFormScreen = (props) => {
         )}
       />
 
-      {/* <Text>Answers:{answers.toString()}</Text> */}
-      {/* <Text>states:{visibility.toString()}</Text> */}
-      {/* <Text>{values.toString()}</Text> */}
       <View style={styles.buttonContainer}>
         <CommonButton onPress={() => onSubmitHandler()}>Submit</CommonButton>
       </View>
+
       <ShowInfo.ShowShortInfo
         content='Thank you for your submission.'
         dateContent='Submission date and time:'
@@ -574,12 +524,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // image: {
-  //   // height: '100%',
-  //   // width: '100%',
-  //   width: Dimensions.get('window').width * 0.85,
-  //   height: 200,
-  // },
   audioButtonContainer: {
     backgroundColor: Colors.primary,
     borderRadius: 5,
@@ -588,8 +532,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
     width: Dimensions.get('window').width * 0.5,
     alignItems: 'center',
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
   text: {
     color: 'white',
@@ -598,8 +540,6 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 12,
     borderRadius: 5,
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
   imagePicker: {
     alignItems: 'center',

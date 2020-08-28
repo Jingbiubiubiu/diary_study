@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   FlatList,
   Alert,
@@ -15,7 +14,6 @@ import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import AddButton from '../../components/AddButton';
 import CommonButton from '../../components/CommonButton';
-import * as DATA from '../../data/dummy-questions';
 import AnswerIcon from '../../components/AnswerIcon';
 import * as studyActions from '../../store/actions/study';
 import * as consentFormActions from '../../store/actions/consentForm';
@@ -84,6 +82,7 @@ const SetNewStudyScreen = (props) => {
           establishTime
         )
       );
+
       setModalVisible(true);
       dispatch(consentFormActions.clearConsentForm());
       dispatch(questionActions.clearQuestion());
@@ -91,6 +90,7 @@ const SetNewStudyScreen = (props) => {
       setIsLoading(false);
     }
   };
+
   if (isLoading) {
     return (
       <View style={styles.loadingScreen}>
@@ -98,16 +98,19 @@ const SetNewStudyScreen = (props) => {
       </View>
     );
   }
+
   return (
     <View style={styles.screen}>
       <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Setup New Study</MainTitle>
+
       <Input
         label='Study name'
         value={studyName}
         onChangeText={(newText) => setStudyName(newText)}
         style={styles.inputBoxContainer}
       />
+
       <AddButton
         style={{ marginTop: 20 }}
         navigation={props.navigation}
@@ -117,7 +120,7 @@ const SetNewStudyScreen = (props) => {
       >
         Set Consent Form
       </AddButton>
-      {/* <Text>{consentForms.length}</Text> */}
+
       <AddButton
         style={{ marginTop: 5 }}
         navigation={props.navigation}
@@ -127,6 +130,7 @@ const SetNewStudyScreen = (props) => {
       >
         Add New Question
       </AddButton>
+
       <FlatList
         data={questions}
         keyExtractor={(item) => item.questionNumber.toString()}
@@ -138,6 +142,7 @@ const SetNewStudyScreen = (props) => {
           />
         )}
       />
+
       <View style={styles.submitContainer}>
         <CommonButton onPress={() => submitHandler()}>Submit</CommonButton>
         <ShowInfo.ShowLongInfo
@@ -164,7 +169,6 @@ SetNewStudyScreen.navigationOptions = (navData) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   loadingScreen: {

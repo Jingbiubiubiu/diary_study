@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, StyleSheet, FlatList, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
@@ -15,7 +15,6 @@ import * as ShowInfo from '../../components/ShowInfo';
 import URL from '../../constants/URL';
 
 const ResStudyListScreen = (props) => {
-  // const studies = DATA.STUDY1;
   const userName = useSelector((state) => state.userName.userName);
   const studies = useSelector((state) => state.studies.researcher_studies);
   const [modalVisible, setModalVisible] = useState(false);
@@ -91,10 +90,10 @@ const ResStudyListScreen = (props) => {
         navigation={props.navigation}
         onPress={() => props.navigation.navigate('Guide')}
         onAddButton={() => {
-          // props.navigation.navigate('SetNewStudy');
           setupHandler();
         }}
       />
+
       <FlatList
         data={studies}
         keyExtractor={(item) => item.studyNumber}
@@ -118,34 +117,18 @@ const ResStudyListScreen = (props) => {
         visible={modalVisible}
         onPress={() => {
           setModalVisible(!modalVisible);
-          // props.navigation.navigate('ResStudyList');
         }}
       />
-      {/* <View>
-        <Text>Guide to get answer</Text>
-      </View> */}
     </View>
   );
 };
 
 ResStudyListScreen.navigationOptions = (navData) => {
-  // const logOutHandler = () => {
-  //   const dispatch = useDispatch();
-  //   dispatch(consentFormActions.clearConsentForm());
-  //   dispatch(questionActions.clearQuestion());
-  //   dispatch(preStudyQuestionActions.clearPreStudyQuestion());
-  //   navData.navigation.navigate('Signin');
-  // };
-
   return {
     headerTitle: 'Researcher Study List',
     headerRight: () => (
-      // <LogoutButton onPress={() => navData.navigation.navigate('Signin')} />
       <LogoutButton
         onPress={() => {
-          // useDispatch(consentFormActions.clearConsentForm());
-          // useDispatch(questionActions.clearQuestion());
-          // useDispatch(preStudyQuestionActions.clearPreStudyQuestion());
           navData.navigation.navigate('Signin');
         }}
       />

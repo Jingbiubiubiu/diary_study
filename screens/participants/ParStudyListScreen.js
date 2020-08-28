@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
 import Colors from '../../constants/Colors';
 import LogoutButton from '../../components/LogoutButton';
-import * as DATA from '../../data/dummy-questions';
 import StudyItem from '../../components/StudyItem';
 import * as studyActions from '../../store/actions/study';
 import URL from '../../constants/URL';
@@ -25,10 +24,10 @@ const ParStudyListScreen = (props) => {
         'Content-Type': 'application/json',
       },
     })
-    .then((response) => response.json())
-    .then((json) => {
-      dispatch(studyActions.initialize_participant_studies(json));
-    });
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch(studyActions.initialize_participant_studies(json));
+      });
   };
 
   useEffect(() => {
@@ -44,6 +43,7 @@ const ParStudyListScreen = (props) => {
         navigation={props.navigation}
         onAddButton={() => props.navigation.navigate('Joinin')}
       />
+
       <FlatList
         data={study}
         keyExtractor={(item) => item.studyNumber}
@@ -71,7 +71,6 @@ ParStudyListScreen.navigationOptions = (navData) => {
     headerTitle: 'Participant Study List',
     headerRight: () => (
       <LogoutButton onPress={() => navData.navigation.navigate('Signin')} />
-      // <LogoutButton onPress={() => navData.navigation.navigate('Auth')} />
     ),
   };
 };
@@ -92,7 +91,6 @@ const styles = StyleSheet.create({
   },
   screen: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   text: {

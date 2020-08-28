@@ -1,12 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import TitleName from '../../components/TitleName';
@@ -24,23 +17,23 @@ const screenHeight = Dimensions.get('window').height;
 
 const AddStudyQuestionScreen = (props) => {
   const userName = useSelector((state) => state.userName.userName);
-
-  const [questionContent, setQuetionContent] = useState();
-
   const studyName = props.navigation.getParam('sdName');
-
+  const [questionContent, setQuetionContent] = useState();
   const [answerType, setAnswerType] = useState();
   const [isSingleChoice, setIsSingleChoice] = useState(false);
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
-
-  const dispatch = useDispatch();
-
   const [option1, setOption1] = useState(null);
   const [option2, setOption2] = useState(null);
   const [option3, setOption3] = useState(null);
   const [option4, setOption4] = useState(null);
 
+  const dispatch = useDispatch();
+
   const dropdownItems = [
+    {
+      label: 'Type answer',
+      value: 'Type',
+    },
     {
       label: 'Single Choice',
       value: 'Single',
@@ -48,10 +41,6 @@ const AddStudyQuestionScreen = (props) => {
     {
       label: 'Multiple Choice',
       value: 'Multiple',
-    },
-    {
-      label: 'Audio',
-      value: 'Audio',
     },
     {
       label: 'Take photo',
@@ -62,12 +51,12 @@ const AddStudyQuestionScreen = (props) => {
       value: 'Gallary',
     },
     {
-      label: 'Type answer',
-      value: 'Type',
-    },
-    {
       label: 'Take video',
       value: 'Video',
+    },
+    {
+      label: 'Audio',
+      value: 'Audio',
     },
   ];
 
@@ -109,6 +98,7 @@ const AddStudyQuestionScreen = (props) => {
     <View style={styles.screen}>
       <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Study name : {studyName}</MainTitle>
+
       <ScrollView
         contentContainerStyle={{
           alignItems: 'center',
@@ -124,6 +114,7 @@ const AddStudyQuestionScreen = (props) => {
           value={questionContent}
           onChangeText={(newText) => setQuetionContent(newText)}
         />
+
         <View style={styles.dropdownContainer}>
           <SubTitle subTitleText={{ fontSize: 20, fontWeight: 'bold' }}>
             Select answer types
@@ -161,6 +152,7 @@ const AddStudyQuestionScreen = (props) => {
             </View>
           )}
         </View>
+
         <View style={styles.optionsContainer}>
           {/* {selectedMultiChoice && ( */}
           {isMultipleChoice && (
@@ -182,16 +174,9 @@ const AddStudyQuestionScreen = (props) => {
           )}
         </View>
       </ScrollView>
+
       <View style={styles.buttonContainer}>
-        {/* <Text>Audio:{selectedAudio.toString()}</Text>
-        <Text>Camera:{selectedCamera.toString()}</Text>
-        <Text>{selectList.toString()}</Text> */}
-        <CommonButton
-          // onPress={() => console.log(option1, option2, option3, option4)}
-          onPress={saveHandler}
-        >
-          Save
-        </CommonButton>
+        <CommonButton onPress={saveHandler}>Save</CommonButton>
       </View>
     </View>
   );
@@ -200,7 +185,6 @@ const AddStudyQuestionScreen = (props) => {
 AddStudyQuestionScreen.navigationOptions = (navData) => {
   return {
     headerTitle: 'Add Study Question',
-    // headerRight: () => <SaveButton onPress={() => {}} />,
   };
 };
 
@@ -212,23 +196,16 @@ const styles = StyleSheet.create({
   mainTitle: {
     marginTop: 15,
     width: screenWidth * 0.85,
-    // borderColor: 'blue',
-    // borderWidth: 1,
   },
-
   inputBox: {
     marginTop: 15,
     width: screenWidth * 0.85,
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   inputLabel: {
     fontSize: 20,
   },
   dropdownContainer: {
     alignItems: 'flex-start',
-    // borderWidth: 1,
-    // borderColor: 'green',
     width: screenWidth * 0.85,
   },
   buttonContainer: {
@@ -239,8 +216,6 @@ const styles = StyleSheet.create({
   },
   optionsContainer: {
     width: Dimensions.get('window').width * 0.85,
-    // borderWidth: 1,
-    // borderColor: 'green',
   },
 });
 

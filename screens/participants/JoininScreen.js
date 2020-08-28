@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
-import * as DATA from '../../data/dummy-questions';
 import { useSelector, useDispatch } from 'react-redux';
 import * as studyActions from '../../store/actions/study';
 import URL from '../../constants/URL';
@@ -15,10 +14,6 @@ const JoininScreen = (props) => {
   const [studyPassword, setStudyPassword] = useState();
   const [feedback, setFeedback] = useState();
   const userName = useSelector((state) => state.userName.userName);
-
-  const studies = useSelector((state) => state.studies.participant_studies);
-  // const studies = DATA.STUDY1;
-  // console.log(studies);
 
   const dispatch = useDispatch();
 
@@ -67,6 +62,7 @@ const JoininScreen = (props) => {
     <View style={styles.screen}>
       <TitleName style={styles.titleName}>{userName}</TitleName>
       <MainTitle style={styles.mainName}>Join a New Study</MainTitle>
+
       <View style={styles.inputContainer}>
         <Input
           style={styles.inputStyle}
@@ -82,6 +78,7 @@ const JoininScreen = (props) => {
         />
         <Text style={styles.hintText}>{feedback}</Text>
       </View>
+
       <View style={styles.buttonContainer}>
         <CommonButton onPress={() => joinHandler(studyNumber, studyPassword)}>
           Join

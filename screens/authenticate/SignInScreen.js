@@ -3,7 +3,6 @@ import { View, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import Colors from '../../constants/Colors';
-
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
@@ -17,7 +16,6 @@ const SignInScreen = (props) => {
 
   const dispatch = useDispatch();
 
-  // 分割线
   const SigninHandler = () => {
     setIsLoading(true);
     let url = URL.address + 'users/signin/';
@@ -56,8 +54,6 @@ const SignInScreen = (props) => {
   return (
     <View style={styles.screen}>
       <MainTitle style={styles.mainTitle}>Welcome</MainTitle>
-
-      {/* 分割线 */}
       <Input
         style={styles.inputBox}
         label='Email'
@@ -72,10 +68,6 @@ const SignInScreen = (props) => {
         secureTextEntry={true}
         onChangeText={(newText) => setPassword(newText)}
       />
-      {/* <TextInput
-        style={{ borderColor: 'red', borderWidth: 1 }}
-        secureTextEntry={true}
-      /> */}
       <View style={styles.buttonTotalContainer}>
         <View style={styles.buttonContainer}>
           <CommonButton onPress={SigninHandler}>Sign In</CommonButton>
@@ -103,7 +95,6 @@ SignInScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   loadingScreen: {

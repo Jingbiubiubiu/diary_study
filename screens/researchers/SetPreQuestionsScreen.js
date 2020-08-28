@@ -7,7 +7,6 @@ import MainTitle from '../../components/MainTitle';
 import SubTitle from '../../components/SubTitle';
 import CommonButton from '../../components/CommonButton';
 import SubtitleInput from '../../components/SubtitleInput';
-import Input from '../../components/Input';
 import * as Choice from '../../components/Choice';
 import * as DropdownPicker from '../../components/DropDownPicker';
 import * as preStudyQuestionActions from '../../store/actions/preStudyQuestion';
@@ -24,7 +23,6 @@ const SetPreQuestionsScreen = (props) => {
   const [option3, setOption3] = useState(null);
   const [option4, setOption4] = useState(null);
 
-  // const [dropdown, setDropdown] = useState('text');
   const [isSingleChoice, setIsSingleChoice] = useState(false);
   const dispatch = useDispatch();
 
@@ -78,25 +76,21 @@ const SetPreQuestionsScreen = (props) => {
           >
             Type the quetion
           </SubtitleInput>
+
           <SubTitle>Select the answer type</SubTitle>
+
           <DropdownPicker.ChooseTypeDropdownPicker
             items={dropdownItems}
             defaultValue={answerType}
-            // containerStyle={styles.dropdownMenu}
             placeholder='Select the answer type'
             itemStyle={{
               justifyContent: 'flex-start',
             }}
-            // labelStyle={styles.dropdownLabel}
             onChangeItem={(item) => dropdownHandler(item.value)}
           />
 
           {isSingleChoice && (
             <View>
-              {/* <Input label='Input first option:' style={styles.input} />
-              <Input label='Input second option:' style={styles.input} />
-              <Input label='Input third option:' style={styles.input} />
-              <Input label='Input forth option:' style={styles.input} /> */}
               <Choice.SingleChoice
                 option1={option1}
                 setOption1={(newText) => setOption1(newText)}
@@ -142,9 +136,6 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.8,
     alignItems: 'center',
   },
-  // subTitleContainer: {
-  //   alignItems: 'stretch',
-  // },
   input: {
     borderColor: 'gray',
     borderWidth: 1,
@@ -152,8 +143,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   scrollContainer: {
-    // borderColor: 'blue',
-    // borderWidth: 1,
     flex: 1,
   },
   buttonContainer: {
