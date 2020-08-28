@@ -71,14 +71,16 @@ export const ShowShortInfo = (props) => {
               {props.time}
             </Text>
           </View>
-          <View>
-            <Text style={styles.emphasis}>
-              Please write down or record the link below to get the answers:
-            </Text>
-            <View style={{ marginTop: 5 }}>
-              <Text style={styles.linkText}>{props.link}</Text>
+          {props.endStudy && (
+            <View>
+              <Text style={styles.emphasis}>
+                Please write down or record the link below to get the answers:
+              </Text>
+              <View style={{ marginTop: 5 }}>
+                <Text style={styles.linkText}>{props.link}</Text>
+              </View>
             </View>
-          </View>
+          )}
 
           <View style={styles.buttonContainer}>
             <CommonButton onPress={props.onPress}>OK</CommonButton>

@@ -19,6 +19,7 @@ const Input = (props) => {
         value={props.value}
         secureTextEntry={props.secureTextEntry}
         onChangeText={props.onChangeText}
+        onBlur={props.onBlur}
       />
     </View>
   );

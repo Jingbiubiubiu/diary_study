@@ -66,7 +66,7 @@ const JoininScreen = (props) => {
   return (
     <View style={styles.screen}>
       <TitleName style={styles.titleName}>{userName}</TitleName>
-      <MainTitle style={styles.mainName}>Participent Menu</MainTitle>
+      <MainTitle style={styles.mainName}>Join a New Study</MainTitle>
       <View style={styles.inputContainer}>
         <Input
           style={styles.inputStyle}
@@ -93,7 +93,7 @@ const JoininScreen = (props) => {
 
 JoininScreen.navigationOptions = (navData) => {
   return {
-    headerTitle: 'Participent Menu',
+    headerTitle: 'Join a New Study',
   };
 };
 
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 20,
-    width: '30%',
   },
 });
 

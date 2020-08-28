@@ -11,13 +11,20 @@ const StudyItem = (props) => {
           <Text>Finished</Text>
         </View>
       );
-
     } else if (isOpen) {
       return (
         <View>
           <CommonButton
+            buttonContainer={styles.buttonContainer}
             onPress={onPress}
-            text={{ paddingVertical: 0, paddingHorizontal: 8, fontSize: 14 }}
+            text={{
+              paddingVertical: 0,
+              // paddingHorizontal: 15,
+              fontSize: 14,
+              width: '100%',
+              // borderColor: 'red',
+              // borderWidth: 1,
+            }}
           >
             {text}
           </CommonButton>
@@ -41,7 +48,12 @@ const StudyItem = (props) => {
         <Text>{props.studyName}</Text>
       </View>
       <View style={styles.status}>
-        {stateIdentifier(props.isOpen, props.isSubmitted, props.onPress, props.buttonText)}
+        {stateIdentifier(
+          props.isOpen,
+          props.isSubmitted,
+          props.onPress,
+          props.buttonText
+        )}
       </View>
     </View>
   );
@@ -52,39 +64,43 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'stretch',
     width: Dimensions.get('window').width * 0.85,
   },
   studyNumber: {
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     // borderWidth: 1,
     borderColor: '#ccc',
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderBottomWidth: 1,
-    width: '20%',
+    width: '25%',
     paddingVertical: 3,
     // marginLeft: Dimensions.get('window').width / 30,
   },
   studyName: {
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#ccc',
-    width: '55%',
+    width: '50%',
     paddingVertical: 3,
+    paddingHorizontal: 3,
     // marginLeft: Dimensions.get('window').width / 30,
   },
   status: {
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
     width: '25%',
     paddingVertical: 3,
+  },
+  buttonContainer: {
+    width: '100%',
   },
 });
 

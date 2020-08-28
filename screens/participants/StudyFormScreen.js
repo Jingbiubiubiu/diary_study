@@ -450,16 +450,23 @@ const StudyFormScreen = (props) => {
 
   const submitHandler = () => {
     setIsLoading(true);
-    console.log(isLoading);
+    // console.log(isLoading);
     const submitTime = createTimestamp();
     setSubmitTime(submitTime);
     let answerwithtype = [];
     for (i = 0; i < answers.length; i++) {
       if (questions[i].answerType == 'Multiple') {
-        answerwithtype.push({
-          questionType: questions[i].answerType,
-          result: answers[i].toString(),
-        });
+        if (answers[i]) {
+          answerwithtype.push({
+            questionType: questions[i].answerType,
+            result: answers[i].toString(),
+          });
+        } else {
+          answerwithtype.push({
+            questionType: questions[i].answerType,
+            result: null,
+          });
+        }
       } else {
         answerwithtype.push({
           questionType: questions[i].answerType,
@@ -487,9 +494,13 @@ const StudyFormScreen = (props) => {
       .then((response) => response.json())
       .then((json) => {
         if (json.success == true) {
+          console.log(json);
           ParticipantListRetrieval();
           setModalVisible(true);
           setIsLoading(false);
+        } else {
+          setIsLoading(false);
+          Alert.alert('', 'Something is wrong. Please try again later', ['OK']);
         }
       });
   };

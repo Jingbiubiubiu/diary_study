@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions, FlatList, Alert } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import TitleName from '../../components/TitleName';
@@ -64,8 +71,8 @@ const SetConsentFormScreen = (props) => {
     <View style={styles.screen}>
       <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Setup Consent Form</MainTitle>
-      <View style={styles.scrollContainer}>
-        <SubtitleInput
+      {/* <View style={styles.scrollContainer}> */}
+      {/* <SubtitleInput
           numberOfLines={4}
           value={description}
           onChangeText={(newText) => setDescription(newText)}
@@ -89,20 +96,52 @@ const SetConsentFormScreen = (props) => {
           onPress={() => props.navigation.navigate('SetPreQuestion')}
         >
           Press here to start
-        </AddButton>
-        <FlatList
-          style={styles.preQuestionsContainer}
-          data={preQuestions}
-          keyExtractor={(item) => item.questionNumber.toString()}
-          renderItem={(itemData) => (
-            <AnswerIcon
-              index={itemData.index + 1}
-              content={itemData.item.content}
-              answerType={itemData.item.answerType}
-            />
-          )}
-        />
-      </View>
+        </AddButton> */}
+      <FlatList
+        ListHeaderComponent={
+          <View style={styles.scrollContainer}>
+            {/* <TitleName>{userName}</TitleName> */}
+            {/* <MainTitle style={styles.mainTitle}>Setup Consent Form</MainTitle> */}
+            <SubtitleInput
+              numberOfLines={4}
+              value={description}
+              onChangeText={(newText) => setDescription(newText)}
+            >
+              Input the description of the study
+            </SubtitleInput>
+            <SubtitleInput
+              numberOfLines={4}
+              placeholder='Input what you would like to say as consent agreement. For example:By clicking "Submit", I consent to all the above and confirm that they are corrent to the best of my knowledge'
+              value={agreement}
+              onChangeText={(newText) => setAgreement(newText)}
+            >
+              Set up consent agreement
+            </SubtitleInput>
+            <View style={{ alignItem: 'flex-start' }}>
+              <SubTitle>Set up pre-study questions</SubTitle>
+            </View>
+            <AddButton
+              style={{ marginTop: 20 }}
+              navigation={props.navigation}
+              onPress={() => props.navigation.navigate('SetPreQuestion')}
+            >
+              Press here to start
+            </AddButton>
+          </View>
+        }
+        style={styles.preQuestionsContainer}
+        data={preQuestions}
+        keyExtractor={(item) => item.questionNumber.toString()}
+        renderItem={(itemData) => (
+          <AnswerIcon
+            index={itemData.index + 1}
+            content={itemData.item.content}
+            answerType={itemData.item.answerType}
+          />
+        )}
+      />
+      {/* </View> */}
+
       <View style={styles.buttonContainer}>
         <CommonButton
           buttonContainer={{ width: screenWidth * 0.25 }}
@@ -147,7 +186,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonContainer: {
-    margin: 20,
+    marginVertical: 20,
     alignItems: 'center',
   },
 });

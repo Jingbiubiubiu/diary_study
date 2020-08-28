@@ -128,11 +128,11 @@ const SampleFormScreen = (props) => {
   const submitHandler = () => {
     if (agree) {
       let answerwithtype = [];
-      for (i = 0; i < answers.length; i++) {
+      for (let i = 0; i < answers.length; i++) {
         answerwithtype.push({
           questionType: consentForm.preQuestions[i].answerType,
-          result: answers[i]
-        })
+          result: answers[i],
+        });
       }
       dispatch(preStudyAnswersActions.createPreStudyAnswers(answerwithtype));
       Alert.alert('Save successful!', '', [
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   buttonContainer: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
 });
 

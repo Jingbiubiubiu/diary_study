@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert, TextInput } from 'react-native';
+import { View, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
+
+import Colors from '../../constants/Colors';
 
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
@@ -11,10 +13,13 @@ import URL from '../../constants/URL';
 const SignInScreen = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
+  // 分割线
   const SigninHandler = () => {
+    setIsLoading(true);
     let url = URL.address + 'users/signin/';
     fetch(url, {
       method: 'POST',
@@ -31,16 +36,28 @@ const SignInScreen = (props) => {
       .then((json) => {
         if (json.success == true) {
           dispatch(userNameActions.updateUserName(email));
+          setIsLoading(false);
           props.navigation.navigate('Role');
         } else {
+          setIsLoading(false);
           Alert.alert('Signin failed', json.detail, [{ text: 'OK' }]);
         }
       });
   };
 
+  if (isLoading) {
+    return (
+      <View style={styles.loadingScreen}>
+        <ActivityIndicator size='large' color={Colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <MainTitle style={styles.mainTitle}>Welcome</MainTitle>
+
+      {/* 分割线 */}
       <Input
         style={styles.inputBox}
         label='Email'
@@ -88,6 +105,11 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     alignItems: 'center',
+  },
+  loadingScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   mainTitle: {
     marginTop: 50,

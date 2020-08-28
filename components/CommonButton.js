@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 
 import Colors from '../constants/Colors';
 
@@ -19,9 +26,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    width: Dimensions.get('window').width * 0.4,
+    // borderWidth: 1,
+    // borderColor: 'red',
   },
   text: {
     color: 'white',
+    textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
     paddingVertical: 7,
@@ -29,6 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     // borderWidth: 1,
     // borderColor: 'red',
+    width: '100%',
   },
 });
 

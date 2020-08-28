@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Alert,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -26,8 +27,11 @@ const SignUpScreen = (props) => {
   const [confirmedPassword, setConfirmedPassword] = useState();
   const [agree, setAgree] = useState(false);
   const [isPasswordDifferent, setIsPasswordDifferent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
 
+  // 分割线-----------------------------
   const showTerms = () => {
     Alert.alert(
       'Terms and conditions',
@@ -36,33 +40,111 @@ const SignUpScreen = (props) => {
     );
   };
 
-  const SignupHandler = () => {
+  const emailValidation = () => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email === undefined) {
-      emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
+      // emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
+      if (!emptyEmail) {
+        setEmptyEmail(true);
+      }
       return;
     }
+    if (emptyEmail) {
+      setEmptyEmail(false);
+    }
     if (!emailRegex.test(email.toLowerCase())) {
-      emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
-      invalidEmail ? setInvalidEmail(false) : setInvalidEmail(true);
+      // emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
+      // invalidEmail ? setInvalidEmail(false) : setInvalidEmail(true);
+      if (!invalidEmail) {
+        setInvalidEmail(true);
+      }
+      return;
+    }
+    if (invalidEmail) {
+      setInvalidEmail(false);
+    }
+  };
+
+  const passwordValidation = () => {
+    if (password === undefined || password.length < 5) {
+      // shortPassword ? setShortPassword(false) : setShortPassword(true);
+      if (!shortPassword) {
+        setShortPassword(true);
+      }
+      return;
+    }
+    if (shortPassword) {
+      setShortPassword(false);
+    }
+  };
+
+  const confirmPasswordValidation = () => {
+    if (password !== confirmedPassword) {
+      // isPasswordDifferent
+      //   ? setIsPasswordDifferent(false)
+      //   : setIsPasswordDifferent(true);
+      if (!isPasswordDifferent) {
+        setIsPasswordDifferent(true);
+      }
       return;
     }
 
+    if (isPasswordDifferent) {
+      setIsPasswordDifferent(false);
+    }
+  };
+
+  const SignupHandler = () => {
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (email === undefined) {
+      // emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
+      if (!emptyEmail) {
+        setEmptyEmail(true);
+      }
+      return;
+    }
+    if (emptyEmail) {
+      setEmptyEmail(false);
+    }
+    if (!emailRegex.test(email.toLowerCase())) {
+      // emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
+      // invalidEmail ? setInvalidEmail(false) : setInvalidEmail(true);
+      if (!invalidEmail) {
+        setInvalidEmail(true);
+      }
+      return;
+    }
+    if (invalidEmail) {
+      setInvalidEmail(false);
+    }
+
     if (password === undefined || password.length < 5) {
-      shortPassword ? setShortPassword(false) : setShortPassword(true);
+      // shortPassword ? setShortPassword(false) : setShortPassword(true);
+      if (!shortPassword) {
+        setShortPassword(true);
+      }
       return;
     }
+    if (shortPassword) {
+      setShortPassword(false);
+    }
+
     if (password !== confirmedPassword) {
-      isPasswordDifferent
-        ? setIsPasswordDifferent(false)
-        : setIsPasswordDifferent(true);
+      // isPasswordDifferent
+      //   ? setIsPasswordDifferent(false)
+      //   : setIsPasswordDifferent(true);
+      if (!isPasswordDifferent) {
+        setIsPasswordDifferent(true);
+      }
       return;
     }
+
     if (isPasswordDifferent) {
       setIsPasswordDifferent(false);
     }
 
     if (agree) {
+      setIsLoading(true);
       let url = URL.address + 'users/signup/';
       fetch(url, {
         method: 'POST',
@@ -80,8 +162,10 @@ const SignUpScreen = (props) => {
           console.log(json);
           if (json.success == true) {
             dispatch(userNameActions.updateUserName(email));
+            setIsLoading(false);
             props.navigation.navigate('Role');
           } else {
+            setIsLoading(false);
             Alert.alert('Signup failed', json.detail, [{ text: 'OK' }]);
           }
         });
@@ -93,16 +177,26 @@ const SignUpScreen = (props) => {
       );
     }
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingScreen}>
+        <ActivityIndicator size='large' color={Colors.primary} />
+      </View>
+    );
+  }
   return (
     <View style={styles.screen}>
       <View style={styles.titleContainer}>
         <MainTitle style={styles.mainTitle}>Sign Up</MainTitle>
       </View>
+
       <Input
         style={styles.inputBox}
         label='Email'
         value={email}
         onChangeText={(newText) => setEmail(newText)}
+        onBlur={() => emailValidation()}
       />
       <View
         style={{
@@ -123,9 +217,20 @@ const SignUpScreen = (props) => {
         value={password}
         secureTextEntry={true}
         onChangeText={(newText) => setPassword(newText)}
+        onBlur={() => passwordValidation()}
       />
       <View style={styles.passwordPrompt}>
         <Text style={styles.passwordPromptText}>At least 5 characters</Text>
+      </View>
+      <View
+        style={{
+          width: Dimensions.get('window').width * 0.8,
+          marginTop: 3,
+        }}
+      >
+        {shortPassword && (
+          <Text style={styles.hintText}>The password is too short</Text>
+        )}
       </View>
       <Input
         style={styles.inputBox}
@@ -133,6 +238,7 @@ const SignUpScreen = (props) => {
         value={confirmedPassword}
         secureTextEntry={true}
         onChangeText={(newText) => setConfirmedPassword(newText)}
+        onBlur={() => confirmPasswordValidation()}
       />
 
       <View
@@ -144,9 +250,9 @@ const SignUpScreen = (props) => {
         {isPasswordDifferent && (
           <Text style={styles.hintText}>Passwords are different</Text>
         )}
-        {shortPassword && (
+        {/* {shortPassword && (
           <Text style={styles.hintText}>The password is too short</Text>
-        )}
+        )} */}
       </View>
 
       <View style={styles.agreeContainer}>
@@ -195,6 +301,11 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
+  },
+  loadingScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titleContainer: {
     marginTop: 30,

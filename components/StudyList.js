@@ -20,9 +20,7 @@ const StudyList = (props) => {
         <MainTitle>{props.mainTitle}</MainTitle>
         <AddButton onPress={props.onAddButton}>{props.setupContent}</AddButton>
       </View>
-      <View subTitleContainer>
-        <Text style={styles.subTitle}>All studies</Text>
-      </View>
+
       <View style={styles.guideContainer}>
         {props.guide && (
           <TouchableOpacity onPress={props.onPress}>
@@ -30,30 +28,35 @@ const StudyList = (props) => {
           </TouchableOpacity>
         )}
       </View>
+
+      <View style={styles.subTitleContainer}>
+        <Text style={styles.subTitle}>All studies</Text>
+      </View>
       <View style={styles.listTitleContainer}>
         <View
           style={{
-            width: '20%',
-            justifyContent: 'center',
+            width: '25%',
+            ...styles.listTitle,
           }}
         >
-          <TitleName>Study Number</TitleName>
+          <TitleName style={{ marginTop: 0 }}>Study Number</TitleName>
         </View>
         <View
           style={{
-            width: '55%',
-            alignItems: 'center',
+            width: '50%',
+            ...styles.listTitle,
           }}
         >
-          <TitleName>Study Name</TitleName>
+          <TitleName style={{ marginTop: 0 }}>Study Name</TitleName>
         </View>
         <View
           style={{
             width: '25%',
-            alignItems: 'center',
+            borderRightWidth: 1,
+            ...styles.listTitle,
           }}
         >
-          <TitleName>Status </TitleName>
+          <TitleName style={{ marginTop: 0 }}>Status </TitleName>
         </View>
       </View>
     </View>
@@ -68,13 +71,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: Dimensions.get('window').width * 0.8,
+    // borderColor: 'green',
+    // borderWidth: 1,
+    // marginBottom: 5,
+  },
+  subTitleContainer: {
+    marginTop: 10,
+    marginBottom: 5,
+    // borderColor: 'green',
+    // borderWidth: 1,
   },
   subTitle: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   guideContainer: {
-    marginTop: 10,
+    marginTop: 0,
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
   guideContent: {
     color: Colors.primary,
@@ -84,7 +98,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: Dimensions.get('window').width * 0.85,
+    alignItems: 'stretch',
+    // borderColor: 'red',
+    // borderWidth: 1,
+  },
+  listTitle: {
     alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#ccc',
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
   },
 });
 

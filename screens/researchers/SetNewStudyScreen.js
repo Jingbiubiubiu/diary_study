@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
@@ -27,6 +35,7 @@ const SetNewStudyScreen = (props) => {
   const [studyPassword, setStudyPassword] = useState();
   const [establishTime, setEstablishTime] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -62,6 +71,7 @@ const SetNewStudyScreen = (props) => {
 
       const establishTime = createTimestamp();
       setEstablishTime(establishTime);
+      setIsLoading(true);
 
       dispatch(
         studyActions.createStudy(
@@ -78,9 +88,16 @@ const SetNewStudyScreen = (props) => {
       dispatch(consentFormActions.clearConsentForm());
       dispatch(questionActions.clearQuestion());
       dispatch(preStudyQuestionActions.clearPreStudyQuestion());
+      setIsLoading(false);
     }
   };
-
+  if (isLoading) {
+    return (
+      <View style={styles.loadingScreen}>
+        <ActivityIndicator size='large' color={Colors.primary} />
+      </View>
+    );
+  }
   return (
     <View style={styles.screen}>
       <TitleName>{userName}</TitleName>
@@ -122,10 +139,7 @@ const SetNewStudyScreen = (props) => {
         )}
       />
       <View style={styles.submitContainer}>
-        <CommonButton onPress={() => submitHandler()}>
-          {/* <CommonButton onPress={() => setModalVisible(true)}> */}
-          Submit
-        </CommonButton>
+        <CommonButton onPress={() => submitHandler()}>Submit</CommonButton>
         <ShowInfo.ShowLongInfo
           studyName={studyName}
           studyNumber={studyNumber}
@@ -152,6 +166,11 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     alignItems: 'center',
+  },
+  loadingScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   mainTitle: {
     marginTop: 15,

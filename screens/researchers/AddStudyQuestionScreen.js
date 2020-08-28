@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.85,
   },
   buttonContainer: {
-    marginVertical: 30,
+    marginVertical: 20,
   },
   hightlightText: {
     color: Colors.primary,

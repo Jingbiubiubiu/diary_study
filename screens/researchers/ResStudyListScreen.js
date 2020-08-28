@@ -113,6 +113,7 @@ const ResStudyListScreen = (props) => {
         content='This study has been ended.'
         dateContent='End date and time:'
         time={endTime}
+        endStudy={true}
         link={answerLink}
         visible={modalVisible}
         onPress={() => {
