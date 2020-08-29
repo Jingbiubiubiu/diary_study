@@ -13,6 +13,7 @@ const Input = (props) => {
       </View>
       <TextInput
         {...props}
+        autoCapitalize={props.autoCapitalize}
         multiline={false}
         numberOfLines={props.numberOfLines}
         style={{ ...styles.input, ...props.inputBox }}

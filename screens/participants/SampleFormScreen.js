@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import CheckBox from '@react-native-community/checkbox';
+// import CheckBox from '@react-native-community/checkbox';
+import { CheckBox } from 'react-native-elements';
 
 import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
@@ -165,12 +166,19 @@ const SampleFormScreen = (props) => {
       />
 
       <View style={styles.agreementContainer}>
-        <CheckBox
+        {/* <CheckBox
           value={agree}
           onValueChange={() => {
             agree ? setAgree(false) : setAgree(true);
           }}
           tintColors={{ true: Colors.primary }}
+        /> */}
+        <CheckBox
+          checked={agree}
+          checkedColor={Colors.primary}
+          onIconPress={() => {
+            agree ? setAgree(false) : setAgree(true);
+          }}
         />
         <Text>{consentForm.agreement} </Text>
       </View>

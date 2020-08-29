@@ -9,11 +9,12 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { CheckBox } from 'react-native-elements';
+// import CheckBox from '@react-native-community/checkbox';
 
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
 import CommonButton from '../../components/CommonButton';
-import CheckBox from '@react-native-community/checkbox';
 import Colors from '../../constants/Colors';
 import URL from '../../constants/URL';
 import * as userNameActions from '../../store/actions/userName';
@@ -187,6 +188,7 @@ const SignUpScreen = (props) => {
         style={styles.inputBox}
         label='Email'
         value={email}
+        autoCapitalize='none'
         onChangeText={(newText) => setEmail(newText)}
         onBlur={() => emailValidation()}
       />
@@ -251,36 +253,39 @@ const SignUpScreen = (props) => {
 
       <View style={styles.agreeContainer}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <CheckBox
+          {/* <CheckBox
             value={agree}
             onValueChange={() => {
               agree ? setAgree(false) : setAgree(true);
             }}
             tintColors={{ true: Colors.primary }}
+          /> */}
+          <CheckBox
+            checked={agree}
+            checkedColor={Colors.primary}
+            onIconPress={() => {
+              agree ? setAgree(false) : setAgree(true);
+            }}
           />
+
           <Text>I have read and agree to </Text>
         </View>
 
         <View>
           <TouchableOpacity onPress={() => showTerms()}>
             <Text style={{ color: Colors.primary }}>terms and conditions</Text>
-            {/* <Text style={{ color: 'blue' }}>conditions</Text> */}
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.buttonContainer}>
-        <CommonButton onPress={() => SignupHandler()}>
-          {/* <CommonButton onPress={SignupHandler}> */}
-          Sign Up
-        </CommonButton>
+        <CommonButton onPress={() => SignupHandler()}>Sign Up</CommonButton>
       </View>
 
       <View style={styles.backButtonContainer}>
         <CommonButton onPress={() => props.navigation.navigate('Signin')}>
           Back to Sign in
         </CommonButton>
-        {/* <Text>{birthday.toISOString()}</Text> */}
       </View>
     </View>
   );

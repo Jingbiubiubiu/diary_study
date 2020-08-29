@@ -11,6 +11,10 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import * as FileSystem from 'expo-file-system';
+import { Audio } from 'expo-av';
 
 import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
@@ -22,11 +26,7 @@ import InputWithoutLabel from '../../components/InputWithoutLabel';
 import * as studyActions from '../../store/actions/study';
 import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
-import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
 import URL from '../../constants/URL';
-import * as FileSystem from 'expo-file-system';
-import { Audio } from 'expo-av';
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -408,7 +408,7 @@ const StudyFormScreen = (props) => {
     const submitTime = createTimestamp();
     setSubmitTime(submitTime);
     let answerwithtype = [];
-    for (i = 0; i < answers.length; i++) {
+    for (let i = 0; i < answers.length; i++) {
       if (questions[i].answerType == 'Multiple') {
         if (answers[i]) {
           answerwithtype.push({
