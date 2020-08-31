@@ -76,6 +76,13 @@ ParStudyListScreen.navigationOptions = (navData) => {
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignItems: 'center',
+    marginBottom: 20,
+    // borderWidth: 1,
+    // borderColor: 'red',
+  },
   studyItemContainer: {
     marginVertical: 5,
     flexDirection: 'row',
@@ -89,10 +96,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'red',
   },
-  screen: {
-    flex: 1,
-    alignItems: 'center',
-  },
+
   text: {
     marginHorizontal: 5,
     fontSize: 20,

@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
 import SubTitle from '../../components/SubTitle';
-import Input from '../../components/Input';
+import SubtitleInput from '../../components/SubtitleInput';
 import CommonButton from '../../components/CommonButton';
 import * as Choice from '../../components/Choice';
 import Colors from '../../constants/Colors';
@@ -80,6 +87,36 @@ const AddStudyQuestionScreen = (props) => {
     }
   };
 
+  const onSaveHandler = () => {
+    if (questionContent === undefined) {
+      Alert.alert('Error', 'The question is empty. Please set.');
+      return;
+    }
+    if (answerType === undefined) {
+      Alert.alert('Error', 'The answer type has not been chosen. Please set.');
+      return;
+    }
+    Alert.alert(
+      '',
+      'Are you sure you want to set up this question? \nYou cannot undo this operation',
+      [
+        { text: 'Yes', onPress: () => saveHandler() },
+        { text: 'No', style: 'cancel' },
+      ]
+    );
+    // dispatch(
+    //   questionActions.createQuestion(
+    //     questionContent,
+    //     answerType,
+    //     option1,
+    //     option2,
+    //     option3,
+    //     option4
+    //   )
+    // );
+    // props.navigation.goBack();
+  };
+
   const saveHandler = () => {
     dispatch(
       questionActions.createQuestion(
@@ -91,7 +128,13 @@ const AddStudyQuestionScreen = (props) => {
         option4
       )
     );
-    props.navigation.goBack();
+    Alert.alert('Save successful!', '', [
+      {
+        text: 'OK',
+        onPress: () => props.navigation.goBack(),
+      },
+    ]);
+    // props.navigation.goBack();
   };
 
   return (
@@ -106,14 +149,14 @@ const AddStudyQuestionScreen = (props) => {
         }}
       >
         <SubTitle style={{ alignItems: 'center' }}>Add new question</SubTitle>
-        <Input
-          style={styles.inputBox}
-          label='Type Question'
+        <SubtitleInput
+          style={{ marginBottom: 10, width: screenWidth * 0.85 }}
           numberOfLines={4}
-          inputLabel={styles.inputLabel}
           value={questionContent}
           onChangeText={(newText) => setQuetionContent(newText)}
-        />
+        >
+          Type the quetion
+        </SubtitleInput>
 
         <View style={styles.dropdownContainer}>
           <SubTitle subTitleText={{ fontSize: 20, fontWeight: 'bold' }}>
@@ -176,7 +219,7 @@ const AddStudyQuestionScreen = (props) => {
       </ScrollView>
 
       <View style={styles.buttonContainer}>
-        <CommonButton onPress={saveHandler}>Save</CommonButton>
+        <CommonButton onPress={onSaveHandler}>Save</CommonButton>
       </View>
     </View>
   );

@@ -184,7 +184,7 @@ const StudyFormScreen = (props) => {
     }
     const image = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [16, 9],
+      aspect: [4, 3],
       // quality between 0-1, 1 is highest
       quality: 0.5,
       base64: true,
@@ -224,8 +224,15 @@ const StudyFormScreen = (props) => {
                 onPressIn={() => startRecording(index)}
                 onPressOut={() => stopRecording(index)}
               >
-                <View style={styles.audioButtonContainer}>
-                  <Text style={styles.text}>Hold to record</Text>
+                <View style={{ alignItems: 'center' }}>
+                  <View style={styles.audioButtonContainer}>
+                    <Text style={styles.text}>Hold to record</Text>
+                  </View>
+                  <View style={{ marginBottom: 5 }}>
+                    <Text style={{ color: Colors.primary }}>
+                      Please less than 20 seconds
+                    </Text>
+                  </View>
                 </View>
               </TouchableOpacity>
             </View>
@@ -242,6 +249,11 @@ const StudyFormScreen = (props) => {
                 >
                   Take Video
                 </CommonButton>
+                <View style={{ marginBottom: 5 }}>
+                  <Text style={{ color: Colors.primary }}>
+                    Please less than 20 seconds
+                  </Text>
+                </View>
               </View>
               <View style={styles.imagePreview}>
                 {answers[index] === null ? (
@@ -395,7 +407,7 @@ const StudyFormScreen = (props) => {
   const onSubmitHandler = () => {
     Alert.alert(
       '',
-      'Are you sure you want to submit? You cannot undo this operation',
+      'Are you sure you want to submit? \nYou cannot undo this operation',
       [
         { text: 'Yes', onPress: () => submitHandler() },
         { text: 'No', style: 'cancel' },
@@ -461,6 +473,20 @@ const StudyFormScreen = (props) => {
     return (
       <View style={styles.loadingScreen}>
         <ActivityIndicator size='large' color={Colors.primary} />
+        <View style={styles.uploadContainer}>
+          <Text
+            style={{
+              color: Colors.primary,
+              fontWeight: 'bold',
+              textAlign: 'center',
+            }}
+          >
+            It takes some time to upload you answers, please wait.
+          </Text>
+          <Text style={{ color: Colors.primary, fontWeight: 'bold' }}>
+            Thank you!
+          </Text>
+        </View>
       </View>
     );
   }
@@ -471,10 +497,11 @@ const StudyFormScreen = (props) => {
       <MainTitle>{study.studyName}</MainTitle>
 
       <FlatList
+        style={styles.flatList}
         data={questions}
         keyExtractor={(item) => item.questionNumber.toString()}
         renderItem={(itemData) => (
-          <View>
+          <View style={styles.flatListItemsContainer}>
             <AnswerIcon
               index={itemData.index + 1}
               content={itemData.item.content}
@@ -541,6 +568,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 5,
   },
+  flatList: {
+    // borderColor: 'green',
+    // borderWidth: 1,
+    marginBottom: 10,
+  },
+  flatListItemsContainer: {
+    borderColor: '#ccc',
+    borderWidth: 1,
+    paddingHorizontal: 5,
+  },
   imagePicker: {
     alignItems: 'center',
     marginVertical: 5,
@@ -561,6 +598,7 @@ const styles = StyleSheet.create({
   },
   imageButtonContainer: {
     marginBottom: 8,
+    alignItems: 'center',
   },
   imageButtonText: {
     fontSize: 12,
@@ -568,6 +606,11 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     marginBottom: 20,
+  },
+  uploadContainer: {
+    width: Dimensions.get('window').width * 0.8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

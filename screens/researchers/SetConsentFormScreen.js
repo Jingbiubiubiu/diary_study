@@ -31,14 +31,20 @@ const SetConsentFormScreen = (props) => {
 
   const dispatch = useDispatch();
 
-  const saveHandler = () => {
+  const onSaveHandler = () => {
     if (description === undefined) {
       Alert.alert('Error', 'There is no description. Please set.');
     }
     if (agreement === undefined) {
       Alert.alert('Error', 'There is no consent agreement. Please set.');
     }
+    Alert.alert('', 'Are you sure you want to set up this consent form?', [
+      { text: 'Yes', onPress: () => saveHandler() },
+      { text: 'No', style: 'cancel' },
+    ]);
+  };
 
+  const saveHandler = () => {
     if (description !== undefined && agreement !== undefined) {
       dispatch(
         consentFormActions.createConsentForm(
@@ -47,7 +53,12 @@ const SetConsentFormScreen = (props) => {
           agreement
         )
       );
-      props.navigation.goBack();
+      Alert.alert('Save successful!', '', [
+        {
+          text: 'OK',
+          onPress: () => props.navigation.goBack(),
+        },
+      ]);
     }
   };
 
@@ -56,6 +67,8 @@ const SetConsentFormScreen = (props) => {
       <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Setup Consent Form</MainTitle>
 
+      {/*since FlatList connot be nested in the ScrollView*/}
+      {/* add the elements which should be scrollable to the ListHeaderComponent */}
       <FlatList
         ListHeaderComponent={
           <View style={styles.scrollContainer}>
@@ -93,18 +106,20 @@ const SetConsentFormScreen = (props) => {
         data={preQuestions}
         keyExtractor={(item) => item.questionNumber.toString()}
         renderItem={(itemData) => (
-          <AnswerIcon
-            index={itemData.index + 1}
-            content={itemData.item.content}
-            answerType={itemData.item.answerType}
-          />
+          <View style={styles.flatListItemsContainer}>
+            <AnswerIcon
+              index={itemData.index + 1}
+              content={itemData.item.content}
+              answerType={itemData.item.answerType}
+            />
+          </View>
         )}
       />
 
       <View style={styles.buttonContainer}>
         <CommonButton
           buttonContainer={{ width: screenWidth * 0.25 }}
-          onPress={() => saveHandler()}
+          onPress={() => onSaveHandler()}
         >
           Save
         </CommonButton>
@@ -123,15 +138,25 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
+    // width: screenWidth * 0.85,
   },
   mainTitle: {
     alignItems: 'center',
   },
   scrollContainer: {
     width: screenWidth * 0.85,
+    flex: 1,
+
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
   preQuestionsContainer: {
     height: screenHeight * 0.22,
+  },
+  flatListItemsContainer: {
+    borderColor: '#ccc',
+    borderWidth: 1,
+    paddingHorizontal: 5,
   },
   input: {
     borderColor: '#ccc',

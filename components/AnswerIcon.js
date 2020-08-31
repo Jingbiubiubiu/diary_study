@@ -39,10 +39,12 @@ const AnswerIcon = (props) => {
 
 const styles = StyleSheet.create({
   questionContainer: {
-    marginTop: 15,
+    marginVertical: 7,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: Dimensions.get('window').width * 0.85,
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
   questionTextContainer: {
     width: '70%',
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
   //   borderWidth: 1,
   // },
   iconContainer1: {
-    width: '23%',
+    width: '25%',
     justifyContent: 'center',
     alignItems: 'center',
     // borderColor: 'green',

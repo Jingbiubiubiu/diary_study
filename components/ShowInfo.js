@@ -26,8 +26,8 @@ export const ShowLongInfo = (props) => {
           </View>
           <View style={styles.emphasisContainer}>
             <Text style={styles.emphasis}>
-              Please record the information below, you will need it to tell
-              participants
+              Please write down or record the information below, you will need
+              it to tell participants
             </Text>
           </View>
           <View style={styles.info}>

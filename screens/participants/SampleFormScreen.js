@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Alert,
+  Dimensions,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 // import CheckBox from '@react-native-community/checkbox';
 import { CheckBox } from 'react-native-elements';
@@ -7,11 +14,14 @@ import { CheckBox } from 'react-native-elements';
 import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
 import MainTitle from '../../components/MainTitle';
+import SubTitle from '../../components/SubTitle';
 import InputWithoutLabel from '../../components/InputWithoutLabel';
 import CommonButton from '../../components/CommonButton';
 import AnswerIcon from '../../components/AnswerIcon';
 import SingleChoice from '../../components/SingleChoice';
 import * as preStudyAnswersActions from '../../store/actions/preStudyAnswers';
+
+const screenWidth = Dimensions.get('window').width;
 
 const SampleFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -105,6 +115,13 @@ const SampleFormScreen = (props) => {
   };
 
   const submitHandler = () => {
+    Alert.alert('', 'Are you sure you want to submit this consent form?', [
+      { text: 'Yes', onPress: () => saveHandler() },
+      { text: 'No', style: 'cancel' },
+    ]);
+  };
+
+  const saveHandler = () => {
     if (agree) {
       let answerwithtype = [];
       for (let i = 0; i < answers.length; i++) {
@@ -141,15 +158,28 @@ const SampleFormScreen = (props) => {
         </Text>
       </View>
 
-      <View style={styles.description}>
+      {/* <View style={styles.description}>
+        <SubTitle>Descroption</SubTitle>
         <Text>{consentForm.description}</Text>
-      </View>
+      </View> */}
 
       <FlatList
+        style={{ marginBottom: 3 }}
+        ListHeaderComponent={
+          <View>
+            <View style={styles.description}>
+              <SubTitle>Description</SubTitle>
+              <Text>{consentForm.description}</Text>
+            </View>
+            {consentForm.preQuestions.length !== 0 && (
+              <SubTitle>Pre-study Questions</SubTitle>
+            )}
+          </View>
+        }
         data={consentForm.preQuestions}
         keyExtractor={(item) => item.questionNumber.toString()}
         renderItem={(itemData) => (
-          <View>
+          <View style={styles.flatListItemsContainer}>
             <AnswerIcon
               index={itemData.index + 1}
               content={itemData.item.content}
@@ -166,21 +196,25 @@ const SampleFormScreen = (props) => {
       />
 
       <View style={styles.agreementContainer}>
-        {/* <CheckBox
+        <View style={{ width: '15%' }}>
+          {/* <CheckBox
           value={agree}
           onValueChange={() => {
             agree ? setAgree(false) : setAgree(true);
           }}
           tintColors={{ true: Colors.primary }}
         /> */}
-        <CheckBox
-          checked={agree}
-          checkedColor={Colors.primary}
-          onIconPress={() => {
-            agree ? setAgree(false) : setAgree(true);
-          }}
-        />
-        <Text>{consentForm.agreement} </Text>
+          <CheckBox
+            checked={agree}
+            checkedColor={Colors.primary}
+            onIconPress={() => {
+              agree ? setAgree(false) : setAgree(true);
+            }}
+          />
+        </View>
+        <View style={{ width: '85%' }}>
+          <Text>{consentForm.agreement} </Text>
+        </View>
       </View>
 
       <Text>{agree}</Text>
@@ -202,6 +236,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   titleName: {
     marginTop: 10,
@@ -217,21 +252,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   description: {
-    marginTop: 8,
-    width: '85%',
+    // marginTop: 8,
+    width: screenWidth * 0.85,
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
-  input: {
-    marginVertical: 5,
-  },
-  inputBox: {
-    width: '90%',
+  flatListItemsContainer: {
     borderColor: '#ccc',
     borderWidth: 1,
+    paddingHorizontal: 5,
   },
   agreementContainer: {
-    width: '83%',
+    width: screenWidth * 0.9,
     flexDirection: 'row',
     alignItems: 'center',
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
   buttonContainer: {
     marginBottom: 20,

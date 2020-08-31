@@ -15,7 +15,7 @@ const TitleName = (props) => {
 
 const styles = StyleSheet.create({
   titleName: {
-    marginTop: 20,
+    marginTop: 10,
     fontWeight: 'bold',
     textAlign: 'center',
     // color: Colors.primary,

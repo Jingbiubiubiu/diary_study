@@ -138,8 +138,11 @@ ResStudyListScreen.navigationOptions = (navData) => {
 
 const styles = StyleSheet.create({
   screen: {
+    // borderColor: 'red',
+    // borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 50,
   },
   text: {
     marginHorizontal: 5,

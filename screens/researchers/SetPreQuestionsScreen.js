@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Text,
+  Alert,
+} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import TitleName from '../../components/TitleName';
@@ -47,6 +54,24 @@ const SetPreQuestionsScreen = (props) => {
     }
   };
 
+  const onSaveHandler = () => {
+    if (questionContent === undefined) {
+      Alert.alert('Error', 'The question is empty. Please set.');
+      return;
+    }
+    if (answerType === undefined) {
+      Alert.alert('Error', 'The answer type has not been chosen. Please set.');
+      return;
+    }
+    Alert.alert(
+      '',
+      'Are you sure you want to set up this pre-study question? \nYou cannot undo this operation',
+      [
+        { text: 'Yes', onPress: () => saveHandler() },
+        { text: 'No', style: 'cancel' },
+      ]
+    );
+  };
   const saveHandler = () => {
     dispatch(
       preStudyQuestionActions.createPreStudyQuestion(
@@ -58,7 +83,12 @@ const SetPreQuestionsScreen = (props) => {
         option4
       )
     );
-    props.navigation.goBack();
+    Alert.alert('Save successful!', '', [
+      {
+        text: 'OK',
+        onPress: () => props.navigation.goBack(),
+      },
+    ]);
   };
 
   return (
@@ -112,7 +142,7 @@ const SetPreQuestionsScreen = (props) => {
       <View style={styles.buttonContainer}>
         <CommonButton
           buttonContainer={{ width: screenWidth * 0.25 }}
-          onPress={saveHandler}
+          onPress={onSaveHandler}
         >
           Save
         </CommonButton>
@@ -144,6 +174,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
+    width: screenWidth * 0.85,
   },
   buttonContainer: {
     margin: 20,

@@ -1,7 +1,6 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { Platform, SafeAreaView, Button, View } from 'react-native';
 
 import Colors from '../constants/Colors';
 import RoleScreen from '../screens/RoleScreen';
