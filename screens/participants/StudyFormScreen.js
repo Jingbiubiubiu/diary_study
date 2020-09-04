@@ -193,31 +193,42 @@ const StudyFormScreen = (props) => {
     updateAnswers(index, { uri: image.uri, base64: image.base64 });
   };
 
-  const getImageHandler = async (index, type) => {
+  const selectImageHandler = async (index, type) => {
     const hasPermission = await verifyPermissions();
     if (!hasPermission) {
       return;
     }
     try {
-      if (type == 'image') {
-        let image = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [16, 9],
-          quality: 0.5,
-          base64: true,
-        });
-      } else {
-        let image = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-          allowsEditing: true,
-          aspect: [16, 9],
-          quality: 0.5,
-          base64: true,
-        });
-      }
+      let image = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.5,
+        base64: true,
+      });
       if (!image.cancelled) {
-        updateAnswers(index, { uri: image.uri, base64: image.base64, mediaType: type });
+        updateAnswers(index, { uri: image.uri, base64: image.base64, mediaType: 'image' });
+      }
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
+  const selectVideoHandler = async (index, type) => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+      return;
+    }
+    try {
+      let image = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.5,
+        base64: true,
+      });
+      if (!image.cancelled) {
+        updateAnswers(index, { uri: image.uri, base64: image.base64, mediaType: 'video' });
       }
     } catch (E) {
       console.log(E);
@@ -310,13 +321,13 @@ const StudyFormScreen = (props) => {
               <View style={styles.imageButtonContainer}>
                 <CommonButton
                   text={styles.imageButtonText}
-                  onPress={() => getImageHandler(index, 'image')}
+                  onPress={() => selectImageHandler(index)}
                 >
                   Select Image
                 </CommonButton>
                 <CommonButton
                   text={styles.imageButtonText}
-                  onPress={() => getImageHandler(index, 'video')}
+                  onPress={() => selectVideoHandler(index)}
                 >
                   Select Video
                 </CommonButton>
