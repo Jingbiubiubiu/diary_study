@@ -128,13 +128,13 @@ const AddStudyQuestionScreen = (props) => {
         option4
       )
     );
-    Alert.alert('Save successful!', '', [
-      {
-        text: 'OK',
-        onPress: () => props.navigation.goBack(),
-      },
-    ]);
-    // props.navigation.goBack();
+    // Alert.alert('Save successful!', '', [
+    //   {
+    //     text: 'OK',
+    //     onPress: () => props.navigation.goBack(),
+    //   },
+    // ]);
+    props.navigation.goBack();
   };
 
   return (

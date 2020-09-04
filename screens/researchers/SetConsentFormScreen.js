@@ -53,12 +53,13 @@ const SetConsentFormScreen = (props) => {
           agreement
         )
       );
-      Alert.alert('Save successful!', '', [
-        {
-          text: 'OK',
-          onPress: () => props.navigation.goBack(),
-        },
-      ]);
+      // Alert.alert('Save successful!', '', [
+      //   {
+      //     text: 'OK',
+      //     onPress: () => props.navigation.goBack(),
+      //   },
+      // ]);ß
+      props.navigation.goBack();
     }
   };
 

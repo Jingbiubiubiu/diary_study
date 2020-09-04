@@ -131,15 +131,16 @@ const SampleFormScreen = (props) => {
         });
       }
       dispatch(preStudyAnswersActions.createPreStudyAnswers(answerwithtype));
-      Alert.alert('Save successful!', '', [
-        {
-          text: 'OK',
-          onPress: () =>
-            props.navigation.navigate('StudyForm', {
-              studyNumber: studyNumber,
-            }),
-        },
-      ]);
+      // Alert.alert('Save successful!', '', [
+      //   {
+      //     text: 'OK',
+      //     onPress: () =>
+      //       props.navigation.navigate('StudyForm', {
+      //         studyNumber: studyNumber,
+      //       }),
+      //   },
+      // ]);
+      props.navigation.navigate('StudyForm', { studyNumber: studyNumber });
     } else {
       Alert.alert('Insufficient Consent', 'Please agreen the consent form', [
         'OK',

@@ -101,6 +101,7 @@ const ResStudyListScreen = (props) => {
           <StudyItem
             studyNumber={itemData.item.studyNumber}
             studyName={itemData.item.studyName}
+            studyPassword={itemData.item.studyPassword}
             isOpen={itemData.item.isOpen}
             buttonText='End'
             onPress={() => onEndHandler(itemData.item.studyNumber)}

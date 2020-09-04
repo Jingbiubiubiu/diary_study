@@ -1,9 +1,17 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 
 import CommonButton from '../components/CommonButton';
 
 const StudyItem = (props) => {
+  const [showDetail, setShowDetail] = useState(false);
+
   const stateIdentifier = (isOpen, isSubmitted, onPress, text) => {
     if (isSubmitted) {
       return (
@@ -40,21 +48,39 @@ const StudyItem = (props) => {
   };
 
   return (
-    <View style={styles.studyItemContainer}>
-      <View style={styles.studyNumber}>
-        <Text>{props.studyNumber}</Text>
+    <View>
+      <View style={styles.studyItemContainer}>
+        <View style={styles.studyNumber}>
+          <TouchableOpacity
+            onPress={() => {
+              showDetail ? setShowDetail(false) : setShowDetail(true);
+            }}
+          >
+            <Text>{props.studyNumber}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.studyName}>
+          <Text>{props.studyName}</Text>
+        </View>
+
+        <View style={styles.status}>
+          {stateIdentifier(
+            props.isOpen,
+            props.isSubmitted,
+            props.onPress,
+            props.buttonText
+          )}
+        </View>
       </View>
-      <View style={styles.studyName}>
-        <Text>{props.studyName}</Text>
-      </View>
-      <View style={styles.status}>
-        {stateIdentifier(
-          props.isOpen,
-          props.isSubmitted,
-          props.onPress,
-          props.buttonText
-        )}
-      </View>
+      {showDetail && (
+        <View style={styles.passwordContainer}>
+          <Text>
+            <Text style={{ fontWeight: 'bold' }}>Study Password:</Text>{' '}
+            {props.studyPassword}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -98,6 +124,14 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     width: '25%',
     paddingVertical: 3,
+  },
+  passwordContainer: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    // borderTopWidth: 1,
+    paddingLeft: 10,
+    borderColor: '#ccc',
   },
   buttonContainer: {
     width: '100%',
