@@ -228,7 +228,10 @@ const StudyFormScreen = (props) => {
         base64: true,
       });
       if (!image.cancelled) {
-        updateAnswers(index, { uri: image.uri, base64: image.base64, mediaType: 'video' });
+        const base64 = await FileSystem.readAsStringAsync(image.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        updateAnswers(index, { uri: image.uri, base64: base64, mediaType: 'video' });
       }
     } catch (E) {
       console.log(E);
