@@ -193,7 +193,7 @@ const StudyFormScreen = (props) => {
     updateAnswers(index, { uri: image.uri, base64: image.base64 });
   };
 
-  const getImageHandler = async (index) => {
+  const getImageHandler = async (index, type) => {
     const hasPermission = await verifyPermissions();
     if (!hasPermission) {
       return;
@@ -207,7 +207,7 @@ const StudyFormScreen = (props) => {
         base64: true,
       });
       if (!image.cancelled) {
-        updateAnswers(index, { uri: image.uri, base64: image.base64 });
+        updateAnswers(index, { uri: image.uri, base64: image.base64, mediaType: type });
       }
     } catch (E) {
       console.log(E);
@@ -300,9 +300,15 @@ const StudyFormScreen = (props) => {
               <View style={styles.imageButtonContainer}>
                 <CommonButton
                   text={styles.imageButtonText}
-                  onPress={() => getImageHandler(index)}
+                  onPress={() => getImageHandler(index, 'image')}
                 >
                   Select Image
+                </CommonButton>
+                <CommonButton
+                  text={styles.imageButtonText}
+                  onPress={() => getImageHandler(index, 'video')}
+                >
+                  Select Video
                 </CommonButton>
               </View>
               <View style={styles.imagePreview}>
