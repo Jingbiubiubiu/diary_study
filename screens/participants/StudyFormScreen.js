@@ -199,13 +199,23 @@ const StudyFormScreen = (props) => {
       return;
     }
     try {
-      let image = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [16, 9],
-        quality: 0.5,
-        base64: true,
-      });
+      if (type == 'image') {
+        let image = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [16, 9],
+          quality: 0.5,
+          base64: true,
+        });
+      } else {
+        let image = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+          allowsEditing: true,
+          aspect: [16, 9],
+          quality: 0.5,
+          base64: true,
+        });
+      }
       if (!image.cancelled) {
         updateAnswers(index, { uri: image.uri, base64: image.base64, mediaType: type });
       }
