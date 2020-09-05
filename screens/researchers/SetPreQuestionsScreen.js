@@ -105,7 +105,7 @@ const SetPreQuestionsScreen = (props) => {
             value={questionContent}
             onChangeText={(newText) => setQuetionContent(newText)}
           >
-            Type the quetion
+            Type the question
           </SubtitleInput>
 
           <SubTitle>Select the answer type</SubTitle>

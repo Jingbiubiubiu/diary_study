@@ -8,9 +8,12 @@ import {
 } from 'react-native';
 
 import CommonButton from '../components/CommonButton';
+import Colors from '../constants/Colors';
 
 const StudyItem = (props) => {
   const [showDetail, setShowDetail] = useState(false);
+  const [showLink, setShowLink] = useState(false);
+  const [isClose, setIsClose] = useState(false);
 
   const stateIdentifier = (isOpen, isSubmitted, onPress, text) => {
     if (isSubmitted) {
@@ -39,6 +42,9 @@ const StudyItem = (props) => {
         </View>
       );
     } else {
+      if (!isClose) {
+        setIsClose(true);
+      }
       return (
         <View>
           <Text>Closed</Text>
@@ -54,9 +60,10 @@ const StudyItem = (props) => {
           <TouchableOpacity
             onPress={() => {
               showDetail ? setShowDetail(false) : setShowDetail(true);
+              showLink ? setShowLink(false) : setShowLink(true);
             }}
           >
-            <Text>{props.studyNumber}</Text>
+            <Text style={{ color: Colors.primary }}>{props.studyNumber}</Text>
           </TouchableOpacity>
         </View>
 
@@ -73,14 +80,24 @@ const StudyItem = (props) => {
           )}
         </View>
       </View>
-      {showDetail && (
-        <View style={styles.passwordContainer}>
-          <Text>
-            <Text style={{ fontWeight: 'bold' }}>Study Password:</Text>{' '}
-            {props.studyPassword}
-          </Text>
-        </View>
-      )}
+      <View>
+        {showDetail && !isClose && (
+          <View style={styles.passwordContainer}>
+            <Text>
+              <Text style={{ fontWeight: 'bold' }}>Study Password:</Text>{' '}
+              {props.studyPassword}
+            </Text>
+          </View>
+        )}
+        {isClose && showLink && (
+          <View style={styles.passwordContainer}>
+            <Text>
+              <Text style={{ fontWeight: 'bold' }}>Answer link:</Text>{' '}
+              {props.url}study/result/?studyNumber={props.studyNumber}
+            </Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -126,6 +143,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
   },
   passwordContainer: {
+    width: Dimensions.get('window').width * 0.85,
     borderBottomWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,

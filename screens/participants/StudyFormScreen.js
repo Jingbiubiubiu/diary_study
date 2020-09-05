@@ -207,7 +207,11 @@ const StudyFormScreen = (props) => {
         base64: true,
       });
       if (!image.cancelled) {
-        updateAnswers(index, { uri: image.uri, base64: image.base64, mediaType: 'image' });
+        updateAnswers(index, {
+          uri: image.uri,
+          base64: image.base64,
+          mediaType: 'image',
+        });
       }
     } catch (E) {
       console.log(E);
@@ -231,7 +235,11 @@ const StudyFormScreen = (props) => {
         const base64 = await FileSystem.readAsStringAsync(image.uri, {
           encoding: FileSystem.EncodingType.Base64,
         });
-        updateAnswers(index, { uri: image.uri, base64: base64, mediaType: 'video' });
+        updateAnswers(index, {
+          uri: image.uri,
+          base64: base64,
+          mediaType: 'video',
+        });
       }
     } catch (E) {
       console.log(E);
@@ -321,14 +329,20 @@ const StudyFormScreen = (props) => {
         return (
           visibility[index] && (
             <View style={styles.imagePicker}>
-              <View style={styles.imageButtonContainer}>
+              <View style={styles.GalleryContainer}>
                 <CommonButton
+                  buttonContainer={{
+                    width: Dimensions.get('window').width * 0.3,
+                  }}
                   text={styles.imageButtonText}
                   onPress={() => selectImageHandler(index)}
                 >
                   Select Image
                 </CommonButton>
                 <CommonButton
+                  buttonContainer={{
+                    width: Dimensions.get('window').width * 0.3,
+                  }}
                   text={styles.imageButtonText}
                   onPress={() => selectVideoHandler(index)}
                 >
@@ -533,6 +547,7 @@ const StudyFormScreen = (props) => {
         renderItem={(itemData) => (
           <View style={styles.flatListItemsContainer}>
             <AnswerIcon
+              // questionText={{ fontSize: 12 }}
               index={itemData.index + 1}
               content={itemData.item.content}
               answerType={itemData.item.answerType}
@@ -632,6 +647,14 @@ const styles = StyleSheet.create({
   },
   imageButtonText: {
     fontSize: 12,
+  },
+  GalleryContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    // borderWidth: 1,
+    // borderColor: 'blue',
+    width: Dimensions.get('window').width * 0.8,
+    marginBottom: 10,
   },
 
   buttonContainer: {

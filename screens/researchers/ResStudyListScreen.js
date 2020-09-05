@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, StyleSheet, FlatList, Alert, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import StudyList from '../../components/StudyList';
@@ -18,7 +18,7 @@ const ResStudyListScreen = (props) => {
   const userName = useSelector((state) => state.userName.userName);
   const studies = useSelector((state) => state.studies.researcher_studies);
   const [modalVisible, setModalVisible] = useState(false);
-  const [endTime, setEndTime] = useState(false);
+  const [endTime, setEndTime] = useState(null);
   const [answerLink, setAnswerLink] = useState(null);
 
   const dispatch = useDispatch();
@@ -86,6 +86,7 @@ const ResStudyListScreen = (props) => {
         mainTitle='Researcher Study List'
         setupContent='Set up a study'
         guide={true}
+        isRes={true}
         guideContent='Guide to get answer'
         navigation={props.navigation}
         onPress={() => props.navigation.navigate('Guide')}
@@ -102,12 +103,14 @@ const ResStudyListScreen = (props) => {
             studyNumber={itemData.item.studyNumber}
             studyName={itemData.item.studyName}
             studyPassword={itemData.item.studyPassword}
+            url={URL.address}
             isOpen={itemData.item.isOpen}
             buttonText='End'
             onPress={() => onEndHandler(itemData.item.studyNumber)}
           />
         )}
       />
+      {/* <Text>Study Numbers could be clicked to show more information</Text> */}
 
       <ShowInfo.ShowShortInfo
         content='This study has been ended.'

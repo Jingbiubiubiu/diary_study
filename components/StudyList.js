@@ -32,6 +32,13 @@ const StudyList = (props) => {
       <View style={styles.subTitleContainer}>
         <Text style={styles.subTitle}>All studies</Text>
       </View>
+      {props.isRes && (
+        <View style={{ width: Dimensions.get('window').width * 0.85 }}>
+          <Text style={{ textAlign: 'center' }}>
+            Study Numbers could be clicked to show more information
+          </Text>
+        </View>
+      )}
       <View style={styles.listTitleContainer}>
         <View
           style={{

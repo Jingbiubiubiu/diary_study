@@ -54,7 +54,7 @@ const AddStudyQuestionScreen = (props) => {
       value: 'Photo',
     },
     {
-      label: 'Image from Gallery',
+      label: 'Select from Gallery',
       value: 'Gallary',
     },
     {
@@ -155,7 +155,7 @@ const AddStudyQuestionScreen = (props) => {
           value={questionContent}
           onChangeText={(newText) => setQuetionContent(newText)}
         >
-          Type the quetion
+          Type the question
         </SubtitleInput>
 
         <View style={styles.dropdownContainer}>

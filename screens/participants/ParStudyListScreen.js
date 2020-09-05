@@ -51,6 +51,7 @@ const ParStudyListScreen = (props) => {
           <StudyItem
             studyNumber={itemData.item.studyNumber}
             studyName={itemData.item.studyName}
+            studyPassword={itemData.item.studyPassword}
             isOpen={itemData.item.isOpen}
             isSubmitted={itemData.item.submitted}
             buttonText='Start'

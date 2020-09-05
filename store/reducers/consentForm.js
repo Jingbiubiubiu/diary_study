@@ -1,9 +1,7 @@
-import * as DATA from '../../data/dummy-questions';
 import { CREATE_CONSENTFORM, CLEAR_CONSENTFORM } from '../actions/consentForm';
 import ConsentForm from '../../models/consentForm';
 
 const initialState = {
-  // consentForm: DATA.CONSENTFORM1,
   consentForm: null,
 };
 

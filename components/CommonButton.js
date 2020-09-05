@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     // borderWidth: 1,
     // borderColor: 'red',
-    width: '100%',
+    // width: '80%',
   },
 });
 

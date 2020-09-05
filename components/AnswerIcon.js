@@ -12,7 +12,16 @@ const chooseIcon = (props) => {
     case 'Photo':
       return <Icons.CameraIcon {...props} />;
     case 'Gallary':
-      return <Icons.TextIcon {...props}>Image from Gallery</Icons.TextIcon>;
+      return (
+        <Icons.TextIcon
+          {...props}
+          textStyle={{
+            fontSize: 13,
+          }}
+        >
+          Select from Gallery
+        </Icons.TextIcon>
+      );
     case 'Type':
       return <Icons.TextIcon {...props}>Type Answer</Icons.TextIcon>;
     case 'Multiple':
@@ -28,7 +37,7 @@ const AnswerIcon = (props) => {
   return (
     <View style={styles.questionContainer}>
       <View style={styles.questionTextContainer}>
-        <Text style={styles.questionText}>
+        <Text style={{ ...styles.questionText, ...props.questionText }}>
           {props.index}. {props.content}
         </Text>
       </View>

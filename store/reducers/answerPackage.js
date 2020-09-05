@@ -1,7 +1,5 @@
 import { CREATE_ANSWERPACKAGE } from '../actions/answerPackage';
 import AnswerPackage from '../../models/answerPackage';
-import createTimestamp from '../../functions/createTimestamp';
-import URL from '../../constants/URL';
 
 const initialState = {
   // questions: DATA.QUESTION1,
@@ -15,9 +13,9 @@ export default (state = initialState, action) => {
         action.answerData.studyNumber,
         action.answerData.preStudyAnswers,
         action.answerData.answers,
-        action.answerData.userName,
+        action.answerData.userName
       );
-      
+
       return {
         ...state,
         answerPackage: state.answerPackage.concat(newAnswerPackage),
