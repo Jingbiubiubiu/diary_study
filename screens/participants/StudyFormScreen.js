@@ -202,7 +202,7 @@ const StudyFormScreen = (props) => {
       let image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        aspect: [16, 9],
+        aspect: [4, 3],
         quality: 0.5,
         base64: true,
       });

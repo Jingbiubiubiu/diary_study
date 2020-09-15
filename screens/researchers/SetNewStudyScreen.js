@@ -69,35 +69,6 @@ const SetNewStudyScreen = (props) => {
         { text: 'No', style: 'cancel' },
       ]
     );
-    // if (consentForms !== null && questions.length !== 0) {
-    //   const studyNumber = createRandom();
-    //   setStudyNumber(studyNumber);
-
-    //   const studyPassword = createRandom();
-    //   setStudyPassword(studyPassword);
-
-    //   const establishTime = createTimestamp();
-    //   setEstablishTime(establishTime);
-    //   setIsLoading(true);
-
-    //   dispatch(
-    //     studyActions.createStudy(
-    //       userName,
-    //       studyName,
-    //       studyNumber,
-    //       studyPassword,
-    //       consentForms,
-    //       questions,
-    //       establishTime
-    //     )
-    //   );
-
-    //   setModalVisible(true);
-    //   dispatch(consentFormActions.clearConsentForm());
-    //   dispatch(questionActions.clearQuestion());
-    //   dispatch(preStudyQuestionActions.clearPreStudyQuestion());
-    //   setIsLoading(false);
-    // }
   };
 
   const saveHandler = () => {

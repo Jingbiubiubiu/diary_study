@@ -1,4 +1,3 @@
-import * as DATA from '../../data/dummy-questions';
 import {
   INITIALIZE_RESEARCHER_STUDIES,
   INITIALIZE_PARTICIPANT_STUDIES,
