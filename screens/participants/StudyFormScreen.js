@@ -9,12 +9,15 @@ import {
   Dimensions,
   TouchableOpacity,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import { Audio } from 'expo-av';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 
 import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
@@ -536,47 +539,66 @@ const StudyFormScreen = (props) => {
   }
 
   return (
-    <View style={styles.screen}>
-      <TitleName>{userName}</TitleName>
-      <MainTitle>{study.studyName}</MainTitle>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS == 'ios' ? 'padding' : null}
+      keyboardVerticalOffset={200}
+    >
+      <View style={styles.screen}>
+        {/* <TitleName>{userName}</TitleName>
+        <MainTitle>{study.studyName}</MainTitle> */}
 
-      <FlatList
-        style={styles.flatList}
-        data={questions}
-        keyExtractor={(item) => item.questionNumber.toString()}
-        renderItem={(itemData) => (
-          <View style={styles.flatListItemsContainer}>
-            <AnswerIcon
-              // questionText={{ fontSize: 12 }}
-              index={itemData.index + 1}
-              content={itemData.item.content}
-              answerType={itemData.item.answerType}
-              onSelect={() => updateVisibility(itemData.index)}
-            />
-            {createComponent(
-              itemData.item.answerType,
-              itemData.index,
-              itemData
-            )}
-          </View>
-        )}
-      />
+        <FlatList
+          ListHeaderComponent={
+            <View>
+              <TitleName>{userName}</TitleName>
+              <MainTitle>{study.studyName}</MainTitle>
+            </View>
+          }
+          // ListFooterComponent={
+          //   <View style={styles.buttonContainer}>
+          //     <CommonButton onPress={() => onSubmitHandler()}>
+          //       Submit
+          //     </CommonButton>
+          //   </View>
+          // }
+          style={styles.flatList}
+          data={questions}
+          keyExtractor={(item) => item.questionNumber.toString()}
+          renderItem={(itemData) => (
+            <View style={styles.flatListItemsContainer}>
+              <AnswerIcon
+                // questionText={{ fontSize: 12 }}
+                index={itemData.index + 1}
+                content={itemData.item.content}
+                answerType={itemData.item.answerType}
+                onSelect={() => updateVisibility(itemData.index)}
+              />
+              {createComponent(
+                itemData.item.answerType,
+                itemData.index,
+                itemData
+              )}
+            </View>
+          )}
+        />
 
-      <View style={styles.buttonContainer}>
-        <CommonButton onPress={() => onSubmitHandler()}>Submit</CommonButton>
+        <View style={styles.buttonContainer}>
+          <CommonButton onPress={() => onSubmitHandler()}>Submit</CommonButton>
+        </View>
+
+        <ShowInfo.ShowShortInfo
+          content='Thank you for your submission.'
+          dateContent='Submission date and time:'
+          time={submitTime}
+          visible={modalVisible}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+            props.navigation.navigate('ParStudyList');
+          }}
+        />
       </View>
-
-      <ShowInfo.ShowShortInfo
-        content='Thank you for your submission.'
-        dateContent='Submission date and time:'
-        time={submitTime}
-        visible={modalVisible}
-        onPress={() => {
-          setModalVisible(!modalVisible);
-          props.navigation.navigate('ParStudyList');
-        }}
-      />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

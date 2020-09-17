@@ -6,8 +6,8 @@ import {
   Dimensions,
   Platform,
   FlatList,
+  Image,
 } from 'react-native';
-import Constants from 'expo-constants';
 
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -65,6 +65,15 @@ export const ChooseTypeDropdownPicker = (props) => {
         labelStyle={styles.dropdownLabel2}
         onChangeItem={props.onChangeItem}
       />
+
+      {/* <Image
+        style={{
+          width: Dimensions.get('window').width * 0.8,
+          height: Dimensions.get('window').height * 0.2,
+          borderColor: 'red',
+          borderWidth: 1,
+        }}
+      /> */}
     </View>
   );
 };

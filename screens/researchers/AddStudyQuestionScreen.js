@@ -150,7 +150,11 @@ const AddStudyQuestionScreen = (props) => {
       >
         <SubTitle style={{ alignItems: 'center' }}>Add new question</SubTitle>
         <SubtitleInput
-          style={{ marginBottom: 10, width: screenWidth * 0.85 }}
+          style={{
+            marginBottom: 10,
+            width: screenWidth * 0.85,
+          }}
+          input={{ height: screenHeight * 0.15 }}
           numberOfLines={4}
           value={questionContent}
           onChangeText={(newText) => setQuetionContent(newText)}

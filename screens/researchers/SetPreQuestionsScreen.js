@@ -97,11 +97,19 @@ const SetPreQuestionsScreen = (props) => {
       <TitleName>{userName}</TitleName>
       <MainTitle style={styles.mainTitle}>Setup Pre-study Questions</MainTitle>
 
-      <ScrollView contentContainerStyle={{ height: screenHeight * 0.85 }}>
+      <ScrollView
+        contentContainerStyle={{
+          height: screenHeight,
+          // borderColor: 'red',
+          // borderWidth: 1,
+        }}
+      >
+        {/* <ScrollView> */}
         <View style={styles.scrollContainer}>
           <SubtitleInput
             style={{ marginBottom: 10 }}
             numberOfLines={4}
+            input={{ height: screenHeight * 0.15 }}
             value={questionContent}
             onChangeText={(newText) => setQuetionContent(newText)}
           >

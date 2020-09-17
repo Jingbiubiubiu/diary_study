@@ -177,6 +177,36 @@ const SampleFormScreen = (props) => {
             )}
           </View>
         }
+        ListFooterComponent={
+          <View>
+            <View>
+              <SubTitle>Consent Agreement</SubTitle>
+            </View>
+            <View style={styles.agreementContainer}>
+              <View style={{ width: '15%' }}>
+                {/* <CheckBox
+          value={agree}
+          onValueChange={() => {
+            agree ? setAgree(false) : setAgree(true);
+          }}
+          tintColors={{ true: Colors.primary }}
+        /> */}
+                <CheckBox
+                  checked={agree}
+                  checkedColor={Colors.primary}
+                  onIconPress={() => {
+                    agree ? setAgree(false) : setAgree(true);
+                  }}
+                />
+              </View>
+              <View style={{ width: '85%' }}>
+                <Text>{consentForm.agreement} </Text>
+              </View>
+            </View>
+
+            <Text>{agree}</Text>
+          </View>
+        }
         data={consentForm.preQuestions}
         keyExtractor={(item) => item.questionNumber.toString()}
         renderItem={(itemData) => (
@@ -196,16 +226,16 @@ const SampleFormScreen = (props) => {
         )}
       />
 
-      <View style={styles.agreementContainer}>
-        <View style={{ width: '15%' }}>
-          {/* <CheckBox
+      {/* <View style={styles.agreementContainer}>
+        <View style={{ width: '15%' }}> */}
+      {/* <CheckBox
           value={agree}
           onValueChange={() => {
             agree ? setAgree(false) : setAgree(true);
           }}
           tintColors={{ true: Colors.primary }}
         /> */}
-          <CheckBox
+      {/* <CheckBox
             checked={agree}
             checkedColor={Colors.primary}
             onIconPress={() => {
@@ -218,7 +248,7 @@ const SampleFormScreen = (props) => {
         </View>
       </View>
 
-      <Text>{agree}</Text>
+      <Text>{agree}</Text> */}
 
       <View style={styles.buttonContainer}>
         <CommonButton onPress={submitHandler}>Submit</CommonButton>
