@@ -30,6 +30,7 @@ import * as studyActions from '../../store/actions/study';
 import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
 import URL from '../../constants/URL';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -539,11 +540,7 @@ const StudyFormScreen = (props) => {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS == 'ios' ? 'padding' : null}
-      keyboardVerticalOffset={200}
-    >
+    <KeyboardAwareScrollView>
       <View style={styles.screen}>
         {/* <TitleName>{userName}</TitleName>
         <MainTitle>{study.studyName}</MainTitle> */}
@@ -598,7 +595,7 @@ const StudyFormScreen = (props) => {
           }}
         />
       </View>
-    </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
   );
 };
 
