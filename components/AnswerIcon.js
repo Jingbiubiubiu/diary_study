@@ -52,8 +52,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: Dimensions.get('window').width * 0.85,
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   questionTextContainer: {
     width: '70%',
@@ -62,19 +60,10 @@ const styles = StyleSheet.create({
   questionText: {
     fontSize: 16,
   },
-  // iconContainer1: {
-  //   width: '23%',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   borderColor: 'red',
-  //   borderWidth: 1,
-  // },
   iconContainer1: {
     width: '25%',
     justifyContent: 'center',
     alignItems: 'center',
-    // borderColor: 'green',
-    // borderWidth: 1,
   },
 });
 

@@ -8,7 +8,6 @@ class Question {
     option3,
     option4
   ) {
-    // this.studyId = studyId;
     this.questionNumber = questionNumber;
     this.content = content;
     this.answerType = answerType;

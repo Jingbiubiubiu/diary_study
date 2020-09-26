@@ -78,15 +78,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: Dimensions.get('window').width * 0.8,
-    // borderColor: 'green',
-    // borderWidth: 1,
-    // marginBottom: 5,
   },
   subTitleContainer: {
     marginTop: 10,
     marginBottom: 5,
-    // borderColor: 'green',
-    // borderWidth: 1,
   },
   subTitle: {
     fontSize: 20,
@@ -94,8 +89,6 @@ const styles = StyleSheet.create({
   },
   guideContainer: {
     marginTop: 0,
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   guideContent: {
     color: Colors.primary,
@@ -106,8 +99,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: Dimensions.get('window').width * 0.85,
     alignItems: 'stretch',
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   listTitle: {
     alignItems: 'center',

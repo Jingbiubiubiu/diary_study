@@ -53,12 +53,6 @@ const SetConsentFormScreen = (props) => {
           agreement
         )
       );
-      // Alert.alert('Save successful!', '', [
-      //   {
-      //     text: 'OK',
-      //     onPress: () => props.navigation.goBack(),
-      //   },
-      // ]);ß
       props.navigation.goBack();
     }
   };
@@ -139,7 +133,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
-    // width: screenWidth * 0.85,
   },
   mainTitle: {
     alignItems: 'center',
@@ -147,9 +140,6 @@ const styles = StyleSheet.create({
   scrollContainer: {
     width: screenWidth * 0.85,
     flex: 1,
-
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   preQuestionsContainer: {
     height: screenHeight * 0.22,

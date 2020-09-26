@@ -28,26 +28,18 @@ const Input = (props) => {
 
 const styles = StyleSheet.create({
   inputContainer: {
-    // flexDirection: 'row',
     width: Dimensions.get('window').width * 0.8,
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    // borderColor: 'blue',
-    // borderWidth: 1,
-    // marginBottom: 30,
   },
   inputLabelContainer: {
     width: '100%',
-    // borderColor: 'green',
-    // borderWidth: 1,
   },
   label: {
     width: '100%',
     marginVertical: 8,
     fontSize: 18,
     fontWeight: 'bold',
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   input: {
     width: '100%',

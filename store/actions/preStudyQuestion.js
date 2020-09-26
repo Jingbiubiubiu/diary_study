@@ -2,7 +2,6 @@ export const CREATE_PREQUESTION = 'CREATE_PREQUESTION';
 export const CLEAR_PREQUESTION = 'CLEAR_PREQUESTION';
 
 export const createPreStudyQuestion = (
-  // questionId,
   content,
   answerType,
   option1,

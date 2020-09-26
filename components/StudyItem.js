@@ -30,11 +30,8 @@ const StudyItem = (props) => {
             onPress={onPress}
             text={{
               paddingVertical: 0,
-              // paddingHorizontal: 15,
               fontSize: 14,
               width: '100%',
-              // borderColor: 'red',
-              // borderWidth: 1,
             }}
           >
             {text}
@@ -113,14 +110,12 @@ const styles = StyleSheet.create({
   studyNumber: {
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 1,
     borderColor: '#ccc',
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     width: '25%',
     paddingVertical: 3,
-    // marginLeft: Dimensions.get('window').width / 30,
   },
   studyName: {
     justifyContent: 'center',
@@ -132,7 +127,6 @@ const styles = StyleSheet.create({
     width: '50%',
     paddingVertical: 3,
     paddingHorizontal: 3,
-    // marginLeft: Dimensions.get('window').width / 30,
   },
   status: {
     justifyContent: 'center',
@@ -147,7 +141,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
-    // borderTopWidth: 1,
     paddingLeft: 10,
     borderColor: '#ccc',
   },

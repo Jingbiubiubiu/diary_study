@@ -8,7 +8,6 @@ import {
   Dimensions,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-// import CheckBox from '@react-native-community/checkbox';
 import { CheckBox } from 'react-native-elements';
 
 import Colors from '../../constants/Colors';
@@ -131,15 +130,6 @@ const SampleFormScreen = (props) => {
         });
       }
       dispatch(preStudyAnswersActions.createPreStudyAnswers(answerwithtype));
-      // Alert.alert('Save successful!', '', [
-      //   {
-      //     text: 'OK',
-      //     onPress: () =>
-      //       props.navigation.navigate('StudyForm', {
-      //         studyNumber: studyNumber,
-      //       }),
-      //   },
-      // ]);
       props.navigation.navigate('StudyForm', { studyNumber: studyNumber });
     } else {
       Alert.alert('Insufficient Consent', 'Please agreen the consent form', [
@@ -158,11 +148,6 @@ const SampleFormScreen = (props) => {
           Consent form, description and pre-study questions
         </Text>
       </View>
-
-      {/* <View style={styles.description}>
-        <SubTitle>Descroption</SubTitle>
-        <Text>{consentForm.description}</Text>
-      </View> */}
 
       <FlatList
         style={{ marginBottom: 3 }}
@@ -184,13 +169,6 @@ const SampleFormScreen = (props) => {
             </View>
             <View style={styles.agreementContainer}>
               <View style={{ width: '15%' }}>
-                {/* <CheckBox
-          value={agree}
-          onValueChange={() => {
-            agree ? setAgree(false) : setAgree(true);
-          }}
-          tintColors={{ true: Colors.primary }}
-        /> */}
                 <CheckBox
                   checked={agree}
                   checkedColor={Colors.primary}
@@ -226,30 +204,6 @@ const SampleFormScreen = (props) => {
         )}
       />
 
-      {/* <View style={styles.agreementContainer}>
-        <View style={{ width: '15%' }}> */}
-      {/* <CheckBox
-          value={agree}
-          onValueChange={() => {
-            agree ? setAgree(false) : setAgree(true);
-          }}
-          tintColors={{ true: Colors.primary }}
-        /> */}
-      {/* <CheckBox
-            checked={agree}
-            checkedColor={Colors.primary}
-            onIconPress={() => {
-              agree ? setAgree(false) : setAgree(true);
-            }}
-          />
-        </View>
-        <View style={{ width: '85%' }}>
-          <Text>{consentForm.agreement} </Text>
-        </View>
-      </View>
-
-      <Text>{agree}</Text> */}
-
       <View style={styles.buttonContainer}>
         <CommonButton onPress={submitHandler}>Submit</CommonButton>
       </View>
@@ -283,10 +237,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   description: {
-    // marginTop: 8,
     width: screenWidth * 0.85,
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   flatListItemsContainer: {
     borderColor: '#ccc',
@@ -297,8 +248,6 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.9,
     flexDirection: 'row',
     alignItems: 'center',
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   buttonContainer: {
     marginBottom: 20,

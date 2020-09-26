@@ -54,11 +54,9 @@ export default (state = initialState, action) => {
         ...state,
       };
     case END_STUDY:
-      // console.log(action.sId);
       const studyIndex = state.researcher_studies.findIndex(
         (study) => study.studyId === action.sId
       );
-      // console.log(studyIndex);
 
       const updatedStudy = new Study(
         action.sId,
@@ -70,8 +68,6 @@ export default (state = initialState, action) => {
         state.researcher_studies[studyIndex].establishTime,
         false,
         action.eTime
-
-        // createTimestamp()
       );
       const updatedStudies = [...state.researcher_studies];
       updatedStudies[studyIndex] = updatedStudy;

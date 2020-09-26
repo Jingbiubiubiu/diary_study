@@ -2,7 +2,6 @@ import { CREATE_ANSWERPACKAGE } from '../actions/answerPackage';
 import AnswerPackage from '../../models/answerPackage';
 
 const initialState = {
-  // questions: DATA.QUESTION1,
   answerPackage: [],
 };
 

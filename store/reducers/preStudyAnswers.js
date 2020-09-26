@@ -8,9 +8,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case CREATE_PRESTUDYANSWERS:
       const newAnswers = action.preStudyAnswersData;
-      // console.log(action);
-      // console.log(newAnswers);
-      // console.log(state.questions);
       return {
         ...state,
         preStudyAnswers: newAnswers,

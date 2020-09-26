@@ -1,22 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import SubTitle from '../components/SubTitle';
 import * as DropdownPicker from '../components/DropDownPicker';
 
 const SingleChoice = (props) => {
   return (
     <DropdownPicker.DisplayOptionsDropdownPicker
       {...props}
-      // items={props.questionOptions}
       items={props.items}
       defaultValue={props.defaultValue}
-      // containerStyle={styles.dropdownMenu}
       placeholder='Select the answer'
       itemStyle={{
         justifyContent: 'flex-start',
       }}
-      // labelStyle={styles.dropdownLabel}
       onChangeItem={props.onChangeItem}
     />
   );

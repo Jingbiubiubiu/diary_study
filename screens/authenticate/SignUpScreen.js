@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
-// import CheckBox from '@react-native-community/checkbox';
 
 import MainTitle from '../../components/MainTitle';
 import Input from '../../components/Input';
@@ -43,7 +42,6 @@ const SignUpScreen = (props) => {
   const emailValidation = () => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email === undefined) {
-      // emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
       if (!emptyEmail) {
         setEmptyEmail(true);
       }
@@ -53,8 +51,6 @@ const SignUpScreen = (props) => {
       setEmptyEmail(false);
     }
     if (!emailRegex.test(email.toLowerCase())) {
-      // emptyEmail ? setEmptyEmail(false) : setEmptyEmail(true);
-      // invalidEmail ? setInvalidEmail(false) : setInvalidEmail(true);
       if (!invalidEmail) {
         setInvalidEmail(true);
       }
@@ -67,7 +63,6 @@ const SignUpScreen = (props) => {
 
   const passwordValidation = () => {
     if (password === undefined || password.length < 5) {
-      // shortPassword ? setShortPassword(false) : setShortPassword(true);
       if (!shortPassword) {
         setShortPassword(true);
       }
@@ -80,9 +75,6 @@ const SignUpScreen = (props) => {
 
   const confirmPasswordValidation = () => {
     if (password !== confirmedPassword) {
-      // isPasswordDifferent
-      //   ? setIsPasswordDifferent(false)
-      //   : setIsPasswordDifferent(true);
       if (!isPasswordDifferent) {
         setIsPasswordDifferent(true);
       }
@@ -253,13 +245,6 @@ const SignUpScreen = (props) => {
 
       <View style={styles.agreeContainer}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          {/* <CheckBox
-            value={agree}
-            onValueChange={() => {
-              agree ? setAgree(false) : setAgree(true);
-            }}
-            tintColors={{ true: Colors.primary }}
-          /> */}
           <CheckBox
             checked={agree}
             checkedColor={Colors.primary}

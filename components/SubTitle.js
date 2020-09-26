@@ -15,8 +15,6 @@ const styles = StyleSheet.create({
   subTitleContainer: {
     marginTop: 15,
     alignItems: 'flex-start',
-    // borderColor: 'blue',
-    // borderWidth: 1,
     width: '85%',
   },
   subTitleText: {

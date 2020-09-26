@@ -82,7 +82,6 @@ export const MultipleChoice = (props) => {
 const styles = StyleSheet.create({
   choiceContainer: {
     marginTop: 20,
-    // marginBottom: 10,
   },
   textContainer: {
     marginBottom: 5,

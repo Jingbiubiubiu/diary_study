@@ -9,15 +9,13 @@ import {
   Dimensions,
   TouchableOpacity,
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import { Audio } from 'expo-av';
-import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import Colors from '../../constants/Colors';
 import TitleName from '../../components/TitleName';
@@ -30,7 +28,6 @@ import * as studyActions from '../../store/actions/study';
 import createTimestamp from '../../functions/createTimestamp';
 import * as ShowInfo from '../../components/ShowInfo';
 import URL from '../../constants/URL';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const StudyFormScreen = (props) => {
   const studyNumber = props.navigation.getParam('studyNumber');
@@ -542,23 +539,10 @@ const StudyFormScreen = (props) => {
   return (
     <KeyboardAwareScrollView>
       <View style={styles.screen}>
-        {/* <TitleName>{userName}</TitleName>
-        <MainTitle>{study.studyName}</MainTitle> */}
+        <TitleName>{userName}</TitleName>
+        <MainTitle>{study.studyName}</MainTitle>
 
         <FlatList
-          ListHeaderComponent={
-            <View>
-              <TitleName>{userName}</TitleName>
-              <MainTitle>{study.studyName}</MainTitle>
-            </View>
-          }
-          // ListFooterComponent={
-          //   <View style={styles.buttonContainer}>
-          //     <CommonButton onPress={() => onSubmitHandler()}>
-          //       Submit
-          //     </CommonButton>
-          //   </View>
-          // }
           style={styles.flatList}
           data={questions}
           keyExtractor={(item) => item.questionNumber.toString()}
@@ -595,7 +579,7 @@ const StudyFormScreen = (props) => {
           }}
         />
       </View>
-      </KeyboardAwareScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -633,8 +617,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   flatList: {
-    // borderColor: 'green',
-    // borderWidth: 1,
     marginBottom: 10,
   },
   flatListItemsContainer: {
@@ -670,8 +652,6 @@ const styles = StyleSheet.create({
   GalleryContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    // borderWidth: 1,
-    // borderColor: 'blue',
     width: Dimensions.get('window').width * 0.8,
     marginBottom: 10,
   },

@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import Colors from '../constants/Colors';
-
 const TitleName = (props) => {
   return (
     <View>
@@ -18,7 +16,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: 'bold',
     textAlign: 'center',
-    // color: Colors.primary,
   },
 });
 

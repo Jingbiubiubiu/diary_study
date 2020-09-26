@@ -81,8 +81,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginBottom: 20,
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
   studyItemContainer: {
     marginVertical: 5,

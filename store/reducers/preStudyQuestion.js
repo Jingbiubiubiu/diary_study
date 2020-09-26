@@ -1,4 +1,3 @@
-import * as DATA from '../../data/dummy-questions';
 import {
   CREATE_PREQUESTION,
   CLEAR_PREQUESTION,
@@ -6,7 +5,6 @@ import {
 import Question from '../../models/question';
 
 const initialState = {
-  // preStudyQuesitons: DATA.PreSTUDYQUESTIONS,
   preStudyQuesitons: [],
 };
 
@@ -23,8 +21,6 @@ export default (state = initialState, action) => {
         action.questionData.option3,
         action.questionData.option4
       );
-      // console.log(newQuestion);
-      // console.log(state.preStudyQuesitons);
       return {
         ...state,
         preStudyQuesitons: state.preStudyQuesitons.concat(newQuestion),

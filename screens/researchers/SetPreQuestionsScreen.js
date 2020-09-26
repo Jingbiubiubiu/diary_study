@@ -83,12 +83,6 @@ const SetPreQuestionsScreen = (props) => {
         option4
       )
     );
-    // Alert.alert('Save successful!', '', [
-    //   {
-    //     text: 'OK',
-    //     onPress: () => props.navigation.goBack(),
-    //   },
-    // ]);
     props.navigation.goBack();
   };
 
@@ -100,11 +94,8 @@ const SetPreQuestionsScreen = (props) => {
       <ScrollView
         contentContainerStyle={{
           height: screenHeight,
-          // borderColor: 'red',
-          // borderWidth: 1,
         }}
       >
-        {/* <ScrollView> */}
         <View style={styles.scrollContainer}>
           <SubtitleInput
             style={{ marginBottom: 10 }}

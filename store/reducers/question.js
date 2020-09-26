@@ -2,7 +2,6 @@ import { CREATE_QUESTION, CLEAR_QUESTION } from '../actions/question';
 import Question from '../../models/question';
 
 const initialState = {
-  // questions: DATA.QUESTION1,
   questions: [],
 };
 
@@ -19,8 +18,6 @@ export default (state = initialState, action) => {
         action.questionData.option3,
         action.questionData.option4
       );
-      // console.log(newQuestion);
-      // console.log(state.questions);
       return {
         ...state,
         questions: state.questions.concat(newQuestion),

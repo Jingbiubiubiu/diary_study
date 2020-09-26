@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
@@ -27,8 +26,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: Dimensions.get('window').width * 0.4,
-    // borderWidth: 1,
-    // borderColor: 'red',
   },
   text: {
     color: 'white',
@@ -38,9 +35,6 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 12,
     borderRadius: 5,
-    // borderWidth: 1,
-    // borderColor: 'red',
-    // width: '80%',
   },
 });
 

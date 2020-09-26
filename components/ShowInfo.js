@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Alert, Modal, StyleSheet, Text, View } from 'react-native';
 
 import CommonButton from './CommonButton';
 import Colors from '../constants/Colors';
 
 export const ShowLongInfo = (props) => {
-  // const [modalVisible, setModalVisible] = useState(false);
   return (
     <Modal
-      // animationType='slide'
       transparent={true}
       visible={props.visible}
       onRequestClose={() => {
@@ -17,7 +15,7 @@ export const ShowLongInfo = (props) => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <View style={styles.studyNameContainer}>
+          <View>
             <Text style={styles.commonText}>
               The study{' '}
               <Text style={styles.highlight}>“{props.studyName}”</Text> has set
@@ -50,10 +48,8 @@ export const ShowLongInfo = (props) => {
 };
 
 export const ShowShortInfo = (props) => {
-  // const [modalVisible, setModalVisible] = useState(false);
   return (
     <Modal
-      // animationType='slide'
       transparent={true}
       visible={props.visible}
       onRequestClose={() => {
@@ -62,7 +58,7 @@ export const ShowShortInfo = (props) => {
     >
       <View style={styles.centeredView}>
         <View style={{ ...styles.modalView, ...styles.modalViewShort }}>
-          <View style={styles.studyNameContainer}>
+          <View>
             <Text style={styles.commonText}>{props.content}</Text>
           </View>
           <View style={styles.info}>
@@ -97,8 +93,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   modalView: {
     justifyContent: 'space-around',
@@ -117,15 +111,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    // borderColor: 'green',
-    // borderWidth: 1,
   },
   modalViewShort: {
     width: '80%',
     height: '50%',
-  },
-  studyNameContainer: {
-    // justifyContent: 'flex-start',
   },
   highlight: {
     color: Colors.primary,

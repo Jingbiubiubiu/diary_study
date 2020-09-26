@@ -104,17 +104,6 @@ const AddStudyQuestionScreen = (props) => {
         { text: 'No', style: 'cancel' },
       ]
     );
-    // dispatch(
-    //   questionActions.createQuestion(
-    //     questionContent,
-    //     answerType,
-    //     option1,
-    //     option2,
-    //     option3,
-    //     option4
-    //   )
-    // );
-    // props.navigation.goBack();
   };
 
   const saveHandler = () => {
@@ -128,12 +117,6 @@ const AddStudyQuestionScreen = (props) => {
         option4
       )
     );
-    // Alert.alert('Save successful!', '', [
-    //   {
-    //     text: 'OK',
-    //     onPress: () => props.navigation.goBack(),
-    //   },
-    // ]);
     props.navigation.goBack();
   };
 
@@ -170,12 +153,10 @@ const AddStudyQuestionScreen = (props) => {
           <DropdownPicker.ChooseTypeDropdownPicker
             items={dropdownItems}
             defaultValue={answerType}
-            // containerStyle={styles.dropdownMenu}
             placeholder='Select the answer type'
             itemStyle={{
               justifyContent: 'flex-start',
             }}
-            // labelStyle={styles.dropdownLabel}
             onChangeItem={(item) => dropdownHandler(item.value)}
           />
         </View>
@@ -201,7 +182,6 @@ const AddStudyQuestionScreen = (props) => {
         </View>
 
         <View style={styles.optionsContainer}>
-          {/* {selectedMultiChoice && ( */}
           {isMultipleChoice && (
             <View>
               <Choice.MultipleChoice

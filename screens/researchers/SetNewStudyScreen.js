@@ -31,7 +31,6 @@ const SetNewStudyScreen = (props) => {
   const questions = useSelector((state) => state.questions.questions);
   const [studyNumber, setStudyNumber] = useState();
   const [studyPassword, setStudyPassword] = useState();
-  const [establishTime, setEstablishTime] = useState();
   const [modalVisible, setModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

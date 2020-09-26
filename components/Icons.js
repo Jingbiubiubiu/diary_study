@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   StyleSheet,
@@ -183,13 +183,10 @@ export const MultipleChoiceCheckbox = (props) => {
 const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   checkboxWithTextContainer: {
     flexDirection: 'row',
-    // borderWidth: 1,
-    // borderColor: 'blue',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -197,8 +194,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.primary,
     borderRadius: 5,
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   checkboxText: {
     fontSize: 14,

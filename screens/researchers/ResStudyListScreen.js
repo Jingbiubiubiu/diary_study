@@ -110,7 +110,6 @@ const ResStudyListScreen = (props) => {
           />
         )}
       />
-      {/* <Text>Study Numbers could be clicked to show more information</Text> */}
 
       <ShowInfo.ShowShortInfo
         content='This study has been ended.'
@@ -142,8 +141,6 @@ ResStudyListScreen.navigationOptions = (navData) => {
 
 const styles = StyleSheet.create({
   screen: {
-    // borderColor: 'red',
-    // borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 50,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 
 const SubtitleInput = (props) => {
   return (
@@ -21,8 +21,6 @@ const styles = StyleSheet.create({
   subTitleContainer: {
     marginTop: 15,
     alignItems: 'flex-start',
-    // borderColor: 'blue',
-    // borderWidth: 1,
     width: '100%',
   },
   subTitleText: {
@@ -33,7 +31,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     width: '100%',
-    // height: Dimensions.get('window').height * 0.15,
     marginTop: 5,
     paddingHorizontal: 10,
     paddingVertical: 2,
